@@ -1,0 +1,36 @@
+version: "2"
+output:
+  formats:
+    text:
+      path: stdout
+linters:
+  enable:
+    - errname
+    - goconst
+    - gocyclo
+    - nakedret
+    - revive
+    - unconvert
+    - unparam
+  settings:
+    goconst:
+      ignore-tests: true
+    staticcheck:
+      checks:
+        - all
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
