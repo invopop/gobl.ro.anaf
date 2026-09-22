@@ -1,0 +1,123 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
+		"dig": {
+			"alg": "sha256",
+			"val": "3739ce5fa14d079dbaa748652459cbcbba24c701087780281d00a1d9d8cdced5"
+		}
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"eu-en16931-v2017",
+			"ro-efactura-v1"
+		],
+		"$tags": [
+			"self-billed"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f389",
+		"type": "standard",
+		"series": "AUT",
+		"code": "2026-0389",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"tax": {
+			"rounding": "currency",
+			"ext": {
+				"untdid-document-type": "389"
+			}
+		},
+		"supplier": {
+			"name": "Furnizor Agricol SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "3",
+					"street": "Strada Garii",
+					"locality": "Timisoara",
+					"region": "RO-TM",
+					"state": "TM",
+					"code": "300001",
+					"country": "RO"
+				}
+			]
+		},
+		"customer": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "SECTOR1",
+					"region": "RO-B",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "100",
+				"item": {
+					"name": "Cereale",
+					"price": "12.50",
+					"unit": "kg"
+				},
+				"sum": "1250.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%",
+						"ext": {
+							"untdid-tax-category": "S"
+						}
+					}
+				],
+				"total": "1250.00"
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			}
+		},
+		"totals": {
+			"sum": "1250.00",
+			"total": "1250.00",
+			"taxes": {
+				"categories": [
+					{
+						"code": "VAT",
+						"rates": [
+							{
+								"key": "standard",
+								"ext": {
+									"untdid-tax-category": "S"
+								},
+								"base": "1250.00",
+								"percent": "21%",
+								"amount": "262.50"
+							}
+						],
+						"amount": "262.50"
+					}
+				],
+				"sum": "262.50"
+			},
+			"tax": "262.50",
+			"total_with_tax": "1512.50",
+			"payable": "1512.50"
+		}
+	}
+}

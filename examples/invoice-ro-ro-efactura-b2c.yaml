@@ -1,0 +1,41 @@
+$schema: "https://gobl.org/draft-0/bill/invoice"
+$addons: ["ro-efactura-v1"]
+uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f500"
+type: standard
+series: "FCT"
+code: "2026-0500"
+issue_date: "2026-08-28"
+currency: "RON"
+supplier:
+  name: "Exemplu Digital SRL"
+  tax_id:
+    country: "RO"
+    code: "12345674"
+  addresses:
+    - num: "16"
+      street: "Bulevardul Libertatii"
+      locality: "Sector 1"
+      state: "B"
+      code: "010101"
+      country: "RO"
+customer:
+  name: "Ion Popescu"
+  addresses:
+    - num: "7"
+      street: "Strada Lunga"
+      locality: "Brasov"
+      state: "BV"
+      code: "500001"
+      country: "RO"
+lines:
+  - quantity: "1"
+    item:
+      name: "Abonament anual"
+      price: "240.00"
+    taxes:
+      - cat: "VAT"
+        key: "standard"
+        percent: "21%"
+payment:
+  terms:
+    notes: "Plata in 30 de zile"
