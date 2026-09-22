@@ -31,9 +31,6 @@ go.work.sum
 tmp/
 build-errors.log
 
-# Rendered XML, written by the converter once it lands here
-test/out/
-
 # Editor/IDE
 # .idea/
 # .vscode/

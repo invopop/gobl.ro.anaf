@@ -25,7 +25,6 @@ rather than by the schematron.
   carries BT-24 and the schematrons, the document kinds ANAF files, and the
   party helpers the ANAF API needs.
 - `examples/` — one document per case, with its calculated envelope.
-- `test/` — the fixture corpus the addon is driven over.
 
 The converter that renders CIUS-RO, and the routing that decides how ANAF
 receives a document, are not here yet. The root package is where they land.
@@ -116,4 +115,6 @@ go test . -run TestExamples -update
 go test ./...
 ```
 
-`test/` drives the addon over the whole fixture corpus; see `test/README.md`.
+That is the addon's own unit tests and the examples above. The full pipeline
+corpus stays in gov-ro, where the converter and the routing can be driven over
+it as well.
