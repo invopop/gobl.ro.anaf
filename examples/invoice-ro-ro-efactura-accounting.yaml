@@ -1,0 +1,45 @@
+$schema: "https://gobl.org/draft-0/bill/invoice"
+$addons: ["ro-efactura-v1"]
+$tags: ["accounting"]
+uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f751"
+type: standard
+series: "CTB"
+code: "2026-0751"
+issue_date: "2026-08-28"
+currency: "RON"
+supplier:
+  name: "Exemplu Digital SRL"
+  tax_id:
+    country: "RO"
+    code: "12345674"
+  addresses:
+    - num: "16"
+      street: "Bulevardul Libertatii"
+      locality: "Sector 1"
+      state: "B"
+      code: "010101"
+      country: "RO"
+customer:
+  name: "Client Industrial SA"
+  tax_id:
+    country: "RO"
+    code: "87654329"
+  addresses:
+    - num: "42"
+      street: "Strada Memorandumului"
+      locality: "Cluj-Napoca"
+      state: "CJ"
+      code: "400114"
+      country: "RO"
+lines:
+  - quantity: "1"
+    item:
+      name: "Regularizare contabila"
+      price: "1000.00"
+    taxes:
+      - cat: "VAT"
+        key: "standard"
+        percent: "21%"
+payment:
+  terms:
+    notes: "Plata in 30 de zile"
