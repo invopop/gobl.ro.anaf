@@ -4,7 +4,7 @@
 		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
 		"dig": {
 			"alg": "sha256",
-			"val": "f0f4340a4a17fa238e3b4a9e91590ca0645e990a0bfc4ce51443dea0dc1ed61f"
+			"val": "ba76d873cb06631fe109eb6d7e44fe78535c12ed05da821f6c76b5916ba18461"
 		}
 	},
 	"doc": {
@@ -13,35 +13,32 @@
 			"eu-en16931-v2017",
 			"ro-efactura-v1"
 		],
-		"$tags": [
-			"accounting"
-		],
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f751",
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f700",
 		"type": "standard",
-		"series": "CTB",
-		"code": "2026-0751",
+		"series": "PFA",
+		"code": "2026-0700",
 		"issue_date": "2026-08-28",
 		"currency": "RON",
 		"tax": {
 			"rounding": "currency",
 			"ext": {
-				"untdid-document-type": "751"
+				"untdid-document-type": "380"
 			}
 		},
 		"supplier": {
-			"name": "Exemplu Digital SRL",
+			"name": "Ionescu Maria PFA",
 			"tax_id": {
 				"country": "RO",
 				"code": "12345674"
 			},
 			"addresses": [
 				{
-					"num": "16",
-					"street": "Bulevardul Libertatii",
-					"locality": "SECTOR1",
-					"region": "RO-B",
-					"state": "B",
-					"code": "010101",
+					"num": "9",
+					"street": "Strada Florilor",
+					"locality": "Iasi",
+					"region": "RO-IS",
+					"state": "IS",
+					"code": "700001",
 					"country": "RO"
 				}
 			]
@@ -67,62 +64,57 @@
 		"lines": [
 			{
 				"i": 1,
-				"quantity": "1",
+				"quantity": "4",
 				"item": {
-					"name": "Regularizare contabila",
-					"price": "1000.00",
+					"name": "Traduceri autorizate",
+					"price": "150.00",
 					"unit": "one"
 				},
-				"sum": "1000.00",
+				"sum": "600.00",
 				"taxes": [
 					{
 						"cat": "VAT",
-						"key": "standard",
-						"percent": "21%",
+						"key": "outside-scope",
 						"ext": {
-							"untdid-tax-category": "S"
+							"cef-vatex": "VATEX-EU-O",
+							"untdid-tax-category": "O"
 						}
 					}
 				],
-				"total": "1000.00"
+				"total": "600.00"
 			}
 		],
 		"payment": {
 			"terms": {
-				"notes": "Plata in 30 de zile"
+				"notes": "Plata in 15 zile"
 			}
 		},
 		"totals": {
-			"sum": "1000.00",
-			"total": "1000.00",
+			"sum": "600.00",
+			"total": "600.00",
 			"taxes": {
 				"categories": [
 					{
 						"code": "VAT",
 						"rates": [
 							{
-								"key": "standard",
+								"key": "outside-scope",
 								"ext": {
-									"untdid-tax-category": "S"
+									"cef-vatex": "VATEX-EU-O",
+									"untdid-tax-category": "O"
 								},
-								"base": "1000.00",
-								"percent": "21%",
-								"amount": "210.00"
+								"base": "600.00",
+								"amount": "0.00"
 							}
 						],
-						"amount": "210.00"
+						"amount": "0.00"
 					}
 				],
-				"sum": "210.00"
+				"sum": "0.00"
 			},
-			"tax": "210.00",
-			"total_with_tax": "1210.00",
-			"payable": "1210.00"
-		},
-		"notes": [
-			{
-				"text": "Factura incasata cu bon fiscal nr. 0042 din 2026-08-28"
-			}
-		]
+			"tax": "0.00",
+			"total_with_tax": "600.00",
+			"payable": "600.00"
+		}
 	}
 }

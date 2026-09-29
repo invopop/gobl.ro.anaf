@@ -4,7 +4,7 @@
 		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
 		"dig": {
 			"alg": "sha256",
-			"val": "f0f4340a4a17fa238e3b4a9e91590ca0645e990a0bfc4ce51443dea0dc1ed61f"
+			"val": "aa0f684896f637d0db28ac0abe62681b8f6cf4ae2c05bb6603910bdc1e3bb61b"
 		}
 	},
 	"doc": {
@@ -14,40 +14,40 @@
 			"ro-efactura-v1"
 		],
 		"$tags": [
-			"accounting"
+			"enforcement"
 		],
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f751",
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f800",
 		"type": "standard",
-		"series": "CTB",
-		"code": "2026-0751",
+		"series": "EXS",
+		"code": "2026-0800",
 		"issue_date": "2026-08-28",
 		"currency": "RON",
 		"tax": {
 			"rounding": "currency",
 			"ext": {
-				"untdid-document-type": "751"
+				"untdid-document-type": "380"
 			}
 		},
 		"supplier": {
-			"name": "Exemplu Digital SRL",
+			"name": "Debitor Constructii SRL",
 			"tax_id": {
 				"country": "RO",
 				"code": "12345674"
 			},
 			"addresses": [
 				{
-					"num": "16",
-					"street": "Bulevardul Libertatii",
-					"locality": "SECTOR1",
-					"region": "RO-B",
-					"state": "B",
-					"code": "010101",
+					"num": "3",
+					"street": "Strada Garii",
+					"locality": "Timisoara",
+					"region": "RO-TM",
+					"state": "TM",
+					"code": "300001",
 					"country": "RO"
 				}
 			]
 		},
 		"customer": {
-			"name": "Client Industrial SA",
+			"name": "Adjudecatar Imobiliare SA",
 			"tax_id": {
 				"country": "RO",
 				"code": "87654329"
@@ -69,11 +69,11 @@
 				"i": 1,
 				"quantity": "1",
 				"item": {
-					"name": "Regularizare contabila",
-					"price": "1000.00",
+					"name": "Autoutilitara adjudecata la licitatie",
+					"price": "40000.00",
 					"unit": "one"
 				},
-				"sum": "1000.00",
+				"sum": "40000.00",
 				"taxes": [
 					{
 						"cat": "VAT",
@@ -84,17 +84,29 @@
 						}
 					}
 				],
-				"total": "1000.00"
+				"total": "40000.00"
 			}
 		],
 		"payment": {
+			"payee": {
+				"name": "Birou Executor Judecatoresc Popescu",
+				"tax_id": {
+					"country": "RO",
+					"code": "22222224"
+				},
+				"identities": [
+					{
+						"code": "22222224"
+					}
+				]
+			},
 			"terms": {
-				"notes": "Plata in 30 de zile"
+				"notes": "Plata in contul de executare"
 			}
 		},
 		"totals": {
-			"sum": "1000.00",
-			"total": "1000.00",
+			"sum": "40000.00",
+			"total": "40000.00",
 			"taxes": {
 				"categories": [
 					{
@@ -105,24 +117,19 @@
 								"ext": {
 									"untdid-tax-category": "S"
 								},
-								"base": "1000.00",
+								"base": "40000.00",
 								"percent": "21%",
-								"amount": "210.00"
+								"amount": "8400.00"
 							}
 						],
-						"amount": "210.00"
+						"amount": "8400.00"
 					}
 				],
-				"sum": "210.00"
+				"sum": "8400.00"
 			},
-			"tax": "210.00",
-			"total_with_tax": "1210.00",
-			"payable": "1210.00"
-		},
-		"notes": [
-			{
-				"text": "Factura incasata cu bon fiscal nr. 0042 din 2026-08-28"
-			}
-		]
+			"tax": "8400.00",
+			"total_with_tax": "48400.00",
+			"payable": "48400.00"
+		}
 	}
 }

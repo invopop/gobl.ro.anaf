@@ -57,10 +57,10 @@ func TestNormalizeInvoiceCustomer(t *testing.T) {
 		}
 	})
 
-	t.Run("a foreign buyer keeps no romanian number", func(t *testing.T) {
+	t.Run("a foreign consumer gets the placeholder number too", func(t *testing.T) {
 		invoice := &bill.Invoice{
 			Customer: &org.Party{
-				Name: "Acme Inc",
+				Name: "John Smith",
 				Addresses: []*org.Address{
 					{Street: "Main St", Locality: "Austin", Country: l10n.US.ISO()},
 				},
@@ -69,8 +69,12 @@ func TestNormalizeInvoiceCustomer(t *testing.T) {
 
 		normalizeInvoice(invoice)
 
-		if identity := FindCNP(invoice.Customer); identity != nil {
-			t.Errorf("customer identity: want none, got %s", identity.Code)
+		identity := FindCNP(invoice.Customer)
+		if identity == nil {
+			t.Fatal("customer identity: want a placeholder CNP, got none")
+		}
+		if identity.Code != AnonymousCNP {
+			t.Errorf("customer identity code: want %s, got %s", AnonymousCNP, identity.Code)
 		}
 	})
 

@@ -3,12 +3,12 @@ package efactura
 import (
 	"fmt"
 	"regexp"
+	"strings"
 
 	"github.com/invopop/gobl/bill"
 	"github.com/invopop/gobl/catalogues/untdid"
 	"github.com/invopop/gobl/cbc"
 	"github.com/invopop/gobl/currency"
-	"github.com/invopop/gobl/l10n"
 	"github.com/invopop/gobl/org"
 	"github.com/invopop/gobl/rules"
 	"github.com/invopop/gobl/rules/is"
@@ -38,11 +38,20 @@ const (
 // digitRegexp is BR-RO-010: BT-1 has to carry at least one digit.
 var digitRegexp = regexp.MustCompile(`[0-9]`)
 
-// normalizeInvoice sets the rounding every amount is stated with and the
-// identifier a consumer buyer is named by.
+// SelfBillingNote is the mention art. 319(20)(k) of the Fiscal Code asks of an
+// invoice the buyer issues in the supplier's name, written into BT-22.
+const SelfBillingNote = "Autofactură"
+
+// selfBillingMark is what a note already carrying the mention contains.
+const selfBillingMark = "autofactur"
+
+// normalizeInvoice sets the rounding every amount is stated with, the
+// identifier a consumer buyer is named by and the mentions ANAF expects.
 func normalizeInvoice(invoice *bill.Invoice) {
 	normalizeRounding(invoice)
 	normalizeCustomer(invoice)
+	normalizeSelfBillingNote(invoice)
+	normalizeEnforcementPayee(invoice)
 }
 
 // normalizeRounding makes every amount land on the two decimals BR-RO-Z2 allows.
@@ -55,9 +64,8 @@ func normalizeRounding(invoice *bill.Invoice) {
 	invoice.Tax.Rounding = tax.RoundingRuleCurrency
 }
 
-// normalizeCustomer gives a Romanian consumer buyer the BT-47 identifier
-// BR-RO-120 needs: their CNP, or thirteen zeros when they gave none. A foreign
-// buyer is left as written, having no CNP to stand in for.
+// normalizeCustomer gives a consumer buyer the BT-47 identifier BR-RO-120 needs:
+// their CNP, or thirteen zeros when they gave none, whatever their country.
 func normalizeCustomer(invoice *bill.Invoice) {
 	customer := invoice.Customer
 	if customer == nil {
@@ -75,10 +83,6 @@ func normalizeCustomer(invoice *bill.Invoice) {
 		return
 	}
 
-	if !isRomanianConsumer(customer) {
-		return
-	}
-
 	customer.Identities = org.AddIdentity(customer.Identities, &org.Identity{
 		Scope: org.IdentityScopeLegal,
 		Type:  IdentityTypeCNP,
@@ -86,15 +90,52 @@ func normalizeCustomer(invoice *bill.Invoice) {
 	})
 }
 
-// isRomanianConsumer reports a natural person the placeholder CNP belongs to. A
-// missing country reads as Romanian, since EN 16931 rejects it first anyway.
-func isRomanianConsumer(party *org.Party) bool {
-	address := exportedAddress(party)
-	if address == nil {
-		return true
+// normalizeSelfBillingNote adds the autofactura mention to an invoice the buyer
+// issues in the supplier's name, unless a note already carries it. A company
+// billing a supply to itself needs no mention.
+func normalizeSelfBillingNote(invoice *bill.Invoice) {
+	if !IsBuyerIssued(invoice) || hasSelfBillingNote(invoice) {
+		return
 	}
 
-	return address.Country == "" || address.Country == l10n.RO.ISO()
+	invoice.Notes = append(invoice.Notes, &org.Note{Text: SelfBillingNote})
+}
+
+func hasSelfBillingNote(invoice *bill.Invoice) bool {
+	for _, note := range invoice.Notes {
+		if note != nil && strings.Contains(strings.ToLower(note.Text), selfBillingMark) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// normalizeEnforcementPayee repeats the enforcement body's CIF as an identity,
+// because gobl.ubl writes a payee's tax number as a tax scheme and only an
+// identity reaches the payee identifier (BT-60).
+func normalizeEnforcementPayee(invoice *bill.Invoice) {
+	if !IsEnforcement(invoice) || invoice.Payment == nil {
+		return
+	}
+
+	payee := invoice.Payment.Payee
+	cif := CIF(payee)
+	if cif == "" || hasIdentityCode(payee, cbc.Code(cif)) {
+		return
+	}
+
+	payee.Identities = append(payee.Identities, &org.Identity{Code: cbc.Code(cif)})
+}
+
+func hasIdentityCode(party *org.Party, code cbc.Code) bool {
+	for _, identity := range party.Identities {
+		if identity != nil && identity.Code == code {
+			return true
+		}
+	}
+
+	return false
 }
 
 func billInvoiceRules() *rules.Set {
@@ -122,6 +163,9 @@ func billInvoiceRules() *rules.Set {
 			),
 			rules.Assert("07", "preceding invoice number (BT-25) must be no more than 200 characters long (BR-RO-L200)",
 				is.Func("preceding numbers within length", precedingNumbersWithinLength),
+			),
+			rules.Assert("27", "preceding invoice issue date (BT-26) is required with every preceding invoice number (BT-25)",
+				is.Func("preceding references dated", precedingRefsDated),
 			),
 		),
 		rules.Field("attachments",
@@ -188,6 +232,49 @@ func billInvoiceRules() *rules.Set {
 					),
 				),
 			),
+			rules.Field("lines",
+				rules.Assert("28", "credit note lines (BG-25) must be stated with positive quantities (BT-129); a credit note is corrected by a positive invoice (380) instead",
+					is.Func("credit note lines positive", linesNotNegative),
+				),
+			),
+		),
+		rules.When(
+			is.Func("invoice corrects a preceding invoice", invoiceIsCorrection),
+			rules.Field("preceding",
+				rules.Assert("26", "a credit note (381), a corrective invoice (384) or a storno invoice (380 with a negative total) must reference the invoice it corrects, by number (BT-25) and issue date (BT-26)",
+					is.Present,
+				),
+			),
+		),
+		rules.When(
+			is.Func("invoice is an accounting document", invoiceIsAccountingDocument),
+			rules.Field("notes",
+				rules.Assert("29", "an accounting invoice (751) must state the documents it is based on, such as the fiscal receipt, in a note (BT-22)",
+					is.Present,
+				),
+			),
+		),
+		rules.Assert("30", "an invoice cannot be both self-billed and issued in an enforcement procedure, the two are mutually exclusive",
+			is.Func("self-billing and enforcement exclusive", selfBillingEnforcementExclusive),
+		),
+		rules.When(
+			is.Func("invoice is issued in an enforcement procedure", invoiceIsEnforcement),
+			rules.Field("payment",
+				rules.Assert("31", "an enforcement invoice must name the enforcement body as payee (BG-10)",
+					is.Present,
+				),
+				rules.Field("payee",
+					rules.Assert("32", "an enforcement invoice must name the enforcement body as payee (BG-10)",
+						is.Present,
+					),
+					rules.Assert("33", "the enforcement body (BG-10) must have a name (BT-59) and a tax identifier (BT-60)",
+						is.Func("enforcement body identified", payeeIdentified),
+					),
+				),
+			),
+		),
+		rules.Assert("34", "an invoice not subject to VAT (category O) cannot carry any other VAT category, because only a seller not registered for VAT uses it; penalties, interest and guarantees are exempt (E) with a reason instead (BR-O-11)",
+			is.Func("outside scope not mixed", outsideScopeNotMixed),
 		),
 		rules.When(
 			invoiceIsNotCreditNote(),
@@ -291,6 +378,90 @@ func precedingNumbersWithinLength(value any) bool {
 	return true
 }
 
+// precedingRefsDated keeps BT-25 and BT-26 together, as the guide always asks.
+func precedingRefsDated(value any) bool {
+	refs, ok := value.([]*org.DocumentRef)
+	if !ok {
+		return true
+	}
+
+	for _, ref := range refs {
+		if ref != nil && ref.IssueDate == nil {
+			return false
+		}
+	}
+
+	return true
+}
+
+// invoiceIsCorrection reports a document that corrects another one: a credit
+// note, a corrective invoice, or a standard invoice with a negative total,
+// which is how Romania writes a storno (380 with minus signs).
+func invoiceIsCorrection(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+	if !ok || invoice == nil {
+		return false
+	}
+
+	if invoice.Type.In(bill.InvoiceTypeCreditNote, bill.InvoiceTypeCorrective) {
+		return true
+	}
+
+	return invoice.Type.In(bill.InvoiceTypeStandard) && invoice.Totals != nil && invoice.Totals.Sum.IsNegative()
+}
+
+// linesNotNegative keeps every credit note line positive, BT-129 included.
+func linesNotNegative(value any) bool {
+	lines, ok := value.([]*bill.Line)
+	if !ok {
+		return true
+	}
+
+	for _, line := range lines {
+		if line != nil && line.Quantity.IsNegative() {
+			return false
+		}
+	}
+
+	return true
+}
+
+// invoiceIsAccountingDocument reports a document filed under code 751.
+func invoiceIsAccountingDocument(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+	if !ok || invoice == nil || invoice.Tax == nil {
+		return false
+	}
+
+	return invoice.Tax.Ext.Get(untdid.ExtKeyDocumentType) == DocumentTypeAccounting
+}
+
+func invoiceIsEnforcement(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+
+	return ok && IsEnforcement(invoice)
+}
+
+// selfBillingEnforcementExclusive keeps the two filing modes apart: the buyer
+// issues a self-billed invoice, the enforcement body an enforcement one.
+func selfBillingEnforcementExclusive(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+
+	return !ok || !IsSelfBilled(invoice) || !IsEnforcement(invoice)
+}
+
+// payeeIdentified requires the enforcement body's name and CIF, the CIF being
+// what ANAF files the document under. A missing payee is left to the rule
+// that requires it.
+func payeeIdentified(value any) bool {
+	payee, ok := value.(*org.Party)
+	if !ok || payee == nil {
+		return true
+	}
+
+	return strings.TrimSpace(payee.Name) != "" && HasTaxNumber(payee)
+}
+
 // exemptionReasonsWithinLength covers BT-120, written from the tax notes.
 func exemptionReasonsWithinLength(value any) bool {
 	notes, ok := value.([]*tax.Note)
@@ -331,24 +502,12 @@ func invoiceIsSelfBilled(value any) bool {
 // the breakdown: on a line, or on a document level allowance or charge.
 func invoiceIsIntraCommunity(value any) bool {
 	invoice, ok := value.(*bill.Invoice)
-	if !ok || invoice == nil {
+	if !ok {
 		return false
 	}
 
-	for _, line := range invoice.Lines {
-		if line != nil && setIsIntraCommunity(line.Taxes) {
-			return true
-		}
-	}
-
-	for _, discount := range invoice.Discounts {
-		if discount != nil && setIsIntraCommunity(discount.Taxes) {
-			return true
-		}
-	}
-
-	for _, charge := range invoice.Charges {
-		if charge != nil && setIsIntraCommunity(charge.Taxes) {
+	for _, set := range invoiceTaxSets(invoice) {
+		if setIsIntraCommunity(set) {
 			return true
 		}
 	}

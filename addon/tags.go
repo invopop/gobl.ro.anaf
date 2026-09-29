@@ -51,6 +51,18 @@ func IsSelfBilled(invoice *bill.Invoice) bool {
 	return invoice != nil && invoice.HasTags(tax.TagSelfBilled)
 }
 
+// IsSelfSupply reports a self-billed invoice a company issues to itself, for a
+// supply it is deemed to make to itself (art. 319(8) of the Fiscal Code).
+func IsSelfSupply(invoice *bill.Invoice) bool {
+	return IsSelfBilled(invoice) && SameTaxNumber(invoice.Supplier, invoice.Customer)
+}
+
+// IsBuyerIssued reports a self-billed invoice the buyer issues in the supplier's
+// name, the case that needs the autofactura mention and upload flag.
+func IsBuyerIssued(invoice *bill.Invoice) bool {
+	return IsSelfBilled(invoice) && !IsSelfSupply(invoice)
+}
+
 // IsEnforcement reports an invoice issued by a judicial enforcement officer.
 func IsEnforcement(invoice *bill.Invoice) bool {
 	return invoice != nil && invoice.HasTags(TagEnforcement)

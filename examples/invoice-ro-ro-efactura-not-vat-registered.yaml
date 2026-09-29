@@ -1,25 +1,22 @@
 $schema: "https://gobl.org/draft-0/bill/invoice"
 $addons: ["ro-efactura-v1"]
-$tags: ["accounting"]
-uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f751"
+uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f700"
 type: standard
-series: "CTB"
-code: "2026-0751"
+series: "PFA"
+code: "2026-0700"
 issue_date: "2026-08-28"
 currency: "RON"
-notes:
-  - text: "Factura incasata cu bon fiscal nr. 0042 din 2026-08-28"
 supplier:
-  name: "Exemplu Digital SRL"
+  name: "Ionescu Maria PFA"
   tax_id:
     country: "RO"
     code: "12345674"
   addresses:
-    - num: "16"
-      street: "Bulevardul Libertatii"
-      locality: "Sector 1"
-      state: "B"
-      code: "010101"
+    - num: "9"
+      street: "Strada Florilor"
+      locality: "Iasi"
+      state: "IS"
+      code: "700001"
       country: "RO"
 customer:
   name: "Client Industrial SA"
@@ -34,14 +31,13 @@ customer:
       code: "400114"
       country: "RO"
 lines:
-  - quantity: "1"
+  - quantity: "4"
     item:
-      name: "Regularizare contabila"
-      price: "1000.00"
+      name: "Traduceri autorizate"
+      price: "150.00"
     taxes:
       - cat: "VAT"
-        key: "standard"
-        percent: "21%"
+        key: "outside-scope"
 payment:
   terms:
-    notes: "Plata in 30 de zile"
+    notes: "Plata in 15 zile"
