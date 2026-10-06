@@ -64,7 +64,7 @@ gobl.ubl can render and ANAF's schematron will take.
 | Rounding set to `currency` | BR-RO-Z2, so no amount is stated on more than two decimals |
 | County resolved to an ISO 3166-2:RO code | BR-RO-110 and mirrors. Accepts `CJ`, `ro-cj`, and the county's own name with or without diacritics, including a `Judetul` prefix |
 | Bucharest locality resolved to a `SECTOR-RO` code | BR-RO-100 and mirrors. Accepts `Sector 3`, `SECTOR3`, `sectorul 5`, `3` |
-| Placeholder CNP for a consumer | BR-RO-120, OUG 138/2024. Any buyer with no tax number and no legal identifier, Romanian or foreign, gets thirteen zeros |
+| Placeholder CNP for a consumer | BR-RO-120, OUG 138/2024. A buyer in Romania, or of unknown country, with no tax number and no legal identifier gets thirteen zeros. A foreign buyer must state its own identifier |
 | `Autofactură` note on a buyer-issued invoice | Guide section 2.4, art. 319(20)(k). Added to BT-22 when the buyer issues in the supplier's name, not when a company bills a supply to itself |
 | VATEX code for categories O and AE | Guide sections 3.3 and 3.4: `VATEX-EU-O` and `VATEX-EU-AE` when the document states no code |
 | Enforcement body identifier | Communiqué on the enforcement register: the payee's CIF repeated as an identity, so it reaches BT-60 |

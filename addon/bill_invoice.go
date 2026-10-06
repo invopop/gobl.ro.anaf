@@ -9,6 +9,7 @@ import (
 	"github.com/invopop/gobl/catalogues/untdid"
 	"github.com/invopop/gobl/cbc"
 	"github.com/invopop/gobl/currency"
+	"github.com/invopop/gobl/l10n"
 	"github.com/invopop/gobl/org"
 	"github.com/invopop/gobl/rules"
 	"github.com/invopop/gobl/rules/is"
@@ -65,7 +66,7 @@ func normalizeRounding(invoice *bill.Invoice) {
 }
 
 // normalizeCustomer gives a consumer buyer the BT-47 identifier BR-RO-120 needs:
-// their CNP, or thirteen zeros when they gave none, whatever their country.
+// their CNP, or thirteen zeros when a buyer in Romania gave none.
 func normalizeCustomer(invoice *bill.Invoice) {
 	customer := invoice.Customer
 	if customer == nil {
@@ -80,6 +81,11 @@ func normalizeCustomer(invoice *bill.Invoice) {
 	// A consumer who gave their number: promote it out of BT-46 into BT-47.
 	if identity := FindCNP(customer); identity != nil {
 		identity.Scope = org.IdentityScopeLegal
+		return
+	}
+
+	// The thirteen zeros stand for a Romanian consumer, so a foreign buyer must state its own identifier
+	if address := exportedAddress(customer); address != nil && !address.Country.Empty() && address.Country.Code() != l10n.RO {
 		return
 	}
 
