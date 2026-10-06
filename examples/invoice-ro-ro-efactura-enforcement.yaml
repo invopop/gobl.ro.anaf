@@ -1,28 +1,26 @@
 $schema: "https://gobl.org/draft-0/bill/invoice"
 $addons: ["ro-efactura-v1"]
-$tags: ["accounting"]
-uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f751"
+$tags: ["enforcement"]
+uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f800"
 type: standard
-series: "CTB"
-code: "2026-0751"
+series: "EXS"
+code: "2026-0800"
 issue_date: "2026-08-28"
 currency: "RON"
-notes:
-  - text: "Factura incasata cu bon fiscal nr. 0042 din 2026-08-28"
 supplier:
-  name: "Exemplu Digital SRL"
+  name: "Debitor Constructii SRL"
   tax_id:
     country: "RO"
     code: "12345674"
   addresses:
-    - num: "16"
-      street: "Bulevardul Libertatii"
-      locality: "Sector 1"
-      state: "B"
-      code: "010101"
+    - num: "3"
+      street: "Strada Garii"
+      locality: "Timisoara"
+      state: "TM"
+      code: "300001"
       country: "RO"
 customer:
-  name: "Client Industrial SA"
+  name: "Adjudecatar Imobiliare SA"
   tax_id:
     country: "RO"
     code: "87654329"
@@ -36,12 +34,17 @@ customer:
 lines:
   - quantity: "1"
     item:
-      name: "Regularizare contabila"
-      price: "1000.00"
+      name: "Autoutilitara adjudecata la licitatie"
+      price: "40000.00"
     taxes:
       - cat: "VAT"
         key: "standard"
         percent: "21%"
 payment:
+  payee:
+    name: "Birou Executor Judecatoresc Popescu"
+    tax_id:
+      country: "RO"
+      code: "22222224"
   terms:
-    notes: "Plata in 30 de zile"
+    notes: "Plata in contul de executare"

@@ -40,11 +40,13 @@ func init() {
 		orgPartyRules(),
 		payInstructionsRules(),
 		payTermsRules(),
+		taxComboRules(),
 	)
 	norm.RegisterWithGuard(
 		is.InContext(tax.AddonIn(V1)),
 		norm.For(normalizeInvoice),
 		norm.For(normalizeAddress),
+		norm.For(normalizeTaxCombo),
 	)
 }
 

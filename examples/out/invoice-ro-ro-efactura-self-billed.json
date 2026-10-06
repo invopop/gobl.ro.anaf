@@ -4,7 +4,7 @@
 		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
 		"dig": {
 			"alg": "sha256",
-			"val": "3739ce5fa14d079dbaa748652459cbcbba24c701087780281d00a1d9d8cdced5"
+			"val": "fe14ca724f92b2ab6c51e37d48f027aebd780ee906f7048bebd5aa08559a91e9"
 		}
 	},
 	"doc": {
@@ -118,6 +118,11 @@
 			"tax": "262.50",
 			"total_with_tax": "1512.50",
 			"payable": "1512.50"
-		}
+		},
+		"notes": [
+			{
+				"text": "Autofactură"
+			}
+		]
 	}
 }

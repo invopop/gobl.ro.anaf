@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/invopop/gobl/cbc"
+	"github.com/invopop/gobl/l10n"
 	"github.com/invopop/gobl/org"
 	"github.com/invopop/gobl/rules"
 	"github.com/invopop/gobl/rules/is"
@@ -43,6 +44,29 @@ func IsBusiness(party *org.Party) bool {
 // HasTaxNumber reports a party carrying a tax identity with a code.
 func HasTaxNumber(party *org.Party) bool {
 	return party != nil && party.TaxID != nil && party.TaxID.Code != ""
+}
+
+// CIF returns the party's tax number bare, without the RO fiscal attribute.
+func CIF(party *org.Party) string {
+	if !HasTaxNumber(party) {
+		return ""
+	}
+
+	code := strings.ToUpper(strings.TrimSpace(party.TaxID.Code.String()))
+	if party.TaxID.Country.Code() == l10n.RO {
+		code = strings.TrimPrefix(code, l10n.RO.String())
+	}
+
+	return code
+}
+
+// SameTaxNumber reports two parties registered under the same tax number.
+func SameTaxNumber(a, b *org.Party) bool {
+	if !HasTaxNumber(a) || !HasTaxNumber(b) {
+		return false
+	}
+
+	return a.TaxID.Country == b.TaxID.Country && CIF(a) == CIF(b)
 }
 
 // HasLegalIdentity reports an identity GOBL will map to BT-47.

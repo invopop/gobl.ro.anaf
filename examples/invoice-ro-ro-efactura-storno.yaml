@@ -1,14 +1,17 @@
 $schema: "https://gobl.org/draft-0/bill/invoice"
 $addons: ["ro-efactura-v1"]
-$tags: ["accounting"]
-uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f751"
+uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f390"
 type: standard
-series: "CTB"
-code: "2026-0751"
+series: "FCT"
+code: "2026-0390"
 issue_date: "2026-08-28"
 currency: "RON"
-notes:
-  - text: "Factura incasata cu bon fiscal nr. 0042 din 2026-08-28"
+preceding:
+  - type: standard
+    series: "FCT"
+    code: "2026-0380"
+    issue_date: "2026-08-20"
+    reason: "Retur 5 ore neefectuate"
 supplier:
   name: "Exemplu Digital SRL"
   tax_id:
@@ -34,14 +37,15 @@ customer:
       code: "400114"
       country: "RO"
 lines:
-  - quantity: "1"
+  - quantity: "-5"
     item:
-      name: "Regularizare contabila"
-      price: "1000.00"
+      name: "Servicii de consultanta"
+      price: "500.00"
+      unit: "h"
     taxes:
       - cat: "VAT"
         key: "standard"
         percent: "21%"
 payment:
   terms:
-    notes: "Plata in 30 de zile"
+    notes: "Compensare cu factura FCT-2026-0380"
