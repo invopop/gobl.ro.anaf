@@ -1,0 +1,102 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a013"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a013",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-1401",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Ion Popescu",
+			"addresses": [
+				{
+					"num": "7",
+					"street": "Strada Lunga",
+					"locality": "Brasov",
+					"state": "BV",
+					"code": "500001",
+					"country": "RO"
+				}
+			]
+		},
+		"lines": [
+			{
+				"quantity": "1",
+				"item": {
+					"name": "Produse alimentare",
+					"price": "100.00"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				],
+				"i": 1
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Exemplu Digital SRL"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			},
+			"advances": [
+				{
+					"key": "card",
+					"description": "Incasat cu bon fiscal nr. 0042",
+					"percent": "100%"
+				}
+			]
+		},
+		"$tags": [
+			"accounting"
+		],
+		"notes": [
+			{
+				"text": "Factura incasata cu bon fiscal nr. 0042 din 2026-08-28"
+			}
+		]
+	}
+}

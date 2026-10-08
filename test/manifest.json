@@ -1,0 +1,1027 @@
+[
+	{
+		"file": "ro_380_invoice.json",
+		"note": "plain domestic B2B invoice",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_fractional.json",
+		"note": "fractional quantity and price rounded to the currency",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_delivery.json",
+		"note": "delivery address in a Bucharest sector",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_consumer.json",
+		"note": "consumer with no number, given the placeholder CNP",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_consumerCNP.json",
+		"note": "consumer who gave their own CNP",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyNames.json",
+		"note": "counties written by name instead of ISO code",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_diacritics.json",
+		"note": "county name carrying diacritics",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_exchangeRate.json",
+		"note": "invoice in EUR with a rate to RON",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_intraCommunity.json",
+		"note": "intra-community supply with delivery date and country",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_allowances.json",
+		"note": "document and line level allowances and charges",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_exempt.json",
+		"note": "VAT exempt with a VATEX code",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_exemptNote.json",
+		"note": "VAT exempt explained by a tax note",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_reverseCharge.json",
+		"note": "domestic reverse charge",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_attachment.json",
+		"note": "supporting document by URL",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_richParty.json",
+		"note": "contacts, item attributes and an accounting reference",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_advance.json",
+		"note": "partial advance already paid",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_taxPoint.json",
+		"note": "tax point on delivery with an invoicing period",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_stornoLine.json",
+		"note": "storno line written as a negative price, folded into a negative quantity, against the invoice it cancels",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_noteAtLimit.json",
+		"note": "note sitting exactly on the rendered 300 limit",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_manyLines.json",
+		"note": "twenty lines across several rates",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_cardPayment.json",
+		"note": "paid by card",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_directDebit.json",
+		"note": "paid by direct debit",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_dueDate.json",
+		"note": "explicit due date",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_payee.json",
+		"note": "payment assigned to a third party",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_taxRepresentative.json",
+		"note": "ordering seller becomes the seller, supplier the tax representative",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_orderingReferences.json",
+		"note": "contract, order, despatch, receipt and tender references",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_deliveryPeriod.json",
+		"note": "delivery stated as a period",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_itemIdentity.json",
+		"note": "item carrying a GTIN",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_zeroTotal.json",
+		"note": "discount that cancels the invoice out",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_notesAt20.json",
+		"note": "twenty notes, the most BG-1 allows",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_foreignBusiness.json",
+		"note": "EU business buyer, reported with extern",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_foreignConsumer.json",
+		"note": "foreign consumer who gave a CNP",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_enforcement.json",
+		"note": "invoice issued in a forced execution procedure, filed under the enforcement body named as payee",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_publicBuyer.json",
+		"note": "B2G invoice to a public institution",
+		"code": "380"
+	},
+	{
+		"file": "ro_751_consumer.json",
+		"note": "accounting document for a consumer",
+		"code": "751"
+	},
+	{
+		"file": "ro_381_creditNote.json",
+		"note": "plain credit note",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_selfBilledCreditNote.json",
+		"note": "credit note the buyer issued",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_manyPreceding.json",
+		"note": "credit note against five invoices",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_exchangeRate.json",
+		"note": "credit note in EUR",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_consumer.json",
+		"note": "credit note to a consumer",
+		"code": "381"
+	},
+	{
+		"file": "ro_384_corrective.json",
+		"note": "corrected invoice",
+		"code": "384"
+	},
+	{
+		"file": "ro_384_exchangeRate.json",
+		"note": "corrected invoice in EUR",
+		"code": "384"
+	},
+	{
+		"file": "ro_384_storno.json",
+		"note": "corrected invoice with a negative quantity",
+		"code": "384"
+	},
+	{
+		"file": "ro_384_selfBilled.json",
+		"note": "corrected invoice the buyer issued",
+		"code": "384"
+	},
+	{
+		"file": "ro_389_selfBilled.json",
+		"note": "self-billed invoice",
+		"code": "389"
+	},
+	{
+		"file": "ro_389_selfBilledAccounting.json",
+		"note": "self-billing wins over the accounting tag",
+		"code": "389"
+	},
+	{
+		"file": "ro_389_selfBilledDelivery.json",
+		"note": "self-billed invoice with a delivery address",
+		"code": "389"
+	},
+	{
+		"file": "ro_389_selfBilledEnforcement.json",
+		"note": "self-billing and enforcement are mutually exclusive",
+		"fault": "BILL-INVOICE-30"
+	},
+	{
+		"file": "ro_751_accounting.json",
+		"note": "accounting document",
+		"code": "751"
+	},
+	{
+		"file": "ro_751_delivery.json",
+		"note": "accounting document with a delivery address",
+		"code": "751"
+	},
+	{
+		"file": "ro_751_exchangeRate.json",
+		"note": "accounting document in EUR",
+		"code": "751"
+	},
+	{
+		"file": "ro_380_countyAB.json",
+		"note": "county AB written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyAR.json",
+		"note": "county AR written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyAG.json",
+		"note": "county AG written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyBC.json",
+		"note": "county BC written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyBH.json",
+		"note": "county BH written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyBN.json",
+		"note": "county BN written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyBT.json",
+		"note": "county BT written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyBV.json",
+		"note": "county BV written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyBR.json",
+		"note": "county BR written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyB.json",
+		"note": "county B written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyBZ.json",
+		"note": "county BZ written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyCS.json",
+		"note": "county CS written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyCL.json",
+		"note": "county CL written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyCJ.json",
+		"note": "county CJ written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyCT.json",
+		"note": "county CT written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyCV.json",
+		"note": "county CV written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyDB.json",
+		"note": "county DB written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyDJ.json",
+		"note": "county DJ written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyGL.json",
+		"note": "county GL written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyGR.json",
+		"note": "county GR written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyGJ.json",
+		"note": "county GJ written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyHR.json",
+		"note": "county HR written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyHD.json",
+		"note": "county HD written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyIL.json",
+		"note": "county IL written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyIS.json",
+		"note": "county IS written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyIF.json",
+		"note": "county IF written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyMM.json",
+		"note": "county MM written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyMH.json",
+		"note": "county MH written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyMS.json",
+		"note": "county MS written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyNT.json",
+		"note": "county NT written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyOT.json",
+		"note": "county OT written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyPH.json",
+		"note": "county PH written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countySM.json",
+		"note": "county SM written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countySJ.json",
+		"note": "county SJ written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countySB.json",
+		"note": "county SB written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countySV.json",
+		"note": "county SV written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyTR.json",
+		"note": "county TR written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyTM.json",
+		"note": "county TM written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyTL.json",
+		"note": "county TL written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyVS.json",
+		"note": "county VS written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyVL.json",
+		"note": "county VL written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_countyVN.json",
+		"note": "county VN written by name",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_sector1.json",
+		"note": "Bucharest sector 1 written long form",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_sector2.json",
+		"note": "Bucharest sector 2 written long form",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_sector3.json",
+		"note": "Bucharest sector 3 written long form",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_sector4.json",
+		"note": "Bucharest sector 4 written long form",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_sector5.json",
+		"note": "Bucharest sector 5 written long form",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_sector6.json",
+		"note": "Bucharest sector 6 written long form",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_badNumber.json",
+		"note": "BT-1 carries no digit",
+		"fault": "BILL-INVOICE-01"
+	},
+	{
+		"file": "ro_380_longNumber.json",
+		"note": "BT-1 runs past 200 characters",
+		"fault": "BILL-INVOICE-02"
+	},
+	{
+		"file": "ro_384_noExchangeRate.json",
+		"note": "no rate to RON",
+		"fault": "BILL-INVOICE-03"
+	},
+	{
+		"file": "ro_380_threeDecimalCurrency.json",
+		"note": "currency states three decimals",
+		"fault": "BILL-INVOICE-04"
+	},
+	{
+		"file": "ro_380_tooManyNotes.json",
+		"note": "more than 20 notes",
+		"fault": "BILL-INVOICE-05"
+	},
+	{
+		"file": "ro_381_longPrecedingNumber.json",
+		"note": "BT-25 runs past 200 characters",
+		"fault": "BILL-INVOICE-07"
+	},
+	{
+		"file": "ro_380_longAccountingCost.json",
+		"note": "BT-19 runs past 100 characters",
+		"fault": "BILL-INVOICE-09"
+	},
+	{
+		"file": "ro_380_noSupplierTaxID.json",
+		"note": "seller has no BT-31 or BT-32",
+		"fault": "BILL-INVOICE-10"
+	},
+	{
+		"file": "ro_380_foreignNoIdentifier.json",
+		"note": "foreign buyer with no identifier, which gets no placeholder CNP",
+		"fault": "BILL-INVOICE-13"
+	},
+	{
+		"file": "ro_380_noStreet.json",
+		"note": "buyer address has no BT-50",
+		"fault": "BILL-INVOICE-14"
+	},
+	{
+		"file": "ro_751_noLocality.json",
+		"note": "buyer address has no BT-52",
+		"fault": "BILL-INVOICE-15"
+	},
+	{
+		"file": "ro_380_longExemptionReason.json",
+		"note": "BT-120 runs past 100 characters",
+		"fault": "BILL-INVOICE-20"
+	},
+	{
+		"file": "ro_380_intraNoDelivery.json",
+		"note": "intra-community supply with no delivery date or period",
+		"fault": "BILL-INVOICE-23"
+	},
+	{
+		"file": "ro_380_intraNoCountry.json",
+		"note": "intra-community supply with no delivery country",
+		"fault": "BILL-INVOICE-24"
+	},
+	{
+		"file": "ro_380_intraChargeNoDelivery.json",
+		"note": "intra-community category reaching the breakdown through a charge",
+		"fault": "BILL-INVOICE-23"
+	},
+	{
+		"file": "ro_389_selfBilledNoBuyerTax.json",
+		"note": "self-billed with no buyer tax number",
+		"fault": "BILL-INVOICE-25"
+	},
+	{
+		"file": "ro_380_longPartyName.json",
+		"note": "BT-44 runs past 200 characters",
+		"fault": "ORG-PARTY-01"
+	},
+	{
+		"file": "ro_380_longTradingName.json",
+		"note": "BT-45 runs past 200 characters",
+		"fault": "ORG-PARTY-02"
+	},
+	{
+		"file": "ro_380_longContactName.json",
+		"note": "BT-56 runs past 100 characters",
+		"fault": "ORG-PARTY-03"
+	},
+	{
+		"file": "ro_380_longTelephone.json",
+		"note": "BT-57 runs past 100 characters",
+		"fault": "ORG-PARTY-04"
+	},
+	{
+		"file": "ro_380_longContactEmail.json",
+		"note": "BT-58 runs past 100 characters",
+		"fault": "ORG-PARTY-05"
+	},
+	{
+		"file": "ro_380_longStreet.json",
+		"note": "BT-50 runs past 150 characters",
+		"fault": "ORG-PARTY-06"
+	},
+	{
+		"file": "ro_380_longStreetExtra.json",
+		"note": "BT-51 runs past 100 characters",
+		"fault": "ORG-PARTY-07"
+	},
+	{
+		"file": "ro_380_longLocality.json",
+		"note": "BT-52 runs past 50 characters",
+		"fault": "ORG-PARTY-08"
+	},
+	{
+		"file": "ro_380_longPostCode.json",
+		"note": "BT-53 runs past 20 characters",
+		"fault": "ORG-PARTY-09"
+	},
+	{
+		"file": "ro_381_badCounty.json",
+		"note": "BT-54 is not an RO county",
+		"fault": "ORG-PARTY-10"
+	},
+	{
+		"file": "ro_389_badSector.json",
+		"note": "BT-37 names no Bucharest sector",
+		"fault": "ORG-PARTY-11"
+	},
+	{
+		"file": "ro_380_badDeliveryCounty.json",
+		"note": "BT-79 is not an RO county",
+		"fault": "ORG-PARTY-10"
+	},
+	{
+		"file": "ro_380_noDeliveryStreet.json",
+		"note": "delivery address has no BT-75",
+		"fault": "BILL-DELIVERYDETAILS-01"
+	},
+	{
+		"file": "ro_380_noDeliveryLocality.json",
+		"note": "delivery address has no BT-77",
+		"fault": "BILL-DELIVERYDETAILS-02"
+	},
+	{
+		"file": "ro_380_noDeliveryRegion.json",
+		"note": "foreign delivery address has no BT-79",
+		"fault": "BILL-DELIVERYDETAILS-03"
+	},
+	{
+		"file": "ro_380_longPaymentTerms.json",
+		"note": "BT-20 runs past 300 characters",
+		"fault": "PAY-TERMS-01"
+	},
+	{
+		"file": "ro_380_longPaymentDetail.json",
+		"note": "BT-82 runs past 100 characters",
+		"fault": "PAY-INSTRUCTIONS-01"
+	},
+	{
+		"file": "ro_380_longAccountName.json",
+		"note": "BT-85 runs past 200 characters",
+		"fault": "PAY-INSTRUCTIONS-02"
+	},
+	{
+		"file": "ro_380_longCardHolder.json",
+		"note": "BT-88 runs past 200 characters",
+		"fault": "PAY-INSTRUCTIONS-03"
+	},
+	{
+		"file": "ro_380_longItemName.json",
+		"note": "BT-153 runs past 100 characters",
+		"fault": "ORG-ITEM-01"
+	},
+	{
+		"file": "ro_380_longItemDescription.json",
+		"note": "BT-154 runs past 200 characters",
+		"fault": "ORG-ITEM-02"
+	},
+	{
+		"file": "ro_380_longAttributeLabel.json",
+		"note": "BT-160 runs past 50 characters",
+		"fault": "ORG-ATTRIBUTE-01"
+	},
+	{
+		"file": "ro_380_longAttributeValue.json",
+		"note": "BT-161 runs past 100 characters",
+		"fault": "ORG-ATTRIBUTE-02"
+	},
+	{
+		"file": "ro_380_longNote.json",
+		"note": "BT-22 runs well past 300 characters",
+		"fault": "ORG-NOTE-01"
+	},
+	{
+		"file": "ro_380_noteOverLimit.json",
+		"note": "BT-22 runs past 300 once the subject qualifier counts",
+		"fault": "ORG-NOTE-01"
+	},
+	{
+		"file": "ro_380_longLineNote.json",
+		"note": "BT-127 runs past 300 with its qualifier",
+		"fault": "ORG-NOTE-01"
+	},
+	{
+		"file": "ro_380_longAttachmentDescription.json",
+		"note": "BT-123 runs past 100 characters",
+		"fault": "ORG-ATTACHMENT-01"
+	},
+	{
+		"file": "ro_380_longAttachmentURL.json",
+		"note": "BT-124 runs past 200 characters",
+		"fault": "ORG-ATTACHMENT-02"
+	},
+	{
+		"file": "ro_380_longAttachmentName.json",
+		"note": "BT-125-2 runs past 200 characters",
+		"fault": "ORG-ATTACHMENT-03"
+	},
+	{
+		"file": "ro_380_tooManyAttachments.json",
+		"note": "more than 50 supporting documents",
+		"fault": "BILL-INVOICE-08"
+	},
+	{
+		"file": "ro_380_noSupplierStreet.json",
+		"note": "seller address has no BT-35",
+		"fault": "BILL-INVOICE-11"
+	},
+	{
+		"file": "ro_380_noSupplierLocality.json",
+		"note": "seller address has no BT-37",
+		"fault": "BILL-INVOICE-12"
+	},
+	{
+		"file": "ro_380_orderingSellerNoStreet.json",
+		"note": "the real seller has no BT-35",
+		"fault": "BILL-INVOICE-16"
+	},
+	{
+		"file": "ro_380_orderingSellerNoLocality.json",
+		"note": "the real seller has no BT-37",
+		"fault": "BILL-INVOICE-17"
+	},
+	{
+		"file": "ro_381_tooManyPreceding.json",
+		"note": "more than 500 preceding invoice references",
+		"fault": "BILL-INVOICE-06"
+	},
+	{
+		"file": "ro_380_tooManyAttributes.json",
+		"note": "more than 50 item attributes",
+		"fault": "ORG-ITEM-03"
+	},
+	{
+		"file": "ro_380_longAccountingRefNote.json",
+		"note": "BT-133 runs past 100 characters",
+		"fault": "ORG-NOTE-02"
+	},
+	{
+		"file": "ro_380_shortCNP.json",
+		"note": "CNP that is not thirteen digits",
+		"fault": "ORG-IDENTITY-01"
+	},
+	{
+		"file": "ro_380_stornoPartial.json",
+		"note": "partial storno: 5 of 12 kg returned, negative quantity, positive price (guide 2.1)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_stornoFull.json",
+		"note": "full storno of the whole 12 kg (guide 2.1)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_stornoCorrection.json",
+		"note": "positive 380 correcting a storno written for 5 kg instead of 3 (guide 2.1)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_creditNoteCorrection.json",
+		"note": "positive 380 correcting a credit note, never a negative 381 (guide 2.2)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_mixedCorrection.json",
+		"note": "one 380 cancelling the original values and restating them, correction scenario 6 (guide 2.3)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_priceDifferenceNegative.json",
+		"note": "negative price difference over the year, against every invoice it adjusts (guide 2.1)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_priceDifferencePositive.json",
+		"note": "positive price difference over the invoicing period (guide 2.1)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_technicalStorno.json",
+		"note": "technical storno of a duplicate: BT-1 with the S suffix, BT-25 and BT-26 the upload index and its date (guide 4)",
+		"code": "380"
+	},
+	{
+		"file": "ro_381_discount.json",
+		"note": "credit note granting a discount after the invoice, stated positive (guide 2.2)",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_accountingTag.json",
+		"note": "a credit note stays 381 whatever the accounting tag says",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_notVatRegistered.json",
+		"note": "credit note from a seller not registered for VAT",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_enforcement.json",
+		"note": "credit note in an enforcement procedure, filed under the enforcement body",
+		"code": "381"
+	},
+	{
+		"file": "ro_381_selfSupply.json",
+		"note": "credit note on a supply the company billed to itself, no autofactura flag",
+		"code": "381"
+	},
+	{
+		"file": "ro_384_mixed.json",
+		"note": "corrective invoice with the original values negative and the correct ones positive, correction scenario 1 (guide 2.3)",
+		"code": "384"
+	},
+	{
+		"file": "ro_384_severalPreceding.json",
+		"note": "corrective invoice against several invoices (guide 2.3)",
+		"code": "384"
+	},
+	{
+		"file": "ro_384_consumer.json",
+		"note": "corrective invoice to a consumer",
+		"code": "384"
+	},
+	{
+		"file": "ro_389_selfSupply.json",
+		"note": "self-supply the company bills to itself: 389 with no autofactura flag and no mention (guide 2.4)",
+		"code": "389"
+	},
+	{
+		"file": "ro_389_mentionGiven.json",
+		"note": "self-billed invoice already carrying the autofactura mention, which is not repeated",
+		"code": "389"
+	},
+	{
+		"file": "ro_751_paidByReceipt.json",
+		"note": "invoice for a sale already paid with a fiscal receipt, nothing left to pay (guide 2.5)",
+		"code": "751"
+	},
+	{
+		"file": "ro_380_legacyRates.json",
+		"note": "19%, 9% and 5% for supplies made before August 2025 (guide 3.1)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_penalties.json",
+		"note": "late payment penalties outside the taxable base, E with a reason next to a taxed line (guide 3.2)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_sgrGuarantee.json",
+		"note": "SGR deposit outside the scope of VAT, E with a reason (guide 3.2)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_reverseChargeNote.json",
+		"note": "domestic reverse charge with its reason written out (guide 3.3)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_tourismMargin.json",
+		"note": "travel agent margin scheme: E with VATEX-EU-309 and a BT-22 mention",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_notVatRegistered.json",
+		"note": "seller not registered for VAT: category O, CIF in BT-32 and BT-30, buyer in BT-47 (guide 3.4)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_notVatRegisteredConsumer.json",
+		"note": "seller not registered for VAT selling to a consumer",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_notVatRegisteredForeign.json",
+		"note": "seller not registered for VAT selling to an EU business, whose VAT number stays out of BT-48",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_notVatRegisteredMention.json",
+		"note": "seller not registered for VAT citing art. 310 in BT-22 as well (guide 3.4)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_multipleMentions.json",
+		"note": "several legal mentions in one BT-22, separated by # (guide 5)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_attachmentPDF.json",
+		"note": "supporting document in one of the formats ANAF accepts (guide 5)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_publicBuyerCPV.json",
+		"note": "B2G line classified by CPV code, scheme STI",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_highRiskProduct.json",
+		"note": "product of high fiscal risk classified by its combined nomenclature code, scheme TSP",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_newConstruction.json",
+		"note": "new construction classified with the code 1111, scheme ZZZ",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_holidayVoucherCard.json",
+		"note": "holiday voucher paid by card, the buyer named by CNP",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_holidayVoucherTicket.json",
+		"note": "holiday voucher paid with paper tickets, the ticket series in BT-82",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_simplifiedConsumer.json",
+		"note": "simplified invoice to an unidentified consumer: generic name, the supplier's own address and the placeholder CNP (OUG 138/2024)",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_stornoNoPreceding.json",
+		"note": "storno with no reference to the invoice it cancels",
+		"fault": "BILL-INVOICE-26"
+	},
+	{
+		"file": "ro_380_stornoUndated.json",
+		"note": "storno naming the invoice but not its date",
+		"fault": "BILL-INVOICE-27"
+	},
+	{
+		"file": "ro_381_noPreceding.json",
+		"note": "credit note with no reference to the invoice it credits",
+		"fault": "BILL-INVOICE-26"
+	},
+	{
+		"file": "ro_381_periodOnly.json",
+		"note": "credit note stating only an invoicing period, the invoice number and date are required",
+		"fault": "BILL-INVOICE-26"
+	},
+	{
+		"file": "ro_381_undated.json",
+		"note": "credit note naming the invoice but not its date",
+		"fault": "BILL-INVOICE-27"
+	},
+	{
+		"file": "ro_381_negativeLine.json",
+		"note": "credit note with a negative line, which is corrected by a positive 380 instead",
+		"fault": "BILL-INVOICE-28"
+	},
+	{
+		"file": "ro_384_noPreceding.json",
+		"note": "corrective invoice with no reference to the invoice it corrects",
+		"fault": "BILL-INVOICE-26"
+	},
+	{
+		"file": "ro_384_undated.json",
+		"note": "corrective invoice naming the invoice but not its date",
+		"fault": "BILL-INVOICE-27"
+	},
+	{
+		"file": "ro_751_noNote.json",
+		"note": "accounting invoice not naming the fiscal receipt it is based on",
+		"fault": "BILL-INVOICE-29"
+	},
+	{
+		"file": "ro_380_enforcementNoPayment.json",
+		"note": "enforcement invoice with no payment block to name the enforcement body in",
+		"fault": "BILL-INVOICE-31"
+	},
+	{
+		"file": "ro_380_enforcementNoPayee.json",
+		"note": "enforcement invoice not naming the enforcement body",
+		"fault": "BILL-INVOICE-32"
+	},
+	{
+		"file": "ro_380_enforcementPayeeNoCIF.json",
+		"note": "enforcement body named without the CIF the document is filed under",
+		"fault": "BILL-INVOICE-33"
+	},
+	{
+		"file": "ro_380_notVatRegisteredMixed.json",
+		"note": "category O next to a taxed line, penalties and the like are E instead",
+		"fault": "BILL-INVOICE-34"
+	},
+	{
+		"file": "ro_380_badStandardRate.json",
+		"note": "standard rate that is not Romanian",
+		"fault": "TAX-COMBO-01"
+	},
+	{
+		"file": "ro_380_zeroStandardRate.json",
+		"note": "standard category at 0%, BT-152 must be above zero",
+		"fault": "TAX-COMBO-01"
+	},
+	{
+		"file": "ro_380_noStandardRate.json",
+		"note": "standard category with no rate at all",
+		"fault": "TAX-COMBO-01"
+	}
+]

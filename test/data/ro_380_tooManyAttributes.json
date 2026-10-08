@@ -1,0 +1,354 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91097"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91097",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0480",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "contabilitate@client.ro"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "10",
+				"item": {
+					"name": "Servicii de consultanta",
+					"price": "500.00",
+					"unit": "h",
+					"attributes": [
+						{
+							"key": "a0",
+							"label": "Atribut 0",
+							"text": "x"
+						},
+						{
+							"key": "a1",
+							"label": "Atribut 1",
+							"text": "x"
+						},
+						{
+							"key": "a2",
+							"label": "Atribut 2",
+							"text": "x"
+						},
+						{
+							"key": "a3",
+							"label": "Atribut 3",
+							"text": "x"
+						},
+						{
+							"key": "a4",
+							"label": "Atribut 4",
+							"text": "x"
+						},
+						{
+							"key": "a5",
+							"label": "Atribut 5",
+							"text": "x"
+						},
+						{
+							"key": "a6",
+							"label": "Atribut 6",
+							"text": "x"
+						},
+						{
+							"key": "a7",
+							"label": "Atribut 7",
+							"text": "x"
+						},
+						{
+							"key": "a8",
+							"label": "Atribut 8",
+							"text": "x"
+						},
+						{
+							"key": "a9",
+							"label": "Atribut 9",
+							"text": "x"
+						},
+						{
+							"key": "a10",
+							"label": "Atribut 10",
+							"text": "x"
+						},
+						{
+							"key": "a11",
+							"label": "Atribut 11",
+							"text": "x"
+						},
+						{
+							"key": "a12",
+							"label": "Atribut 12",
+							"text": "x"
+						},
+						{
+							"key": "a13",
+							"label": "Atribut 13",
+							"text": "x"
+						},
+						{
+							"key": "a14",
+							"label": "Atribut 14",
+							"text": "x"
+						},
+						{
+							"key": "a15",
+							"label": "Atribut 15",
+							"text": "x"
+						},
+						{
+							"key": "a16",
+							"label": "Atribut 16",
+							"text": "x"
+						},
+						{
+							"key": "a17",
+							"label": "Atribut 17",
+							"text": "x"
+						},
+						{
+							"key": "a18",
+							"label": "Atribut 18",
+							"text": "x"
+						},
+						{
+							"key": "a19",
+							"label": "Atribut 19",
+							"text": "x"
+						},
+						{
+							"key": "a20",
+							"label": "Atribut 20",
+							"text": "x"
+						},
+						{
+							"key": "a21",
+							"label": "Atribut 21",
+							"text": "x"
+						},
+						{
+							"key": "a22",
+							"label": "Atribut 22",
+							"text": "x"
+						},
+						{
+							"key": "a23",
+							"label": "Atribut 23",
+							"text": "x"
+						},
+						{
+							"key": "a24",
+							"label": "Atribut 24",
+							"text": "x"
+						},
+						{
+							"key": "a25",
+							"label": "Atribut 25",
+							"text": "x"
+						},
+						{
+							"key": "a26",
+							"label": "Atribut 26",
+							"text": "x"
+						},
+						{
+							"key": "a27",
+							"label": "Atribut 27",
+							"text": "x"
+						},
+						{
+							"key": "a28",
+							"label": "Atribut 28",
+							"text": "x"
+						},
+						{
+							"key": "a29",
+							"label": "Atribut 29",
+							"text": "x"
+						},
+						{
+							"key": "a30",
+							"label": "Atribut 30",
+							"text": "x"
+						},
+						{
+							"key": "a31",
+							"label": "Atribut 31",
+							"text": "x"
+						},
+						{
+							"key": "a32",
+							"label": "Atribut 32",
+							"text": "x"
+						},
+						{
+							"key": "a33",
+							"label": "Atribut 33",
+							"text": "x"
+						},
+						{
+							"key": "a34",
+							"label": "Atribut 34",
+							"text": "x"
+						},
+						{
+							"key": "a35",
+							"label": "Atribut 35",
+							"text": "x"
+						},
+						{
+							"key": "a36",
+							"label": "Atribut 36",
+							"text": "x"
+						},
+						{
+							"key": "a37",
+							"label": "Atribut 37",
+							"text": "x"
+						},
+						{
+							"key": "a38",
+							"label": "Atribut 38",
+							"text": "x"
+						},
+						{
+							"key": "a39",
+							"label": "Atribut 39",
+							"text": "x"
+						},
+						{
+							"key": "a40",
+							"label": "Atribut 40",
+							"text": "x"
+						},
+						{
+							"key": "a41",
+							"label": "Atribut 41",
+							"text": "x"
+						},
+						{
+							"key": "a42",
+							"label": "Atribut 42",
+							"text": "x"
+						},
+						{
+							"key": "a43",
+							"label": "Atribut 43",
+							"text": "x"
+						},
+						{
+							"key": "a44",
+							"label": "Atribut 44",
+							"text": "x"
+						},
+						{
+							"key": "a45",
+							"label": "Atribut 45",
+							"text": "x"
+						},
+						{
+							"key": "a46",
+							"label": "Atribut 46",
+							"text": "x"
+						},
+						{
+							"key": "a47",
+							"label": "Atribut 47",
+							"text": "x"
+						},
+						{
+							"key": "a48",
+							"label": "Atribut 48",
+							"text": "x"
+						},
+						{
+							"key": "a49",
+							"label": "Atribut 49",
+							"text": "x"
+						},
+						{
+							"key": "a50",
+							"label": "Atribut 50",
+							"text": "x"
+						}
+					]
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Exemplu Digital SRL"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			}
+		}
+	}
+}
