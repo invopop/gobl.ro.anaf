@@ -1,11 +1,10 @@
-package converter
+package roefactura
 
 import (
 	"bytes"
 	"encoding/xml"
 
 	cii "github.com/invopop/gobl.cii"
-	addontools "github.com/invopop/gobl.ro.anaf"
 	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
@@ -74,7 +73,7 @@ func readUBL(data []byte) (*bill.Invoice, *stated, error) {
 	}
 
 	// Convert to GOBL as Romanian, whatever CIUS-RO version the document names
-	env, err := document.Convert(ubl.WithContext(addontools.ContextCIUSRO))
+	env, err := document.Convert(ubl.WithContext(ContextCIUSRO))
 	if err != nil {
 		return nil, nil, ErrConversion.WithCause(err).WithMsg("ro xml to gobl conversion failed")
 	}

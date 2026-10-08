@@ -1,4 +1,4 @@
-package converter_test
+package roefactura_test
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ import (
 	"github.com/invopop/gobl/cbc"
 	"github.com/invopop/gobl/currency"
 
-	"github.com/invopop/gobl.ro.anaf/converter"
+	roefactura "github.com/invopop/gobl.ro.anaf"
 )
 
 // lossy are the GOBL fields CIUS-RO has no place for, so a round trip cannot bring them back
@@ -49,13 +49,13 @@ func TestReverseConvertRoundTrip(t *testing.T) {
 
 			// GOBL to XML
 			want := calculatedFixture(t, file)
-			document, err := converter.ForwardConvert(want)
+			document, err := roefactura.ForwardConvert(want)
 			if err != nil {
 				t.Fatalf("forward conversion failed: %v", err)
 			}
 
 			// XML back to GOBL
-			invoice, err := converter.ReverseConvert(document)
+			invoice, err := roefactura.ReverseConvert(document)
 			if err != nil {
 				t.Fatalf("reverse conversion failed: %v", err)
 			}
@@ -71,7 +71,7 @@ func TestReverseConvertRoundTrip(t *testing.T) {
 				t.Fatalf("invoice read back cannot be enveloped: %v", err)
 			}
 
-			again, err := converter.ForwardConvert(env)
+			again, err := roefactura.ForwardConvert(env)
 			if err != nil {
 				t.Fatalf("second forward conversion failed: %v", err)
 			}
@@ -107,12 +107,12 @@ func TestReverseConvertReadsTheANAFSamples(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.file, func(t *testing.T) {
-			data, err := os.ReadFile(filepath.Join("..", "resources", "examples", test.file))
+			data, err := os.ReadFile(filepath.Join("resources", "examples", test.file))
 			if err != nil {
 				t.Fatalf("cannot read sample: %v", err)
 			}
 
-			invoice, err := converter.ReverseConvert(data)
+			invoice, err := roefactura.ReverseConvert(data)
 			if err != nil {
 				t.Fatalf("reverse conversion failed: %v", err)
 			}
@@ -139,13 +139,13 @@ func TestReverseConvertReadsTheANAFSamples(t *testing.T) {
 
 func TestReverseConvertKeepsATradeRegisterNumberOutsideTheVATScope(t *testing.T) {
 	// A seller outside the VAT scope moves the buyer's CIF to BT-47, where other software may put a trade register number instead
-	document, err := converter.ForwardConvert(calculatedFixture(t, "ro_380_notVatRegistered.json"))
+	document, err := roefactura.ForwardConvert(calculatedFixture(t, "ro_380_notVatRegistered.json"))
 	if err != nil {
 		t.Fatalf("forward conversion failed: %v", err)
 	}
 	document = bytes.Replace(document, []byte("<cbc:CompanyID>87654329</cbc:CompanyID>"), []byte("<cbc:CompanyID>J40/123/2020</cbc:CompanyID>"), 1)
 
-	invoice, err := converter.ReverseConvert(document)
+	invoice, err := roefactura.ReverseConvert(document)
 	if err != nil {
 		t.Fatalf("reverse conversion failed: %v", err)
 	}
@@ -173,7 +173,7 @@ func TestReverseConvertDerivesTheExchangeRateFromCII(t *testing.T) {
 	document = bytes.Replace(document, []byte("<ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>"), []byte("<ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode><ram:TaxCurrencyCode>RON</ram:TaxCurrencyCode>"), 1)
 	document = bytes.Replace(document, []byte(`<ram:TaxTotalAmount currencyID="EUR">1050.00</ram:TaxTotalAmount>`), []byte(`<ram:TaxTotalAmount currencyID="EUR">1050.00</ram:TaxTotalAmount><ram:TaxTotalAmount currencyID="RON">5339.25</ram:TaxTotalAmount>`), 1)
 
-	invoice, err := converter.ReverseConvert(document)
+	invoice, err := roefactura.ReverseConvert(document)
 	if err != nil {
 		t.Fatalf("reverse conversion failed: %v", err)
 	}
@@ -198,10 +198,10 @@ func TestReverseConvertRejectsWhatIsNotAnInvoice(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			_, err := converter.ReverseConvert([]byte(test.data))
+			_, err := roefactura.ReverseConvert([]byte(test.data))
 
-			if !errors.Is(err, converter.ErrUnreadable) {
-				t.Errorf("error: want %v, got %v", converter.ErrUnreadable, err)
+			if !errors.Is(err, roefactura.ErrUnreadable) {
+				t.Errorf("error: want %v, got %v", roefactura.ErrUnreadable, err)
 			}
 		})
 	}

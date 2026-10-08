@@ -1,4 +1,4 @@
-package converter_test
+package roefactura_test
 
 import (
 	"bytes"
@@ -19,7 +19,7 @@ import (
 	"github.com/invopop/gobl/pay"
 	"github.com/invopop/gobl/tax"
 
-	"github.com/invopop/gobl.ro.anaf/converter"
+	roefactura "github.com/invopop/gobl.ro.anaf"
 )
 
 // The corpus that proves the converter against ANAF's own schematron lives in
@@ -32,8 +32,8 @@ func TestConvertRejectsWhatANAFNeverReceives(t *testing.T) {
 		kind    cbc.Key
 		wantErr error
 	}{
-		{name: "proforma is never reported", kind: bill.InvoiceTypeProforma, wantErr: converter.ErrSkipped},
-		{name: "debit note cannot be filed", kind: bill.InvoiceTypeDebitNote, wantErr: converter.ErrUnsupported},
+		{name: "proforma is never reported", kind: bill.InvoiceTypeProforma, wantErr: roefactura.ErrSkipped},
+		{name: "debit note cannot be filed", kind: bill.InvoiceTypeDebitNote, wantErr: roefactura.ErrUnsupported},
 	}
 
 	for _, test := range tests {
@@ -41,7 +41,7 @@ func TestConvertRejectsWhatANAFNeverReceives(t *testing.T) {
 			invoice := newInvoice()
 			invoice.Type = test.kind
 
-			_, err := converter.ForwardConvert(envelope(t, invoice))
+			_, err := roefactura.ForwardConvert(envelope(t, invoice))
 
 			if !errors.Is(err, test.wantErr) {
 				t.Errorf("error: want %v, got %v", test.wantErr, err)
@@ -51,10 +51,10 @@ func TestConvertRejectsWhatANAFNeverReceives(t *testing.T) {
 }
 
 func TestConvertRejectsAnEmptyEnvelope(t *testing.T) {
-	_, err := converter.ForwardConvert(nil)
+	_, err := roefactura.ForwardConvert(nil)
 
-	if !errors.Is(err, converter.ErrInvalidDocument) {
-		t.Errorf("error: want %v, got %v", converter.ErrInvalidDocument, err)
+	if !errors.Is(err, roefactura.ErrInvalidDocument) {
+		t.Errorf("error: want %v, got %v", roefactura.ErrInvalidDocument, err)
 	}
 }
 
@@ -62,10 +62,10 @@ func TestConvertReportsAnUncompliantDocument(t *testing.T) {
 	invoice := newInvoice()
 	invoice.Code = "FARA-CIFRE"
 
-	_, err := converter.ForwardConvert(envelope(t, invoice))
+	_, err := roefactura.ForwardConvert(envelope(t, invoice))
 
-	if !errors.Is(err, converter.ErrNotCompliant) {
-		t.Fatalf("error: want %v, got %v", converter.ErrNotCompliant, err)
+	if !errors.Is(err, roefactura.ErrNotCompliant) {
+		t.Fatalf("error: want %v, got %v", roefactura.ErrNotCompliant, err)
 	}
 
 	if !strings.Contains(err.Error(), "BILL-INVOICE-01") {
@@ -83,7 +83,7 @@ func TestConvertLeavesTheCallersEnvelopeAlone(t *testing.T) {
 		t.Fatalf("cannot read the envelope: %v", err)
 	}
 
-	if _, err := converter.ForwardConvert(env); err != nil {
+	if _, err := roefactura.ForwardConvert(env); err != nil {
 		t.Fatalf("conversion failed: %v", err)
 	}
 
@@ -128,7 +128,7 @@ func TestConvertWritesTheAccountingCurrency(t *testing.T) {
 			invoice.Currency = test.currency
 			invoice.ExchangeRates = test.rates
 
-			document, err := converter.ForwardConvert(envelope(t, invoice))
+			document, err := roefactura.ForwardConvert(envelope(t, invoice))
 			if err != nil {
 				t.Fatalf("conversion failed: %v", err)
 			}
@@ -146,7 +146,7 @@ func TestConvertWritesTheAccountingCurrency(t *testing.T) {
 }
 
 func TestConvertDropsWhatDoesNotBelongInACIUSRODocument(t *testing.T) {
-	document, err := converter.ForwardConvert(envelope(t, newInvoice()))
+	document, err := roefactura.ForwardConvert(envelope(t, newInvoice()))
 	if err != nil {
 		t.Fatalf("conversion failed: %v", err)
 	}
@@ -166,7 +166,7 @@ func TestConvertKeepsARealOrderReference(t *testing.T) {
 	invoice := newInvoice()
 	invoice.Ordering = &bill.Ordering{Purchases: []*org.DocumentRef{{Code: "NA"}}}
 
-	document, err := converter.ForwardConvert(envelope(t, invoice))
+	document, err := roefactura.ForwardConvert(envelope(t, invoice))
 	if err != nil {
 		t.Fatalf("conversion failed: %v", err)
 	}

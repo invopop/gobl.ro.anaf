@@ -19,15 +19,14 @@ The `ro-efactura-v1` key is not yet in GOBL core's registry of approved external
 
 ```
 addon/                The GOBL add-on (ro-efactura-v1): rules, normalizers, tags, document types
-converter/            GOBL to CIUS-RO UBL, and received UBL or CII back to GOBL
-└── test/             Conversion corpus of every invoice shape Romania accepts
 examples/             One invoice per case, with its calculated envelope under out/
 resources/
 ├── artifacts/        The add-on map and the converter map
 └── examples/         ANAF's official UBL and CII sample invoices
+test/                 Conversion corpus of every invoice shape Romania accepts
 ```
 
-The module root holds the tooling built on the add-on: `ContextCIUSRO` (the UBL context ANAF checks), `KindOf` (what ANAF does with an invoice), `Issuer` and `CIF` (who an invoice is filed under). The routing that decides how ANAF receives an invoice lives in gov-ro.
+The module root holds the converter and the tooling built on the add-on: `ContextCIUSRO` (the UBL context ANAF checks), `KindOf` (what ANAF does with an invoice), `Issuer` and `CIF` (who an invoice is filed under). The routing that decides how ANAF receives an invoice lives in gov-ro.
 
 ## Rules
 
@@ -47,14 +46,14 @@ On top of the rules come 6 normalizers, 2 tags of its own (`accounting` and `enf
 
 | Function | What it does |
 | --- | --- |
-| `converter.ForwardConvert` | Takes a GOBL envelope, runs the add-on over it and returns CIUS-RO UBL ready to upload |
-| `converter.ReverseConvert` | Takes the XML of an invoice ANAF delivered, UBL or CII, and returns the GOBL invoice with the add-on applied |
+| `ForwardConvert` | Takes a GOBL envelope, runs the add-on over it and returns CIUS-RO UBL ready to upload |
+| `ReverseConvert` | Takes the XML of an invoice ANAF delivered, UBL or CII, and returns the GOBL invoice with the add-on applied |
 
 The two directions mirror each other, so an invoice sent and read back comes out the same. The round trip, and how each Romanian detail is written and read back, are in the [converter map](./resources/artifacts/ro-efactura-converter-map.html).
 
 ## Testing
 
-`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 205-invoice corpus in [`converter/test`](./converter/test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
+`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 205-invoice corpus in [`test`](./test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
 
 | Command | What it does |
 | --- | --- |
@@ -63,8 +62,8 @@ The two directions mirror each other, so an invoice sent and read back comes out
 | `go test ./addon/...` | Runs only the add-on's unit tests |
 | `go test . -run TestExamples` | Checks the examples against their calculated envelopes |
 | `go test . -run TestExamples -update` | Rewrites the examples' calculated envelopes after an intended change |
-| `go test ./converter` | Runs only the converter's tests, including the round trip and ANAF's samples |
-| `go test ./converter/test/...` | Runs only the conversion corpus |
+| `go test .` | Runs only the root tests: the converter, including the round trip and ANAF's samples, and the examples |
+| `go test ./test/...` | Runs only the conversion corpus |
 | `PHORM_URL=http://phorm:9090 go test ./...` | Points the corpus at phorm on another host or port |
 | `RO_SKIP_SCHEMATRON=1 go test ./...` | Runs offline, proving the add-on and the converter agree but no longer that ANAF would accept the result |
 
@@ -74,14 +73,14 @@ Corpus subtests are named after the fixture file, without the extension. Anchor 
 
 | Command | What it does |
 | --- | --- |
-| `go test ./converter/test/... -run 'TestPipeline/ro_389_selfBilled$' -v` | Runs one fixture |
-| `go test ./converter/test/... -run 'TestPipeline/ro_381' -v` | Runs every credit note |
-| `go test ./converter/test/... -run 'TestPipeline/county' -v` | Runs the sweep of all 42 counties |
-| `go test ./converter -run 'TestReverseConvertRoundTrip' -v` | Reads every accepted invoice back to GOBL and renders it again |
+| `go test ./test/... -run 'TestPipeline/ro_389_selfBilled$' -v` | Runs one fixture |
+| `go test ./test/... -run 'TestPipeline/ro_381' -v` | Runs every credit note |
+| `go test ./test/... -run 'TestPipeline/county' -v` | Runs the sweep of all 42 counties |
+| `go test . -run 'TestReverseConvertRoundTrip' -v` | Reads every accepted invoice back to GOBL and renders it again |
 
 ### Changing the corpus
 
-`converter/test/out/` is rewritten on every run, so a change to the rendered XML shows up as a diff there. A new case is an envelope in `converter/test/data/` plus its entry in `converter/test/manifest.json`: the suite fails on a fixture with no entry and on an entry with no fixture, so no case can be added without saying what it proves. The format is in the [corpus README](./converter/test/README.md).
+`test/out/` is rewritten on every run, so a change to the rendered XML shows up as a diff there. A new case is an envelope in `test/data/` plus its entry in `test/manifest.json`: the suite fails on a fixture with no entry and on an entry with no fixture, so no case can be added without saying what it proves. The format is in the [corpus README](./test/README.md).
 
 ## Before pushing
 

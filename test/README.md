@@ -18,7 +18,7 @@ How ANAF receives each document is routing, which is tested in gov-ro.
 ## Running it
 
 ```sh
-go test ./converter/test/...
+go test ./test/...
 ```
 
 Phorm has to be reachable, because it is what validates each rendered document
@@ -27,11 +27,11 @@ and fails loudly, rather than passing quietly, when it is not there.
 
 | Command | What it does |
 | --- | --- |
-| `go test ./converter/test/...` | The whole corpus |
-| `go test ./converter/test/... -count=1` | The whole corpus, ignoring Go's test cache |
-| `go test ./converter/test/... -v` | The same, naming every fixture as it passes |
-| `PHORM_URL=http://phorm:9090 go test ./converter/test/...` | Phorm on another host or port |
-| `RO_SKIP_SCHEMATRON=1 go test ./converter/test/...` | Run offline, without the schematron layer |
+| `go test ./test/...` | The whole corpus |
+| `go test ./test/... -count=1` | The whole corpus, ignoring Go's test cache |
+| `go test ./test/... -v` | The same, naming every fixture as it passes |
+| `PHORM_URL=http://phorm:9090 go test ./test/...` | Phorm on another host or port |
+| `RO_SKIP_SCHEMATRON=1 go test ./test/...` | Run offline, without the schematron layer |
 
 Skipping the schematron still proves the addon and the converter agree, but it
 stops proving ANAF would accept the result. It is a convenience for working
@@ -42,10 +42,10 @@ offline, not a substitute.
 Subtests are named after the fixture file, without the extension:
 
 ```sh
-go test ./converter/test/... -run 'TestPipeline/ro_389_selfBilled$' -v   # one fixture
-go test ./converter/test/... -run 'TestPipeline/ro_381' -v               # every credit note
-go test ./converter/test/... -run 'TestPipeline/county' -v               # the county sweep
-go test ./converter/test/... -run 'TestPipeline/ro_380_long' -v          # every length rule
+go test ./test/... -run 'TestPipeline/ro_389_selfBilled$' -v   # one fixture
+go test ./test/... -run 'TestPipeline/ro_381' -v               # every credit note
+go test ./test/... -run 'TestPipeline/county' -v               # the county sweep
+go test ./test/... -run 'TestPipeline/ro_380_long' -v          # every length rule
 ```
 
 The `$` matters on a single fixture: without it `ro_389_selfBilled` also matches

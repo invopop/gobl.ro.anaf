@@ -1,4 +1,4 @@
-package converter
+package roefactura
 
 import (
 	addon "github.com/invopop/gobl.ro.anaf/addon"

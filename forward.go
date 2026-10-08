@@ -1,12 +1,9 @@
-// Package converter turns a GOBL envelope into the CIUS-RO XML document ANAF
-// expects. It knows nothing about how that document is routed or delivered.
-package converter
+package roefactura
 
 import (
 	"encoding/json"
 
 	"github.com/invopop/gobl"
-	addontools "github.com/invopop/gobl.ro.anaf"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
 )
@@ -54,7 +51,7 @@ func ForwardConvert(env *gobl.Envelope) ([]byte, error) {
 	//***** Delete once the addon is implemeted
 
 	// Convert to CIUS-RO
-	document, err := ubl.ConvertInvoice(working, ubl.WithContext(addontools.ContextCIUSRO))
+	document, err := ubl.ConvertInvoice(working, ubl.WithContext(ContextCIUSRO))
 	if err != nil {
 		return nil, ErrConversion.WithCause(err).WithMsg("gobl to ro xml conversion failed")
 	}
@@ -112,12 +109,12 @@ func extract(env *gobl.Envelope) (*bill.Invoice, error) {
 
 // filable reports whether ANAF receives a document of this kind at all.
 func filable(invoice *bill.Invoice) error {
-	kind := addontools.KindOf(invoice)
+	kind := KindOf(invoice)
 
 	switch kind.Status {
-	case addontools.StatusSkipped:
+	case StatusSkipped:
 		return ErrSkipped.WithMsg("a document of kind %s is not reported to ANAF", kind.Name)
-	case addontools.StatusUnsupported:
+	case StatusUnsupported:
 		return ErrUnsupported.WithMsg("a document of kind %s cannot be filed in Romania", kind.Name)
 	}
 

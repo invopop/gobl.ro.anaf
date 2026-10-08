@@ -185,7 +185,7 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
         <div class="layer"><div class="name">GOBL core<small>gobl v0.507</small></div><p>Invoice types, calculation, rounding, the <code>self-billed</code> tag, generic validation. There is no Romanian tax regime yet, so core does not know that RON is the accounting currency or what a valid CIF looks like.</p></div>
         <div class="layer"><div class="name">eu-en16931-v2017<small>required by the addon</small></div><p>The European standard: UNTDID document types and payment means, VAT categories, VATEX exemption codes and the BR rules. Declaring the Romanian addon pulls it in automatically.</p></div>
         <div class="layer this"><div class="name">ro-efactura-v1<small>addon/ · this page</small></div><p>Everything Romania adds on top: document types, rules, normalizers, tags, the CNP identity and the county and sector codes.</p></div>
-        <div class="layer"><div class="name">converter<small>converter/ · its own page</small></div><p>Renders the accepted invoice as CIUS-RO UBL and reads received UBL or CII back to GOBL. It relies on the addon having done its job first.</p></div>
+        <div class="layer"><div class="name">converter<small>module root · its own page</small></div><p>Renders the accepted invoice as CIUS-RO UBL and reads received UBL or CII back to GOBL. It relies on the addon having done its job first.</p></div>
       </div>
     </section>
 

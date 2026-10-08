@@ -16,8 +16,6 @@ import (
 	addon "github.com/invopop/gobl.ro.anaf/addon"
 	"github.com/invopop/gobl/bill"
 	"github.com/invopop/phorm"
-
-	"github.com/invopop/gobl.ro.anaf/converter"
 )
 
 const (
@@ -84,7 +82,7 @@ func TestPipeline(t *testing.T) {
 			envelope := loadEnvelope(t, want.File)
 			invoice := invoiceOf(t, envelope)
 
-			document, err := converter.ForwardConvert(envelope)
+			document, err := addontools.ForwardConvert(envelope)
 
 			if want.Fault != "" {
 				requireRejected(t, err, want.Fault)
@@ -150,7 +148,7 @@ func requireRejected(t *testing.T, err error, fault string) {
 		t.Fatalf("conversion succeeded, want fault %s", fault)
 	}
 
-	if !errors.Is(err, converter.ErrNotCompliant) {
+	if !errors.Is(err, addontools.ErrNotCompliant) {
 		t.Fatalf("conversion failed with the wrong error: %v", err)
 	}
 
