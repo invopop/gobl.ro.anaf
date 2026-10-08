@@ -1,0 +1,183 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91068"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91068",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0432",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "contabilitate@client.ro"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "10",
+				"item": {
+					"name": "Servicii de consultanta",
+					"price": "500.00",
+					"unit": "h"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Exemplu Digital SRL"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			}
+		},
+		"notes": [
+			{
+				"key": "general",
+				"text": "Nota 0"
+			},
+			{
+				"key": "general",
+				"text": "Nota 1"
+			},
+			{
+				"key": "general",
+				"text": "Nota 2"
+			},
+			{
+				"key": "general",
+				"text": "Nota 3"
+			},
+			{
+				"key": "general",
+				"text": "Nota 4"
+			},
+			{
+				"key": "general",
+				"text": "Nota 5"
+			},
+			{
+				"key": "general",
+				"text": "Nota 6"
+			},
+			{
+				"key": "general",
+				"text": "Nota 7"
+			},
+			{
+				"key": "general",
+				"text": "Nota 8"
+			},
+			{
+				"key": "general",
+				"text": "Nota 9"
+			},
+			{
+				"key": "general",
+				"text": "Nota 10"
+			},
+			{
+				"key": "general",
+				"text": "Nota 11"
+			},
+			{
+				"key": "general",
+				"text": "Nota 12"
+			},
+			{
+				"key": "general",
+				"text": "Nota 13"
+			},
+			{
+				"key": "general",
+				"text": "Nota 14"
+			},
+			{
+				"key": "general",
+				"text": "Nota 15"
+			},
+			{
+				"key": "general",
+				"text": "Nota 16"
+			},
+			{
+				"key": "general",
+				"text": "Nota 17"
+			},
+			{
+				"key": "general",
+				"text": "Nota 18"
+			},
+			{
+				"key": "general",
+				"text": "Nota 19"
+			},
+			{
+				"key": "general",
+				"text": "Nota 20"
+			}
+		]
+	}
+}

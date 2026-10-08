@@ -1,0 +1,94 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a022"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a022",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-1606",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Ion Popescu",
+			"addresses": [
+				{
+					"num": "7",
+					"street": "Strada Lunga",
+					"locality": "Brasov",
+					"state": "BV",
+					"code": "500001",
+					"country": "RO"
+				}
+			],
+			"identities": [
+				{
+					"type": "CNP",
+					"code": "1900101123456"
+				}
+			]
+		},
+		"lines": [
+			{
+				"quantity": "3",
+				"item": {
+					"name": "Cazare 3 nopti",
+					"price": "400.00"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "11%"
+					}
+				],
+				"i": 1
+			}
+		],
+		"payment": {
+			"instructions": {
+				"key": "card",
+				"card": {
+					"last4": "3456"
+				},
+				"ext": {
+					"untdid-payment-means": "48"
+				}
+			},
+			"advances": [
+				{
+					"key": "card",
+					"description": "Voucher de vacanta pe card",
+					"percent": "100%"
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,116 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91071"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91071",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0441",
+		"issue_date": "2026-08-28",
+		"currency": "EUR",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Kunde GmbH",
+			"tax_id": {
+				"country": "DE",
+				"code": "111111125"
+			},
+			"addresses": [
+				{
+					"num": "5",
+					"street": "Hauptstrasse",
+					"locality": "Munich",
+					"region": "Bayern",
+					"code": "80331",
+					"country": "DE"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "10",
+				"item": {
+					"name": "Servicii de consultanta",
+					"price": "500.00",
+					"unit": "h"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "intra-community",
+						"ext": {
+							"cef-vatex": "vatex-eu-ic"
+						}
+					}
+				]
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Exemplu Digital SRL"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			}
+		},
+		"exchange_rates": [
+			{
+				"from": "EUR",
+				"to": "RON",
+				"amount": "5.0850"
+			}
+		],
+		"delivery": {
+			"receiver": {
+				"name": "Depozit Central SRL",
+				"addresses": [
+					{
+						"num": "7",
+						"code": "040001",
+						"street": "Strada Depozitelor",
+						"locality": "Munich",
+						"region": "Bayern"
+					}
+				]
+			},
+			"date": "2026-08-27"
+		}
+	}
+}

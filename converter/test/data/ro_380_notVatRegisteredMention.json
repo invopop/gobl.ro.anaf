@@ -1,0 +1,95 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a01c"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a01c",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-1509",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Ionescu Maria PFA",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "9",
+					"street": "Strada Florilor",
+					"locality": "Iasi",
+					"state": "IS",
+					"code": "700001",
+					"country": "RO"
+				}
+			]
+		},
+		"customer": {
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "contabilitate@client.ro"
+				}
+			]
+		},
+		"lines": [
+			{
+				"quantity": "4",
+				"item": {
+					"name": "Traduceri autorizate",
+					"price": "150.00"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "outside-scope"
+					}
+				],
+				"i": 1
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Ionescu Maria PFA"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			}
+		},
+		"notes": [
+			{
+				"text": "Regim special de scutire pentru intreprinderile mici, art. 310 Cod fiscal"
+			}
+		]
+	}
+}

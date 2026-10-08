@@ -2,8 +2,8 @@
 
 Romanian e-Factura addon and tooling for [GOBL](https://github.com/invopop/gobl).
 
-Its own Go module, `github.com/invopop/gobl.ro.anaf`, depending on nothing but
-GOBL itself.
+Its own Go module, `github.com/invopop/gobl.ro.anaf`, depending on GOBL and its
+UBL and CII converters.
 
 ## What it is
 
@@ -26,10 +26,12 @@ rather than by the schematron.
   party helpers the ANAF API needs: the bare `CIF`, and the `Issuer` a document
   is filed under (the enforcement body, the buyer when self-billed, or the
   supplier).
+- `converter/` — GOBL to CIUS-RO UBL (`ForwardConvert`), and a received UBL or
+  CII document back to GOBL (`ReverseConvert`), with the corpus that drives both
+  under `converter/test/`.
 - `examples/` — one document per case, with its calculated envelope.
 
-The converter that renders CIUS-RO, and the routing that decides how ANAF
-receives a document, are not here yet. The root package is where they land.
+The routing that decides how ANAF receives a document stays in gov-ro.
 
 ## Usage
 
@@ -137,6 +139,6 @@ go test . -run TestExamples -update
 go test ./...
 ```
 
-That is the addon's own unit tests and the examples above. The full pipeline
-corpus stays in gov-ro, where the converter and the routing can be driven over
-it as well.
+That is the addon's own unit tests, the examples above, the converter tests and
+the conversion corpus, which needs phorm (see `converter/test/README.md`). The
+routing checks stay in gov-ro.

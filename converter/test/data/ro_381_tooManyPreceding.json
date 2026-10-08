@@ -1,0 +1,3105 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91096"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91096",
+		"type": "credit-note",
+		"series": "CN",
+		"code": "2026-0479",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "contabilitate@client.ro"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "10",
+				"item": {
+					"name": "Servicii de consultanta",
+					"price": "500.00",
+					"unit": "h"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Exemplu Digital SRL"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			}
+		},
+		"preceding": [
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0000",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0001",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0002",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0003",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0004",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0005",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0006",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0007",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0008",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0009",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0010",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0011",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0012",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0013",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0014",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0015",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0016",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0017",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0018",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0019",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0020",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0021",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0022",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0023",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0024",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0025",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0026",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0027",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0028",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0029",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0030",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0031",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0032",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0033",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0034",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0035",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0036",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0037",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0038",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0039",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0040",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0041",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0042",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0043",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0044",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0045",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0046",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0047",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0048",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0049",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0050",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0051",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0052",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0053",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0054",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0055",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0056",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0057",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0058",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0059",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0060",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0061",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0062",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0063",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0064",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0065",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0066",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0067",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0068",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0069",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0070",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0071",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0072",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0073",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0074",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0075",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0076",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0077",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0078",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0079",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0080",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0081",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0082",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0083",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0084",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0085",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0086",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0087",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0088",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0089",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0090",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0091",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0092",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0093",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0094",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0095",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0096",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0097",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0098",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0099",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0100",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0101",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0102",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0103",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0104",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0105",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0106",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0107",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0108",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0109",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0110",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0111",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0112",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0113",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0114",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0115",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0116",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0117",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0118",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0119",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0120",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0121",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0122",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0123",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0124",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0125",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0126",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0127",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0128",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0129",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0130",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0131",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0132",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0133",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0134",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0135",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0136",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0137",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0138",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0139",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0140",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0141",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0142",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0143",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0144",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0145",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0146",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0147",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0148",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0149",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0150",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0151",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0152",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0153",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0154",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0155",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0156",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0157",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0158",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0159",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0160",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0161",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0162",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0163",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0164",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0165",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0166",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0167",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0168",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0169",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0170",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0171",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0172",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0173",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0174",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0175",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0176",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0177",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0178",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0179",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0180",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0181",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0182",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0183",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0184",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0185",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0186",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0187",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0188",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0189",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0190",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0191",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0192",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0193",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0194",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0195",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0196",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0197",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0198",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0199",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0200",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0201",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0202",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0203",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0204",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0205",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0206",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0207",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0208",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0209",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0210",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0211",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0212",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0213",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0214",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0215",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0216",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0217",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0218",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0219",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0220",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0221",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0222",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0223",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0224",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0225",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0226",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0227",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0228",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0229",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0230",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0231",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0232",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0233",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0234",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0235",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0236",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0237",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0238",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0239",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0240",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0241",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0242",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0243",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0244",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0245",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0246",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0247",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0248",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0249",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0250",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0251",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0252",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0253",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0254",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0255",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0256",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0257",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0258",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0259",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0260",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0261",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0262",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0263",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0264",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0265",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0266",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0267",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0268",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0269",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0270",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0271",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0272",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0273",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0274",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0275",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0276",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0277",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0278",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0279",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0280",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0281",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0282",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0283",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0284",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0285",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0286",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0287",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0288",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0289",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0290",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0291",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0292",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0293",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0294",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0295",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0296",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0297",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0298",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0299",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0300",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0301",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0302",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0303",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0304",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0305",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0306",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0307",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0308",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0309",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0310",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0311",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0312",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0313",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0314",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0315",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0316",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0317",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0318",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0319",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0320",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0321",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0322",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0323",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0324",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0325",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0326",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0327",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0328",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0329",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0330",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0331",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0332",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0333",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0334",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0335",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0336",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0337",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0338",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0339",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0340",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0341",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0342",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0343",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0344",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0345",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0346",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0347",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0348",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0349",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0350",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0351",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0352",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0353",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0354",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0355",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0356",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0357",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0358",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0359",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0360",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0361",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0362",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0363",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0364",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0365",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0366",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0367",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0368",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0369",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0370",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0371",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0372",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0373",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0374",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0375",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0376",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0377",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0378",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0379",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0380",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0381",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0382",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0383",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0384",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0385",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0386",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0387",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0388",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0389",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0390",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0391",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0392",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0393",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0394",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0395",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0396",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0397",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0398",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0399",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0400",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0401",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0402",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0403",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0404",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0405",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0406",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0407",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0408",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0409",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0410",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0411",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0412",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0413",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0414",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0415",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0416",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0417",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0418",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0419",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0420",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0421",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0422",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0423",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0424",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0425",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0426",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0427",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0428",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0429",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0430",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0431",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0432",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0433",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0434",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0435",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0436",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0437",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0438",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0439",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0440",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0441",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0442",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0443",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0444",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0445",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0446",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0447",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0448",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0449",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0450",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0451",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0452",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0453",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0454",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0455",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0456",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0457",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0458",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0459",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0460",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0461",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0462",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0463",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0464",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0465",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0466",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0467",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0468",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0469",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0470",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0471",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0472",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0473",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0474",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0475",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0476",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0477",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0478",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0479",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0480",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0481",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0482",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0483",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0484",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0485",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0486",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0487",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0488",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0489",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0490",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0491",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0492",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0493",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0494",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0495",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0496",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0497",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0498",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0499",
+				"issue_date": "2026-07-15"
+			},
+			{
+				"type": "standard",
+				"series": "FCT",
+				"code": "2026-0500",
+				"issue_date": "2026-07-15"
+			}
+		]
+	}
+}
