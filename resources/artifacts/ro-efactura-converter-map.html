@@ -1,0 +1,310 @@
+<title>RO e-Factura Converter Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a contents rail beside one reading column on wide screens, stacked on phones; rules render as filterable groups per GOBL type */
+:root {
+  --ground: #f3f5f9;
+  --surface: #ffffff;
+  --sunk: #e9edf4;
+  --ink: #16202f;
+  --muted: #59657a;
+  --faint: #8792a6;
+  --line: #d9dfe9;
+  --accent: #1d4ea6;
+  --accent-soft: #e3ebfa;
+  --flag: #c99300;
+  --flag-soft: #fbf1d3;
+  --gap: #b23a3f;
+  --gap-soft: #f8e4e4;
+  --ok: #1f7a55;
+  --ok-soft: #dff1e8;
+  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0e131b; --surface: #151c27; --sunk: #1b2432; --ink: #e4e9f1; --muted: #9aa5b8; --faint: #6f7b90; --line: #273142;
+    --accent: #8db0ff; --accent-soft: #1a2945; --flag: #e7bd4a; --flag-soft: #2c2512; --gap: #ef8a8e; --gap-soft: #321b1d; --ok: #6fd2a6; --ok-soft: #13291f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0e131b; --surface: #151c27; --sunk: #1b2432; --ink: #e4e9f1; --muted: #9aa5b8; --faint: #6f7b90; --line: #273142;
+  --accent: #8db0ff; --accent-soft: #1a2945; --flag: #e7bd4a; --flag-soft: #2c2512; --gap: #ef8a8e; --gap-soft: #321b1d; --ok: #6fd2a6; --ok-soft: #13291f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.shell { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 0 80px; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 40px; }
+@media (max-width: 900px) { .shell { grid-template-columns: minmax(0, 1fr); gap: 0; } .rail { display: none; } }
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); align-self: start; padding-top: 40px; }
+.rail a { display: block; color: var(--muted); text-decoration: none; font-size: 0.9rem; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); }
+.rail a:hover, .rail a:focus-visible { color: var(--accent); border-left-color: var(--accent); outline: none; }
+.rail .label { font-family: var(--font-display); font-stretch: 85%; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; color: var(--faint); margin: 0 0 8px; font-weight: 700; }
+main { min-width: 0; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; font-stretch: 80%; margin: 0 0 10px; letter-spacing: -0.01em; }
+h2 { font-size: 1.55rem; font-weight: 700; font-stretch: 85%; margin: 0 0 6px; }
+h3 { font-size: 1.08rem; font-weight: 700; font-stretch: 90%; margin: 0; }
+p { max-width: 70ch; margin: 0 0 12px; }
+a { color: var(--accent); }
+code, .mono { font-family: var(--font-mono); font-size: 0.84em; }
+code { background: var(--sunk); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+header.top { padding-block: 44px 28px; border-bottom: 1px solid var(--line); }
+.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.04em; margin: 0 0 12px; }
+.lede { font-size: 1.12rem; color: var(--muted); max-width: 66ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-top: 26px; }
+.stat { background: var(--surface); padding: 14px 16px; min-width: 0; }
+.stat b { display: block; font-family: var(--font-display); font-stretch: 80%; font-size: 1.9rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 0.82rem; color: var(--muted); }
+section { padding-top: 46px; scroll-margin-top: 16px; }
+.sec-note { color: var(--muted); margin-bottom: 18px; }
+.layers { display: grid; gap: 8px; margin-top: 16px; }
+.layer { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 16px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+.layer.this { border-color: var(--accent); background: var(--accent-soft); }
+.layer .name { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 500; }
+.layer .name small { display: block; font-family: var(--font-body); color: var(--muted); font-size: 0.8rem; }
+.layer p { margin: 0; font-size: 0.95rem; }
+@media (max-width: 600px) { .layer { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+.toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); padding-block: 12px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-bottom: 1px solid var(--line); }
+#q { flex: 1 1 240px; min-width: 0; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; }
+#q:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: 0.82rem; font-weight: 600; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#count { font-size: 0.82rem; color: var(--faint); font-variant-numeric: tabular-nums; margin-left: auto; }
+.group { margin-top: 26px; }
+.group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 10px; }
+.group-head code { background: none; padding: 0; color: var(--accent); font-size: 0.95rem; font-weight: 500; }
+.group-head span { color: var(--muted); font-size: 0.9rem; }
+.rule { display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; gap: 4px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; }
+.rule .id { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); padding-top: 2px; }
+.rule .id b { display: block; color: var(--ink); font-size: 0.95rem; font-weight: 500; }
+.rule h3 { font-size: 1rem; }
+.rule .req { margin: 2px 0 0; font-size: 0.95rem; max-width: 72ch; }
+.rule .meta { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.8rem; color: var(--muted); }
+.rule .meta span b { color: var(--ink); font-weight: 600; }
+.rule .side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.pill { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+.k-Length, .k-Count { background: var(--sunk); color: var(--muted); }
+.k-Required { background: var(--accent-soft); color: var(--accent); }
+.k-Code { background: var(--flag-soft); color: var(--flag); }
+.k-Logic { background: var(--ok-soft); color: var(--ok); }
+.cov { font-size: 0.75rem; white-space: nowrap; color: var(--ok); }
+.cov.none { color: var(--gap); }
+@media (max-width: 600px) { .rule { grid-template-columns: minmax(0, 1fr); } .rule .meta { grid-column: 1; } .rule .side { flex-direction: row; align-items: center; } }
+.empty { color: var(--faint); padding: 20px 0; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--font-display); font-stretch: 85%; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); background: var(--sunk); white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+td.nowrap { white-space: nowrap; }
+.tag { display: inline-block; font-family: var(--font-mono); font-size: 0.82rem; padding: 1px 8px; border-radius: 4px; background: var(--flag-soft); color: var(--ink); border: 1px solid var(--line); }
+.counties { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin: 10px 0 0; }
+.counties li { font-family: var(--font-mono); font-size: 0.78rem; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; }
+.counties li.b { border-color: var(--accent); color: var(--accent); font-weight: 500; }
+.flow { display: grid; gap: 6px; counter-reset: step; list-style: none; padding: 0; margin: 12px 0; }
+.flow li { counter-increment: step; position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px 10px 46px; }
+.flow li::before { content: counter(step); position: absolute; left: 14px; top: 10px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--font-display); font-weight: 700; font-size: 0.8rem; display: grid; place-items: center; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.two > div { min-width: 0; }
+.gaps { display: grid; gap: 8px; margin-top: 12px; }
+.gapitem { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--gap); border-radius: 0 8px 8px 0; padding: 12px 16px; }
+.gapitem.decision { border-left-color: var(--flag); }
+.gapitem h3 { font-size: 0.98rem; margin-bottom: 4px; }
+.gapitem p { margin: 0; font-size: 0.93rem; }
+.gapitem .why { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--gap); }
+.gapitem.decision .why { color: var(--flag); }
+footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+footer ul { margin: 6px 0 0; padding-left: 18px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+<style>
+.mirror td:first-child, .mirror td:last-child { width: 40%; }
+.mirror td.arrow { text-align: center; color: var(--accent); font-family: var(--font-mono); white-space: nowrap; }
+.oneway { color: var(--faint); font-style: italic; }
+.diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 14px 0; }
+.diagram pre.mermaid { margin: 0; background: transparent; }
+.overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 14px; }
+.ov { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; min-width: 0; }
+.ov h3 { margin-bottom: 4px; }
+.ov p { margin: 0; font-size: 0.95rem; }
+.status { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; background: var(--ok-soft); color: var(--ok); margin-bottom: 6px; }
+</style>
+
+<div class="shell">
+  <nav class="rail" aria-label="Contents">
+    <p class="label">Contents</p>
+    <a href="#overview">Overview</a>
+    <a href="#layers">How the layers stack</a>
+    <a href="#roundtrip">Round trip</a>
+    <a href="#sending">Sending</a>
+    <a href="#receiving">Receiving</a>
+    <a href="#mirror">Localize and delocalize</a>
+    <a href="#lossy">What cannot come back</a>
+    <a href="#errors">Errors</a>
+    <a href="#tests">Tests</a>
+    <a href="#gaps">Gaps and decisions</a>
+  </nav>
+
+  <main>
+    <header class="top">
+      <p class="eyebrow">github.com/invopop/gobl.ro.anaf/converter</p>
+      <h1>RO e-Factura Converter Map</h1>
+      <p class="lede">How a GOBL invoice becomes the CIUS-RO XML ANAF files, how an invoice ANAF delivers becomes GOBL again, and how the two directions mirror each other so a round trip lands where it started.</p>
+      <div class="stats">
+        <div class="stat"><b>2</b><span>entry points</span></div>
+        <div class="stat"><b>4</b><span>localize steps</span></div>
+        <div class="stat"><b>6</b><span>delocalize steps</span></div>
+        <div class="stat"><b>133/134</b><span>exact round trips</span></div>
+        <div class="stat"><b>205</b><span>corpus invoices</span></div>
+        <div class="stat"><b>12</b><span>ANAF samples read</span></div>
+      </div>
+    </header>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p class="sec-note">The converter is the glue between GOBL and ANAF's XML. The addon decides what a Romanian invoice must say. gobl.ubl and gobl.cii decide how XML is written and read. The converter runs them in the right order and fixes the few Romanian details the format libraries cannot decide on their own.</p>
+      <div class="overview">
+        <div class="ov"><span class="status">Done</span><h3>ForwardConvert</h3><p>Takes a GOBL envelope and returns CIUS-RO UBL, ready to upload. Used by gov-ro's <code>generate</code> action.</p></div>
+        <div class="ov"><span class="status">Done</span><h3>ReverseConvert</h3><p>Takes the XML from an ANAF download, UBL or CII, and returns a calculated GOBL invoice with the Romanian addon applied. Used by gov-ro's <code>import</code> action.</p></div>
+      </div>
+    </section>
+
+    <section id="layers">
+      <h2>How the layers stack</h2>
+      <p class="sec-note">This page covers the highlighted layer. Everything it renders has already passed the addon.</p>
+      <div class="layers">
+        <div class="layer"><div class="name">GOBL core<small>gobl v0.507</small></div><p>The invoice model, calculation and generic validation. No Romanian tax regime yet, so it does not know RON is the accounting currency.</p></div>
+        <div class="layer"><div class="name">eu-en16931-v2017<small>required by the addon</small></div><p>The European standard: codes and BR rules every CIUS builds on.</p></div>
+        <div class="layer"><div class="name">ro-efactura-v1<small>addon/ · its own page</small></div><p>The Romanian rules, fixes, document types and tags. The converter runs it on the way out and on the way in.</p></div>
+        <div class="layer this"><div class="name">converter<small>converter/ · this page</small></div><p>gobl.ubl v0.82 writes and reads UBL, gobl.cii reads CII. <code>localize</code> and <code>delocalize</code> add the Romanian details in each direction.</p></div>
+      </div>
+    </section>
+
+    <section id="roundtrip">
+      <h2>Round trip</h2>
+      <p class="sec-note">An invoice leaves as GOBL, travels through ANAF as XML, and comes back as GOBL. The tests close the loop: they render the invoice read back and expect the very same XML.</p>
+      <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  A[GOBL invoice] -->|ForwardConvert| B[CIUS-RO XML]
+  B -->|upload| C[ANAF seals it]
+  C -->|download| D[XML from ANAF]
+  D -->|ReverseConvert| E[GOBL invoice]
+  E -.->|ForwardConvert in tests| F[identical XML]
+</pre>
+      </div>
+      <p>Most of the trip is lossless. CIUS-RO has no place for a few GOBL fields, so the GOBL read back can differ in those. The XML never does, apart from one invoice listed under the tests.</p>
+    </section>
+
+    <section id="sending">
+      <h2>Sending: ForwardConvert</h2>
+      <ol class="flow">
+        <li>Copy the envelope, so the caller's silo document is never changed.</li>
+        <li>Ask <code>KindOf</code> whether ANAF takes this kind at all. A proforma stops as skipped, a debit note as unsupported.</li>
+        <li>Calculate and validate, so every addon fix and rule runs. A broken rule stops here with its code.</li>
+        <li>gobl.ubl writes UBL using <code>ContextCIUSRO</code>, which sets BT-24 to <code>…CIUS-RO:1.0.1</code> and names the schematron the result is checked against.</li>
+        <li><code>localize</code> adds the Romanian details, then the XML is serialized.</li>
+      </ol>
+    </section>
+
+    <section id="receiving">
+      <h2>Receiving: ReverseConvert</h2>
+      <ol class="flow">
+        <li>Look at the root element to tell UBL (Invoice or CreditNote) from CII. Anything else is unreadable.</li>
+        <li>UBL is read by gobl.ubl as Romanian, whatever CIUS-RO version the file names. CII is read by gobl.cii, then the Romanian addon is declared on the result, because gobl.cii cannot be told.</li>
+        <li>Note what the parsers drop: the document type code, the payment means code, attachment file names and the VAT total in each currency.</li>
+        <li><code>delocalize</code> puts back what CIUS-RO and the parsers lost.</li>
+        <li>Calculate with the addon. The invoice is never validated: an invoice ANAF already sealed is kept even if it breaks one of our rules.</li>
+      </ol>
+    </section>
+
+    <section id="mirror">
+      <h2>Localize and delocalize</h2>
+      <p class="sec-note">Every change made on the way out has a partner that undoes it on the way in. When you change one side, check its partner.</p>
+      <div class="table-wrap"><table class="mirror">
+        <thead><tr><th>On the way out</th><th></th><th>On the way in</th></tr></thead>
+        <tbody>
+          <tr><td>The addon files an accounting invoice as <b>751</b> and a self-billed one as <b>389</b>.</td><td class="arrow">⇄</td><td><b>Document type</b>: 751 becomes a standard invoice with the <code>accounting</code> tag, which both parsers miss. 389 gets its <code>self-billed</code> tag back, which gobl.ubl drops when it keeps sealed totals.</td></tr>
+          <tr><td><b>Outside scope</b>: for a seller not registered for VAT, the seller's CIF moves to BT-32 and BT-30, and the buyer's to BT-47.</td><td class="arrow">⇄</td><td><b>Outside scope</b>: those CIFs become tax identifiers again. A buyer ID that is a CNP or not purely numeric, such as a trade register number, stays as it is.</td></tr>
+          <tr><td><b>Tax currency</b>: a foreign-currency invoice gets BT-6 = RON and its VAT in RON (BT-111), from the invoice's exchange rate.</td><td class="arrow">⇄</td><td><b>Tax currency</b>: the rate is worked out again as VAT in RON ÷ VAT in the invoice currency, to four decimals as BNR publishes it.</td></tr>
+          <tr><td>The addon writes a consumer's CNP as the buyer's legal ID. The XML keeps the number but not its type.</td><td class="arrow">⇄</td><td><b>Parties</b>: a bare 13-digit legal ID is typed as a CNP again.</td></tr>
+          <tr><td>gobl.ubl writes tax numbers with their country prefix (<code>RO12345674</code>) under the VAT scheme.</td><td class="arrow">⇄</td><td><b>Parties</b>: the country comes from the prefix, and the extra <code>VAT</code> label the parsers add is dropped.</td></tr>
+          <tr><td>The exact payment means code is written (BT-81), such as 26 for a holiday voucher.</td><td class="arrow">⇄</td><td><b>Payment</b>: codes the parsers cannot map are put back instead of turning into 1. A SEPA creditor ID left on the seller moves back to the direct debit.</td></tr>
+          <tr><td>An attachment's file name is written next to its URL.</td><td class="arrow">⇄</td><td><b>Attachments</b>: the file name gobl.ubl drops is restored by URL.</td></tr>
+          <tr><td>The schema location and the <code>NA</code> purchase-order placeholder are dropped.</td><td class="arrow">→</td><td class="oneway">Nothing to undo: the parsers ignore both.</td></tr>
+          <tr><td>The addon adds the <code>Autofactură</code> note and copies the enforcement body's CIF to BT-60.</td><td class="arrow">→</td><td class="oneway">Read back as an ordinary note and identity. The tags they came from are not guessed.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="lossy">
+      <h2>What cannot come back</h2>
+      <p class="sec-note">CIUS-RO has no place for these GOBL details. The original XML is always stored next to the imported invoice, so nothing is lost legally.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>GOBL detail</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Series apart from the number</td><td>BT-1 holds both joined as <code>FCT-2026-0380</code>.</td></tr>
+          <tr><td>Street apart from the building number</td><td>BT-35 holds one address line.</td></tr>
+          <tr><td>The county as the customer wrote it</td><td>Only the ISO code reaches the XML.</td></tr>
+          <tr><td>Preceding invoice type and reason</td><td>BT-25 and BT-26 carry only the number and date.</td></tr>
+          <tr><td>Contact first and last name</td><td>BT-41 is one name.</td></tr>
+          <tr><td>Advance payment details</td><td>BT-113 is a single amount.</td></tr>
+          <tr><td>Note keys, attribute keys, item identity types</td><td>The XML keeps the text and codes, not GOBL's keys.</td></tr>
+          <tr><td>The <code>enforcement</code> tag, and <code>self-billed</code> on a 381 or 384</td><td>ANAF learns them from upload flags, not from the XML.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="errors">
+      <h2>Errors</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Error</th><th>Direction</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>ErrInvalidDocument</code></td><td>out</td><td>The envelope carries no GOBL invoice.</td></tr>
+          <tr><td><code>ErrNotCompliant</code></td><td>out</td><td>An addon rule refused the invoice; the message carries the rule code.</td></tr>
+          <tr><td><code>ErrUnsupported</code></td><td>out</td><td>Romania has no code for this kind of document.</td></tr>
+          <tr><td><code>ErrSkipped</code></td><td>out</td><td>Never reported to ANAF, such as a proforma.</td></tr>
+          <tr><td><code>ErrConversion</code></td><td>both</td><td>Writing, reading or calculating failed.</td></tr>
+          <tr><td><code>ErrUnreadable</code></td><td>in</td><td>The file is not XML, or not a UBL or CII invoice.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="tests">
+      <h2>Tests</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Test</th><th>What it proves</th></tr></thead>
+        <tbody>
+          <tr><td>Conversion corpus</td><td>205 invoices: 134 render and pass ANAF's schematron through phorm, 71 are refused by the rule they name.</td></tr>
+          <tr><td>Round trip</td><td>Every accepted invoice is read back and rendered again: 133 give identical XML and the same GOBL apart from the details above. The one left is a zero-VAT invoice in EUR, whose exchange rate cannot be recovered.</td></tr>
+          <tr><td>ANAF samples</td><td>The 12 official UBL and CII samples in <code>resources/examples</code> are read with the right type, currency and sealed payable amount.</td></tr>
+          <tr><td>Targeted cases</td><td>Unreadable input, a trade register number kept outside the VAT scope, the exchange rate read from CII.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Routing, meaning how ANAF receives each invoice, is not conversion and is tested in gov-ro.</p>
+    </section>
+
+    <section id="gaps">
+      <h2>Gaps and decisions</h2>
+      <p class="sec-note">Only what changes how the converter behaves today.</p>
+      <div class="gaps">
+        <div class="gapitem"><span class="why">Bug</span><h3>Seller outside the VAT scope with an ordering seller</h3><p>When an invoice in category O also has an ordering seller, <code>localize</code> writes the ordering seller's CIF into the seller's fields. gobl.ubl now writes the supplier as the seller, so the CIF is the wrong one. The fix is to always use the supplier. No corpus invoice has this combination yet.</p></div>
+        <div class="gapitem decision"><span class="why">Decision</span><h3>Sealed totals are kept as stated</h3><p>When a received invoice's totals do not add up, gobl.ubl and gobl.cii keep the totals ANAF sealed and mark the invoice <code>bypass</code>. The converter adds no totals check of its own and never validates a received invoice.</p></div>
+        <div class="gapitem decision"><span class="why">Decision</span><h3>No guessing tags the XML does not carry</h3><p>Enforcement, and self-billing on a 381 or 384, only exist as ANAF upload flags. Reading them back would be a guess, so the converter leaves them off.</p></div>
+        <div class="gapitem"><span class="why">Gap</span><h3>No exchange rate on a zero-VAT foreign invoice</h3><p>The rate is only recoverable from the two VAT totals. With zero VAT both are zero, so the invoice comes back without a rate. It imports fine, but could not be sent again as it is.</p></div>
+        <div class="gapitem"><span class="why">Temporary</span><h3>gobl.cii runs on a fix branch</h3><p>Reading the VAT in RON from CII needs the gobl.cii fix that is still in review. The module is pinned to that branch until it is released.</p></div>
+      </div>
+    </section>
+
+    <footer>
+      Built from the converter source on 8 October 2026, with gobl.ubl v0.82, gobl.cii on its fix branch and the addon ro-efactura-v1. The rules and fixes the converter runs are on the RO e-Factura Addon Map.
+    </footer>
+  </main>
+</div>

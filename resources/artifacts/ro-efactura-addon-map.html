@@ -1,0 +1,414 @@
+<title>RO e-Factura Addon Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a contents rail beside one reading column on wide screens, stacked on phones; rules render as filterable groups per GOBL type */
+:root {
+  --ground: #f3f5f9;
+  --surface: #ffffff;
+  --sunk: #e9edf4;
+  --ink: #16202f;
+  --muted: #59657a;
+  --faint: #8792a6;
+  --line: #d9dfe9;
+  --accent: #1d4ea6;
+  --accent-soft: #e3ebfa;
+  --flag: #c99300;
+  --flag-soft: #fbf1d3;
+  --gap: #b23a3f;
+  --gap-soft: #f8e4e4;
+  --ok: #1f7a55;
+  --ok-soft: #dff1e8;
+  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0e131b; --surface: #151c27; --sunk: #1b2432; --ink: #e4e9f1; --muted: #9aa5b8; --faint: #6f7b90; --line: #273142;
+    --accent: #8db0ff; --accent-soft: #1a2945; --flag: #e7bd4a; --flag-soft: #2c2512; --gap: #ef8a8e; --gap-soft: #321b1d; --ok: #6fd2a6; --ok-soft: #13291f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0e131b; --surface: #151c27; --sunk: #1b2432; --ink: #e4e9f1; --muted: #9aa5b8; --faint: #6f7b90; --line: #273142;
+  --accent: #8db0ff; --accent-soft: #1a2945; --flag: #e7bd4a; --flag-soft: #2c2512; --gap: #ef8a8e; --gap-soft: #321b1d; --ok: #6fd2a6; --ok-soft: #13291f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.shell { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 0 80px; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 40px; }
+@media (max-width: 900px) { .shell { grid-template-columns: minmax(0, 1fr); gap: 0; } .rail { display: none; } }
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); align-self: start; padding-top: 40px; }
+.rail a { display: block; color: var(--muted); text-decoration: none; font-size: 0.9rem; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); }
+.rail a:hover, .rail a:focus-visible { color: var(--accent); border-left-color: var(--accent); outline: none; }
+.rail .label { font-family: var(--font-display); font-stretch: 85%; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; color: var(--faint); margin: 0 0 8px; font-weight: 700; }
+main { min-width: 0; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; font-stretch: 80%; margin: 0 0 10px; letter-spacing: -0.01em; }
+h2 { font-size: 1.55rem; font-weight: 700; font-stretch: 85%; margin: 0 0 6px; }
+h3 { font-size: 1.08rem; font-weight: 700; font-stretch: 90%; margin: 0; }
+p { max-width: 70ch; margin: 0 0 12px; }
+a { color: var(--accent); }
+code, .mono { font-family: var(--font-mono); font-size: 0.84em; }
+code { background: var(--sunk); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+header.top { padding-block: 44px 28px; border-bottom: 1px solid var(--line); }
+.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.04em; margin: 0 0 12px; }
+.lede { font-size: 1.12rem; color: var(--muted); max-width: 66ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-top: 26px; }
+.stat { background: var(--surface); padding: 14px 16px; min-width: 0; }
+.stat b { display: block; font-family: var(--font-display); font-stretch: 80%; font-size: 1.9rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 0.82rem; color: var(--muted); }
+section { padding-top: 46px; scroll-margin-top: 16px; }
+.sec-note { color: var(--muted); margin-bottom: 18px; }
+.layers { display: grid; gap: 8px; margin-top: 16px; }
+.layer { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 16px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+.layer.this { border-color: var(--accent); background: var(--accent-soft); }
+.layer .name { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 500; }
+.layer .name small { display: block; font-family: var(--font-body); color: var(--muted); font-size: 0.8rem; }
+.layer p { margin: 0; font-size: 0.95rem; }
+@media (max-width: 600px) { .layer { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+.toolbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); padding-block: 12px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-bottom: 1px solid var(--line); }
+#q { flex: 1 1 240px; min-width: 0; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; }
+#q:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: 0.82rem; font-weight: 600; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#count { font-size: 0.82rem; color: var(--faint); font-variant-numeric: tabular-nums; margin-left: auto; }
+.group { margin-top: 26px; }
+.group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 10px; }
+.group-head code { background: none; padding: 0; color: var(--accent); font-size: 0.95rem; font-weight: 500; }
+.group-head span { color: var(--muted); font-size: 0.9rem; }
+.rule { display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; gap: 4px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; }
+.rule .id { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); padding-top: 2px; }
+.rule .id b { display: block; color: var(--ink); font-size: 0.95rem; font-weight: 500; }
+.rule h3 { font-size: 1rem; }
+.rule .req { margin: 2px 0 0; font-size: 0.95rem; max-width: 72ch; }
+.rule .meta { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.8rem; color: var(--muted); }
+.rule .meta span b { color: var(--ink); font-weight: 600; }
+.rule .side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.pill { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+.k-Length, .k-Count { background: var(--sunk); color: var(--muted); }
+.k-Required { background: var(--accent-soft); color: var(--accent); }
+.k-Code { background: var(--flag-soft); color: var(--flag); }
+.k-Logic { background: var(--ok-soft); color: var(--ok); }
+.cov { font-size: 0.75rem; white-space: nowrap; color: var(--ok); }
+.cov.none { color: var(--gap); }
+@media (max-width: 600px) { .rule { grid-template-columns: minmax(0, 1fr); } .rule .meta { grid-column: 1; } .rule .side { flex-direction: row; align-items: center; } }
+.empty { color: var(--faint); padding: 20px 0; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--font-display); font-stretch: 85%; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); background: var(--sunk); white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+td.nowrap { white-space: nowrap; }
+.tag { display: inline-block; font-family: var(--font-mono); font-size: 0.82rem; padding: 1px 8px; border-radius: 4px; background: var(--flag-soft); color: var(--ink); border: 1px solid var(--line); }
+.counties { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin: 10px 0 0; }
+.counties li { font-family: var(--font-mono); font-size: 0.78rem; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; }
+.counties li.b { border-color: var(--accent); color: var(--accent); font-weight: 500; }
+.flow { display: grid; gap: 6px; counter-reset: step; list-style: none; padding: 0; margin: 12px 0; }
+.flow li { counter-increment: step; position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px 10px 46px; }
+.flow li::before { content: counter(step); position: absolute; left: 14px; top: 10px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--font-display); font-weight: 700; font-size: 0.8rem; display: grid; place-items: center; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.two > div { min-width: 0; }
+.gaps { display: grid; gap: 8px; margin-top: 12px; }
+.gapitem { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--gap); border-radius: 0 8px 8px 0; padding: 12px 16px; }
+.gapitem.decision { border-left-color: var(--flag); }
+.gapitem h3 { font-size: 0.98rem; margin-bottom: 4px; }
+.gapitem p { margin: 0; font-size: 0.93rem; }
+.gapitem .why { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--gap); }
+.gapitem.decision .why { color: var(--flag); }
+footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+footer ul { margin: 6px 0 0; padding-left: 18px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+<style>
+.mirror td:first-child, .mirror td:last-child { width: 40%; }
+.mirror td.arrow { text-align: center; color: var(--accent); font-family: var(--font-mono); white-space: nowrap; }
+.oneway { color: var(--faint); font-style: italic; }
+.diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 14px 0; }
+.diagram pre.mermaid { margin: 0; background: transparent; }
+.overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 14px; }
+.ov { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; min-width: 0; }
+.ov h3 { margin-bottom: 4px; }
+.ov p { margin: 0; font-size: 0.95rem; }
+.status { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; background: var(--ok-soft); color: var(--ok); margin-bottom: 6px; }
+</style>
+
+<div class="shell">
+  <nav class="rail" aria-label="Contents">
+    <p class="label">Contents</p>
+    <a href="#overview">Overview</a>
+    <a href="#layers">How the layers stack</a>
+    <a href="#types">Document types</a>
+    <a href="#rules">Rules</a>
+    <a href="#normalizers">Normalizers</a>
+    <a href="#tags">Tags</a>
+    <a href="#codes">Identities and codes</a>
+    <a href="#reference">Reference data</a>
+    <a href="#helpers">Helpers</a>
+    <a href="#gaps">Gaps and decisions</a>
+  </nav>
+
+  <main>
+    <header class="top">
+      <p class="eyebrow">github.com/invopop/gobl.ro.anaf/addon · ro-efactura-v1</p>
+      <h1>RO e-Factura Addon Map</h1>
+      <p class="lede">What the Romanian addon adds on top of GOBL and the EU EN 16931 addon: the document types ANAF files, the Romanian rules, the silent fixes and the tags. EU rules are left out. The rule list is generated from GOBL's rules registry, so every code and message matches what a validation fault prints.</p>
+      <div class="stats">
+        <div class="stat"><b>5</b><span>document types</span></div>
+        <div class="stat"><b>64</b><span>rules</span></div>
+        <div class="stat"><b>6</b><span>normalizers</span></div>
+        <div class="stat"><b>2</b><span>tags of its own</span></div>
+        <div class="stat"><b>42</b><span>county codes</span></div>
+        <div class="stat"><b>60</b><span>rules proven by the corpus</span></div>
+      </div>
+    </header>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p class="sec-note">An invoice that declares <code>ro-efactura-v1</code> is corrected and checked inside GOBL, before any XML exists. <code>Calculate</code> runs the normalizers, which quietly fix what can be fixed. <code>Validate</code> runs the rules, which refuse what ANAF would refuse, each with a code like <code>GOBL-RO-EFACTURA-BILL-INVOICE-13</code>. A document the addon accepts is one the converter can render and ANAF's schematron will take.</p>
+      <div class="overview">
+        <div class="ov"><span class="status">Done</span><h3>Document types</h3><p>Every GOBL invoice type maps to the Romanian code ANAF files it under: 380, 381, 384, 389 or 751. Proformas are skipped and debit notes refused.</p></div>
+        <div class="ov"><span class="status">Done</span><h3>Romanian rules</h3><p>64 rules covering RO_CIUS 1.0.1, the ANAF guide to invoice type codes v2.9 and the enforcement register notice. 60 have an invoice in the corpus that must fail on them.</p></div>
+        <div class="ov"><span class="status">Done</span><h3>Silent fixes</h3><p>Rounding, county and sector codes, the consumer's CNP, the self-billing mention, the enforcement body's identifier and default VATEX codes.</p></div>
+        <div class="ov"><span class="status">Done</span><h3>Tags</h3><p><code>accounting</code> and <code>enforcement</code>, plus Romanian meaning for GOBL's own <code>self-billed</code>.</p></div>
+      </div>
+    </section>
+
+    <section id="layers">
+      <h2>How the layers stack</h2>
+      <p class="sec-note">Each layer builds on the one above it and knows nothing about the jobs of the others. This page covers the highlighted one.</p>
+      <div class="layers">
+        <div class="layer"><div class="name">GOBL core<small>gobl v0.507</small></div><p>Invoice types, calculation, rounding, the <code>self-billed</code> tag, generic validation. There is no Romanian tax regime yet, so core does not know that RON is the accounting currency or what a valid CIF looks like.</p></div>
+        <div class="layer"><div class="name">eu-en16931-v2017<small>required by the addon</small></div><p>The European standard: UNTDID document types and payment means, VAT categories, VATEX exemption codes and the BR rules. Declaring the Romanian addon pulls it in automatically.</p></div>
+        <div class="layer this"><div class="name">ro-efactura-v1<small>addon/ · this page</small></div><p>Everything Romania adds on top: document types, rules, normalizers, tags, the CNP identity and the county and sector codes.</p></div>
+        <div class="layer"><div class="name">converter<small>converter/ · its own page</small></div><p>Renders the accepted invoice as CIUS-RO UBL and reads received UBL or CII back to GOBL. It relies on the addon having done its job first.</p></div>
+      </div>
+    </section>
+
+    <section id="types">
+      <h2>Document types</h2>
+      <p class="sec-note">The addon's scenarios write the Romanian code (BT-3) into <code>tax.ext.untdid-document-type</code> from the invoice type and its tags. When two match, the later one wins, so self-billing beats accounting. <code>KindOf</code> gives the same answer before the invoice is calculated, so a caller can drop what ANAF never receives.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>GOBL type</th><th>Tags</th><th>Code</th><th>Filed as</th><th>KindOf</th></tr></thead>
+        <tbody>
+          <tr><td><code>standard</code></td><td>none</td><td class="mono">380</td><td>Invoice</td><td>invoice, accepted</td></tr>
+          <tr><td><code>standard</code></td><td><span class="tag">accounting</span></td><td class="mono">751</td><td>Invoice</td><td>accounting, accepted</td></tr>
+          <tr><td><code>standard</code></td><td><span class="tag">self-billed</span></td><td class="mono">389</td><td>Invoice</td><td>self-billed, accepted</td></tr>
+          <tr><td><code>credit-note</code></td><td>any</td><td class="mono">381</td><td>CreditNote</td><td>credit-note, accepted</td></tr>
+          <tr><td><code>corrective</code></td><td>any</td><td class="mono">384</td><td>Invoice</td><td>corrective, accepted</td></tr>
+          <tr><td><code>proforma</code></td><td>any</td><td>none</td><td>never filed</td><td>proforma, skipped</td></tr>
+          <tr><td><code>debit-note</code>, <code>other</code></td><td>any</td><td>none</td><td>refused</td><td>unsupported</td></tr>
+        </tbody>
+      </table></div>
+      <p>A storno is a <code>standard</code> invoice with a negative total, so it stays 380. A credit note or corrective invoice issued by the buyer keeps 381 or 384; self-billing then only adds the mention and changes how ANAF receives it.</p>
+    </section>
+
+    <section id="rules">
+      <h2>Rules</h2>
+      <p class="sec-note">Grouped by the GOBL type each rule checks. A green mark means the corpus holds an invoice this rule must reject.</p>
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Filter by code, BT, BR-RO or field" aria-label="Filter rules">
+        <div class="chips" role="group" aria-label="Rule kind">
+          <button class="chip" data-kind="Required" aria-pressed="true">Required</button>
+          <button class="chip" data-kind="Code" aria-pressed="true">Code</button>
+          <button class="chip" data-kind="Logic" aria-pressed="true">Logic</button>
+          <button class="chip" data-kind="Length" aria-pressed="true">Length</button>
+          <button class="chip" data-kind="Count" aria-pressed="true">Count</button>
+        </div>
+        <span id="count"></span>
+      </div>
+      <div id="rule-list"></div>
+      <p class="empty" id="empty" hidden>No rule matches that filter.</p>
+    </section>
+
+    <section id="normalizers">
+      <h2>Normalizers</h2>
+      <p class="sec-note">Silent fixes that run on <code>Calculate</code>, before any rule. Each one removes a whole class of rejection instead of reporting it.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Normalizer</th><th>What it does</th><th>When</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><code>normalizeRounding</code></td><td>Rounds every amount to the currency's two decimals.</td><td>Always</td><td>BR-RO-Z2. GOBL's default would leave totals such as 99.995, which ANAF rejects.</td></tr>
+          <tr><td class="nowrap"><code>normalizeCustomer</code></td><td>Moves a CNP the buyer gave into BT-47. Otherwise gives the buyer the anonymous CNP <code>0000000000000</code>.</td><td>The buyer has no tax number and no legal identifier, and is in Romania or has no country. A foreign buyer is left alone.</td><td>BR-RO-120, OUG 138/2024</td></tr>
+          <tr><td class="nowrap"><code>normalizeSelfBillingNote</code></td><td>Adds the note <code>Autofactură</code>.</td><td>The buyer issued the invoice in the supplier's name, and no note says it yet. Not when a company bills itself.</td><td>Art. 319(20)(k) of the Fiscal Code, guide 2.4</td></tr>
+          <tr><td class="nowrap"><code>normalizeEnforcementPayee</code></td><td>Repeats the enforcement body's CIF as an identity.</td><td>Enforcement invoices</td><td>That is the only way it reaches BT-60, where the enforcement register notice wants it.</td></tr>
+          <tr><td class="nowrap"><code>normalizeAddress</code></td><td>Turns the county into an ISO code (<code>Cluj</code> becomes <code>RO-CJ</code>) and a Bucharest locality into a sector code (<code>Sector 1</code> becomes <code>SECTOR1</code>).</td><td>Addresses in Romania</td><td>BR-RO-110 and BR-RO-100, the most common ANAF rejection</td></tr>
+          <tr><td class="nowrap"><code>normalizeTaxCombo</code></td><td>Sets the exemption code <code>VATEX-EU-O</code> for category O and <code>VATEX-EU-AE</code> for reverse charge.</td><td>The line states no code of its own</td><td>Guide sections 3.3 and 3.4</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="tags">
+      <h2>Tags</h2>
+      <p class="sec-note">Tags change the document type, the mentions and how ANAF receives the invoice.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tag</th><th>From</th><th>Means</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag">accounting</span></td><td>addon</td><td>An invoice sent for accounting purposes only, such as one issued on top of a fiscal receipt.</td><td>Filed as 751 and must name its base documents in a note.</td></tr>
+          <tr><td><span class="tag">enforcement</span></td><td>addon</td><td>An invoice an enforcement body issues in the debtor's name.</td><td>The enforcement body must be the payee, with a name and a CIF. Filed under its CIF with <code>executare=DA</code>. Never combined with self-billing.</td></tr>
+          <tr><td><span class="tag">self-billed</span></td><td>GOBL core</td><td>An invoice the buyer issues in the supplier's name, or a supply a company bills to itself.</td><td>A standard invoice is filed as 389, even with the accounting tag. The buyer needs a tax number. When another company issued it: the <code>Autofactură</code> note, filed under the buyer's CIF with <code>autofactura=DA</code>.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="codes">
+      <h2>Identities and codes</h2>
+      <div class="two">
+        <div>
+          <h3>Identity type</h3>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Type</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td class="nowrap"><code>CNP</code></td><td>The Romanian personal numeric code, 13 digits. In legal scope it becomes the buyer identifier BT-47. Thirteen zeros stand for an anonymous consumer.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div>
+          <h3>Extension values it sets</h3>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Extension</th><th>Values</th></tr></thead>
+            <tbody>
+              <tr><td class="nowrap"><code>untdid-document-type</code></td><td class="mono">380, 381, 384, 389, 751</td></tr>
+              <tr><td class="nowrap"><code>cef-vatex</code></td><td class="mono">VATEX-EU-O, VATEX-EU-AE</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reference">
+      <h2>Reference data</h2>
+      <div class="two">
+        <div>
+          <h3>VAT standard rates</h3>
+          <p>Category S must carry one of these.</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Rate</th><th>Applies to</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">21%, 11%</td><td>Supplies since 1 August 2025</td></tr>
+              <tr><td class="mono">19%, 9%, 5%</td><td>Supplies made before August 2025</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div>
+          <h3>Fixed values</h3>
+          <div class="table-wrap"><table>
+            <tbody>
+              <tr><td>Accounting currency</td><td class="mono">RON</td></tr>
+              <tr><td>Decimals on any amount</td><td class="mono">2</td></tr>
+              <tr><td>Anonymous CNP</td><td class="mono">0000000000000</td></tr>
+              <tr><td>Self-billing mention</td><td class="mono">Autofactură</td></tr>
+              <tr><td>Intra-community category</td><td class="mono">K</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <h3 style="margin-top:20px">Counties</h3>
+      <p>The 42 ISO 3166-2:RO codes, each written <code>RO-</code> plus the code. The county can be written as the code in any case (<code>CJ</code>, <code>ro-cj</code>) or as its name, with or without diacritics and with or without <code>Județul</code>, <code>Jud.</code> or <code>Municipiul</code> in front.</p>
+      <ul class="counties" aria-label="County codes">
+        <li>AB</li><li>AG</li><li>AR</li><li class="b">B</li><li>BC</li><li>BH</li><li>BN</li><li>BR</li><li>BT</li><li>BV</li><li>BZ</li><li>CJ</li><li>CL</li><li>CS</li><li>CT</li><li>CV</li><li>DB</li><li>DJ</li><li>GJ</li><li>GL</li><li>GR</li><li>HD</li><li>HR</li><li>IF</li><li>IL</li><li>IS</li><li>MH</li><li>MM</li><li>MS</li><li>NT</li><li>OT</li><li>PH</li><li>SB</li><li>SJ</li><li>SM</li><li>SV</li><li>TL</li><li>TM</li><li>TR</li><li>VL</li><li>VN</li><li>VS</li>
+      </ul>
+      <h3 style="margin-top:20px">Bucharest sectors</h3>
+      <p>In <code>RO-B</code> the city is a sector code with no space: <code>SECTOR1</code> to <code>SECTOR6</code>. <code>Sector 3</code>, <code>sectorul 5</code> and a bare <code>6</code> are all understood.</p>
+    </section>
+
+    <section id="helpers">
+      <h2>Helpers</h2>
+      <p class="sec-note">Questions the addon answers for the converter and for gov-ro's routing. A change here changes how ANAF receives invoices.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Function</th><th>Answers</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><code>IsSelfBilled</code></td><td>Does the invoice carry the self-billed tag?</td></tr>
+          <tr><td class="nowrap"><code>IsSelfSupply</code></td><td>Is it self-billed with the same CIF on both sides: a company billing a supply to itself?</td></tr>
+          <tr><td class="nowrap"><code>IsBuyerIssued</code></td><td>Is it self-billed by a different company, the case that needs the mention and <code>autofactura</code>?</td></tr>
+          <tr><td class="nowrap"><code>IsEnforcement</code>, <code>IsAccounting</code></td><td>Does the invoice carry that tag?</td></tr>
+          <tr><td class="nowrap"><code>IsOutsideScope</code></td><td>Is VAT category O on the invoice, meaning a seller not registered for VAT?</td></tr>
+          <tr><td class="nowrap"><code>IsBusiness</code></td><td>Does the party have a tax number, or a legal identifier that is not a CNP? This picks the B2B or B2C upload.</td></tr>
+          <tr><td class="nowrap"><code>IsIdentified</code></td><td>Does the party have a tax number or any legal identifier?</td></tr>
+          <tr><td class="nowrap"><code>CIF</code></td><td>The tax number without the <code>RO</code> prefix, as the ANAF API wants it.</td></tr>
+          <tr><td class="nowrap"><code>Issuer</code></td><td>Who files the invoice: the enforcement body, the buyer when self-billed, the supplier otherwise.</td></tr>
+          <tr><td class="nowrap"><code>KindOf</code></td><td>What ANAF does with an invoice before it is calculated: accepted, skipped or unsupported.</td></tr>
+          <tr><td class="nowrap"><code>ParseCounty</code>, <code>ParseSector</code></td><td>Read a county or sector the way people write it.</td></tr>
+          <tr><td class="nowrap"><code>RenderNote</code></td><td>A note exactly as it is written in the XML, so length rules measure the real text.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="gaps">
+      <h2>Gaps and decisions</h2>
+      <p class="sec-note">Only what changes how the addon behaves today.</p>
+      <div class="gaps">
+        <div class="gapitem"><span class="why">Gap</span><h3>GOBL has no Romanian tax regime</h3><p>Nothing checks that a CIF is well formed, and the standard VAT rates live in the addon instead of GOBL core. When GOBL gets a Romanian regime, both should move there and the rate rule can go.</p></div>
+        <div class="gapitem decision"><span class="why">Decision</span><h3>Foreign buyers need their own identifier</h3><p>GOBL cannot tell a foreign company from a foreign person. So a buyer abroad without any identifier is refused instead of being sent as an anonymous consumer. This stops a company from being filed as B2C. The cost: a foreign tourist without an ID is refused too, although ANAF would accept thirteen zeros for a person.</p></div>
+        <div class="gapitem"><span class="why">Gap</span><h3>Address rules on the ordering seller</h3><p>Two rules require a street and a city on the ordering seller. The converter now writes that party as the tax representative, which ANAF does not check this way, so these rules are stricter than ANAF.</p></div>
+      </div>
+    </section>
+
+    <footer>
+      Built from the addon source on 8 October 2026, with gobl v0.507. Rule codes and messages come from GOBL's rules registry. Sources: RO_CIUS 1.0.1 and the RO16931 schematron 1.0.9; ANAF guide to invoice type codes v2.9; the RO e-Factura API guide; the enforcement register notice; the ANAF clarification on simplified B2C invoices (OUG 138/2024).
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var RULES = [{"code": "BILL-INVOICE-01", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-01", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Invoice number has a digit", "req": "BT-1, written as series-code the way gobl.ubl renders it, contains at least one digit.", "refs": "BR-RO-010", "when": "", "kind": "Code", "fixtures": 1}, {"code": "BILL-INVOICE-02", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-02", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Invoice number length", "req": "BT-1 (series-code) is at most 200 characters.", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "BILL-INVOICE-03", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-03", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Rate to RON", "req": "The invoice is in RON, or states an exchange rate from its currency to RON, so the converter can write the VAT in RON (BT-6, BT-111).", "refs": "BR-RO-030", "when": "", "kind": "Code", "fixtures": 1}, {"code": "BILL-INVOICE-04", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-04", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Two-decimal currency", "req": "The document currency has at most two decimals, so every amount fits BR-RO-Z2. Currencies such as TND or KWD are refused.", "refs": "BR-RO-Z2", "when": "", "kind": "Code", "fixtures": 1}, {"code": "BILL-INVOICE-05", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-05", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "notes", "title": "At most 20 notes", "req": "BG-1 holds no more than 20 notes.", "refs": "BR-RO-A020", "when": "", "kind": "Count", "fixtures": 1}, {"code": "BILL-INVOICE-06", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-06", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "preceding", "title": "At most 500 preceding invoices", "req": "BG-3 holds no more than 500 references.", "refs": "BR-RO-A500", "when": "", "kind": "Count", "fixtures": 1}, {"code": "BILL-INVOICE-07", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-07", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "preceding", "title": "Preceding number length", "req": "Each BT-25 (series-code) is at most 200 characters.", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "BILL-INVOICE-08", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-08", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "attachments", "title": "At most 50 attachments", "req": "BG-24 holds no more than 50 supporting documents.", "refs": "BR-RO-A050", "when": "", "kind": "Count", "fixtures": 1}, {"code": "BILL-INVOICE-09", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-09", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "ordering.cost", "title": "Buyer accounting reference length", "req": "ordering.cost (BT-19) is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "BILL-INVOICE-10", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-10", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "supplier", "title": "Seller tax number", "req": "The supplier has a tax identifier with a code (BT-31 or BT-32).", "refs": "BR-RO-065", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-11", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-11", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "supplier", "title": "Seller street", "req": "The supplier's first address has a street (BT-35).", "refs": "BR-RO-080", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-12", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-12", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "supplier", "title": "Seller city", "req": "The supplier's first address has a city (BT-37).", "refs": "BR-RO-090", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-13", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-13", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "customer", "title": "Buyer identified", "req": "The customer has a tax identifier (BT-48) or a legal-scope identity (BT-47). A buyer in Romania without either gets the 13-zero CNP from the normalizer; a foreign buyer must state its own.", "refs": "BR-RO-120", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-14", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-14", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "customer", "title": "Buyer street", "req": "The customer's first address has a street (BT-50).", "refs": "BR-RO-080", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-15", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-15", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "customer", "title": "Buyer city", "req": "The customer's first address has a city (BT-52).", "refs": "BR-RO-090", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-16", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-16", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "ordering.seller", "title": "Ordering seller street", "req": "The ordering seller's first address has a street (BT-35).", "refs": "BR-RO-080", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-17", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-17", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "ordering.seller", "title": "Ordering seller city", "req": "The ordering seller's first address has a city (BT-37).", "refs": "BR-RO-090", "when": "", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-18", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-18", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "tax", "title": "Tax block present", "req": "The invoice has a tax block. A safety net: the rounding normalizer always creates one.", "refs": "Addon", "when": "", "kind": "Required", "fixtures": 0}, {"code": "BILL-INVOICE-19", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-19", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "tax.ext", "title": "Document type set", "req": "tax.ext carries untdid-document-type. A safety net: the scenarios always set it.", "refs": "Addon", "when": "", "kind": "Required", "fixtures": 0}, {"code": "BILL-INVOICE-20", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-20", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "tax.notes", "title": "Exemption reason length", "req": "Each tax note, which becomes BT-120, is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "BILL-INVOICE-21", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-21", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "tax.ext", "title": "Credit note is 381", "req": "A credit note is filed with document type 381.", "refs": "BR-RO-020_2", "when": "credit note", "kind": "Code", "fixtures": 0}, {"code": "BILL-INVOICE-22", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-22", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "tax.ext", "title": "Invoice document types", "req": "Anything but a credit note is filed as 380, 384, 389 or 751.", "refs": "BR-RO-020_1", "when": "not a credit note", "kind": "Code", "fixtures": 0}, {"code": "BILL-INVOICE-23", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-23", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Intra-community delivery date", "req": "An intra-community supply states a delivery date (BT-72) or an invoicing period (BG-14).", "refs": "BR-IC-11", "when": "VAT category K on a line, discount or charge", "kind": "Required", "fixtures": 2}, {"code": "BILL-INVOICE-24", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-24", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Intra-community delivery country", "req": "An intra-community supply states the delivery country (BT-80).", "refs": "BR-IC-12", "when": "VAT category K on a line, discount or charge", "kind": "Required", "fixtures": 1}, {"code": "BILL-INVOICE-25", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-25", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "customer", "title": "Self-billed buyer has a tax number", "req": "The customer of a self-billed invoice has a tax identifier, because ANAF files it under the buyer's CIF.", "refs": "Guide 2.4", "when": "self-billed tag", "kind": "Logic", "fixtures": 1}, {"code": "BILL-INVOICE-26", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-26", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "preceding", "title": "Correction references its invoice", "req": "A credit note, a corrective invoice, or a storno (standard invoice with a negative sum) references the invoice it corrects.", "refs": "Guide 2.1 to 2.3", "when": "credit note, corrective, or standard with negative sum", "kind": "Logic", "fixtures": 4}, {"code": "BILL-INVOICE-27", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-27", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "preceding", "title": "Preceding invoice is dated", "req": "Every preceding reference carries its issue date (BT-26) next to its number (BT-25).", "refs": "Guide 2.1 to 2.3", "when": "", "kind": "Required", "fixtures": 3}, {"code": "BILL-INVOICE-28", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-28", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "lines", "title": "Credit note lines positive", "req": "Credit note lines have positive quantities (BT-129). A credit note is corrected by a positive 380, never by negative lines.", "refs": "Guide 2.2", "when": "credit note", "kind": "Logic", "fixtures": 1}, {"code": "BILL-INVOICE-29", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-29", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "notes", "title": "751 names its base documents", "req": "An accounting invoice has at least one note (BT-22) naming the documents it is based on, such as the fiscal receipt.", "refs": "Guide 2.5", "when": "document type 751", "kind": "Logic", "fixtures": 1}, {"code": "BILL-INVOICE-30", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-30", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Self-billing and enforcement exclusive", "req": "An invoice cannot carry both the self-billed and the enforcement tags.", "refs": "Addon", "when": "", "kind": "Logic", "fixtures": 1}, {"code": "BILL-INVOICE-31", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-31", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "payment", "title": "Enforcement has payment", "req": "An enforcement invoice has a payment block naming the enforcement body as payee.", "refs": "Enforcement register notice", "when": "enforcement tag", "kind": "Logic", "fixtures": 1}, {"code": "BILL-INVOICE-32", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-32", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "payment.payee", "title": "Enforcement has payee", "req": "An enforcement invoice names the enforcement body as payee (BG-10).", "refs": "Enforcement register notice", "when": "enforcement tag", "kind": "Logic", "fixtures": 1}, {"code": "BILL-INVOICE-33", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-33", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "payment.payee", "title": "Enforcement body identified", "req": "The payee has a name (BT-59) and a tax identifier (BT-60).", "refs": "Enforcement register notice", "when": "enforcement tag", "kind": "Logic", "fixtures": 1}, {"code": "BILL-INVOICE-34", "full": "GOBL-RO-EFACTURA-BILL-INVOICE-34", "obj": "bill.Invoice", "group": "BILL-INVOICE", "path": "", "title": "Category O stands alone", "req": "An invoice with VAT category O carries no other VAT category. Penalties, interest and guarantees are exempt (E) with a reason instead.", "refs": "BR-O-11, Guide 3.4", "when": "", "kind": "Logic", "fixtures": 1}, {"code": "BILL-DELIVERYDETAILS-01", "full": "GOBL-RO-EFACTURA-BILL-DELIVERYDETAILS-01", "obj": "bill.DeliveryDetails", "group": "BILL-DELIVERYDETAILS", "path": "", "title": "Delivery street", "req": "A delivery address has a street (BT-75).", "refs": "BR-RO-180", "when": "delivery receiver has an address", "kind": "Required", "fixtures": 1}, {"code": "BILL-DELIVERYDETAILS-02", "full": "GOBL-RO-EFACTURA-BILL-DELIVERYDETAILS-02", "obj": "bill.DeliveryDetails", "group": "BILL-DELIVERYDETAILS", "path": "", "title": "Delivery city", "req": "A delivery address has a city (BT-77).", "refs": "BR-RO-200", "when": "delivery receiver has an address", "kind": "Required", "fixtures": 1}, {"code": "BILL-DELIVERYDETAILS-03", "full": "GOBL-RO-EFACTURA-BILL-DELIVERYDETAILS-03", "obj": "bill.DeliveryDetails", "group": "BILL-DELIVERYDETAILS", "path": "", "title": "Delivery subdivision", "req": "A delivery address has a country subdivision (BT-79), whatever the country.", "refs": "BR-RO-210", "when": "delivery receiver has an address", "kind": "Required", "fixtures": 1}, {"code": "ORG-PARTY-01", "full": "GOBL-RO-EFACTURA-ORG-PARTY-01", "obj": "org.Party", "group": "ORG-PARTY", "path": "name", "title": "Party name length", "req": "Name is at most 200 characters (BT-27, BT-44, BT-59, BT-62, BT-70).", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-02", "full": "GOBL-RO-EFACTURA-ORG-PARTY-02", "obj": "org.Party", "group": "ORG-PARTY", "path": "alias", "title": "Trading name length", "req": "Alias is at most 200 characters (BT-28, BT-45).", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-03", "full": "GOBL-RO-EFACTURA-ORG-PARTY-03", "obj": "org.Party", "group": "ORG-PARTY", "path": "people", "title": "Contact name length", "req": "The first person's rendered name is at most 100 characters (BT-41, BT-56).", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-04", "full": "GOBL-RO-EFACTURA-ORG-PARTY-04", "obj": "org.Party", "group": "ORG-PARTY", "path": "telephones", "title": "Telephone length", "req": "The first telephone is at most 100 characters (BT-42, BT-57).", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-05", "full": "GOBL-RO-EFACTURA-ORG-PARTY-05", "obj": "org.Party", "group": "ORG-PARTY", "path": "emails", "title": "Email length", "req": "The first email is at most 100 characters (BT-43, BT-58).", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-06", "full": "GOBL-RO-EFACTURA-ORG-PARTY-06", "obj": "org.Party", "group": "ORG-PARTY", "path": "addresses", "title": "Address line 1 length", "req": "The first address's line 1 is at most 150 characters.", "refs": "BR-RO-L150", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-07", "full": "GOBL-RO-EFACTURA-ORG-PARTY-07", "obj": "org.Party", "group": "ORG-PARTY", "path": "addresses", "title": "Address line 2 length", "req": "The first address's line 2 is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-08", "full": "GOBL-RO-EFACTURA-ORG-PARTY-08", "obj": "org.Party", "group": "ORG-PARTY", "path": "addresses", "title": "City length", "req": "The first address's city is at most 50 characters.", "refs": "BR-RO-L050", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-09", "full": "GOBL-RO-EFACTURA-ORG-PARTY-09", "obj": "org.Party", "group": "ORG-PARTY", "path": "addresses", "title": "Post code length", "req": "The first address's post code is at most 20 characters.", "refs": "BR-RO-L020", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-PARTY-10", "full": "GOBL-RO-EFACTURA-ORG-PARTY-10", "obj": "org.Party", "group": "ORG-PARTY", "path": "addresses", "title": "County code", "req": "A Romanian first address has an ISO 3166-2:RO region, such as RO-CJ or RO-B.", "refs": "BR-RO-110, BR-RO-170, BR-RO-210", "when": "address country is RO", "kind": "Code", "fixtures": 2}, {"code": "ORG-PARTY-11", "full": "GOBL-RO-EFACTURA-ORG-PARTY-11", "obj": "org.Party", "group": "ORG-PARTY", "path": "addresses", "title": "Bucharest sector", "req": "A first address in RO-B has a SECTOR-RO city, SECTOR1 to SECTOR6.", "refs": "BR-RO-100, BR-RO-160, BR-RO-200", "when": "address region is RO-B", "kind": "Code", "fixtures": 1}, {"code": "ORG-IDENTITY-01", "full": "GOBL-RO-EFACTURA-ORG-IDENTITY-01", "obj": "org.Identity", "group": "ORG-IDENTITY", "path": "code", "title": "CNP shape", "req": "An identity of type CNP has exactly 13 digits.", "refs": "Addon", "when": "identity type is CNP", "kind": "Code", "fixtures": 1}, {"code": "ORG-ITEM-01", "full": "GOBL-RO-EFACTURA-ORG-ITEM-01", "obj": "org.Item", "group": "ORG-ITEM", "path": "name", "title": "Item name length", "req": "Item name (BT-153) is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-ITEM-02", "full": "GOBL-RO-EFACTURA-ORG-ITEM-02", "obj": "org.Item", "group": "ORG-ITEM", "path": "description", "title": "Item description length", "req": "Item description (BT-154) is at most 200 characters.", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-ITEM-03", "full": "GOBL-RO-EFACTURA-ORG-ITEM-03", "obj": "org.Item", "group": "ORG-ITEM", "path": "attributes", "title": "At most 50 attributes", "req": "An item has no more than 50 attributes (BG-32).", "refs": "BR-RO-A050", "when": "", "kind": "Count", "fixtures": 1}, {"code": "ORG-ATTRIBUTE-01", "full": "GOBL-RO-EFACTURA-ORG-ATTRIBUTE-01", "obj": "org.Attribute", "group": "ORG-ATTRIBUTE", "path": "label", "title": "Attribute name length", "req": "Attribute label (BT-160) is at most 50 characters.", "refs": "BR-RO-L050", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-ATTRIBUTE-02", "full": "GOBL-RO-EFACTURA-ORG-ATTRIBUTE-02", "obj": "org.Attribute", "group": "ORG-ATTRIBUTE", "path": "", "title": "Attribute value length", "req": "Attribute value (BT-161) is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-NOTE-01", "full": "GOBL-RO-EFACTURA-ORG-NOTE-01", "obj": "org.Note", "group": "ORG-NOTE", "path": "", "title": "Note length", "req": "A note as rendered, with its #SUBJECT# prefix when set, is at most 300 characters (BT-22, BT-127).", "refs": "BR-RO-L300", "when": "", "kind": "Length", "fixtures": 3}, {"code": "ORG-NOTE-02", "full": "GOBL-RO-EFACTURA-ORG-NOTE-02", "obj": "org.Note", "group": "ORG-NOTE", "path": "", "title": "Line accounting reference length", "req": "A line note keyed buyer-accounting-ref, which becomes BT-133, is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-ATTACHMENT-01", "full": "GOBL-RO-EFACTURA-ORG-ATTACHMENT-01", "obj": "org.Attachment", "group": "ORG-ATTACHMENT", "path": "description", "title": "Attachment description length", "req": "Description (BT-123) is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-ATTACHMENT-02", "full": "GOBL-RO-EFACTURA-ORG-ATTACHMENT-02", "obj": "org.Attachment", "group": "ORG-ATTACHMENT", "path": "url", "title": "Attachment URL length", "req": "External location (BT-124) is at most 200 characters.", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "ORG-ATTACHMENT-03", "full": "GOBL-RO-EFACTURA-ORG-ATTACHMENT-03", "obj": "org.Attachment", "group": "ORG-ATTACHMENT", "path": "name", "title": "Attachment filename length", "req": "Filename (BT-125-2) is at most 200 characters.", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "PAY-TERMS-01", "full": "GOBL-RO-EFACTURA-PAY-TERMS-01", "obj": "pay.Terms", "group": "PAY-TERMS", "path": "notes", "title": "Payment terms length", "req": "Payment terms notes (BT-20) are at most 300 characters.", "refs": "BR-RO-L300", "when": "", "kind": "Length", "fixtures": 1}, {"code": "PAY-INSTRUCTIONS-01", "full": "GOBL-RO-EFACTURA-PAY-INSTRUCTIONS-01", "obj": "pay.Instructions", "group": "PAY-INSTRUCTIONS", "path": "detail", "title": "Payment means text length", "req": "Instructions detail (BT-82) is at most 100 characters.", "refs": "BR-RO-L100", "when": "", "kind": "Length", "fixtures": 1}, {"code": "PAY-INSTRUCTIONS-02", "full": "GOBL-RO-EFACTURA-PAY-INSTRUCTIONS-02", "obj": "pay.Instructions", "group": "PAY-INSTRUCTIONS", "path": "credit_transfer", "title": "Account name length", "req": "Each credit transfer account name (BT-85) is at most 200 characters.", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "PAY-INSTRUCTIONS-03", "full": "GOBL-RO-EFACTURA-PAY-INSTRUCTIONS-03", "obj": "pay.Instructions", "group": "PAY-INSTRUCTIONS", "path": "card.holder", "title": "Card holder length", "req": "Card holder name (BT-88) is at most 200 characters.", "refs": "BR-RO-L200", "when": "", "kind": "Length", "fixtures": 1}, {"code": "TAX-COMBO-01", "full": "GOBL-RO-EFACTURA-TAX-COMBO-01", "obj": "tax.Combo", "group": "TAX-COMBO", "path": "", "title": "Romanian standard rate", "req": "VAT category S carries 21% or 11%, or 19%, 9% or 5% for supplies made before August 2025 (BT-152).", "refs": "Guide 3.1", "when": "VAT category S", "kind": "Code", "fixtures": 3}];
+  var GROUPS = [{"key": "BILL-INVOICE", "obj": "bill.Invoice", "desc": "The invoice as a whole"}, {"key": "BILL-DELIVERYDETAILS", "obj": "bill.DeliveryDetails", "desc": "Delivery"}, {"key": "ORG-PARTY", "obj": "org.Party", "desc": "Every party: supplier, customer, payee, ordering seller, delivery receiver"}, {"key": "ORG-IDENTITY", "obj": "org.Identity", "desc": "Identities"}, {"key": "ORG-ITEM", "obj": "org.Item", "desc": "Line items"}, {"key": "ORG-ATTRIBUTE", "obj": "org.Attribute", "desc": "Item attributes"}, {"key": "ORG-NOTE", "obj": "org.Note", "desc": "Notes, document and line level"}, {"key": "ORG-ATTACHMENT", "obj": "org.Attachment", "desc": "Supporting documents"}, {"key": "PAY-TERMS", "obj": "pay.Terms", "desc": "Payment terms"}, {"key": "PAY-INSTRUCTIONS", "obj": "pay.Instructions", "desc": "Payment means"}, {"key": "TAX-COMBO", "obj": "tax.Combo", "desc": "VAT on lines, discounts and charges"}];
+  var list = document.getElementById('rule-list');
+  var q = document.getElementById('q');
+  var count = document.getElementById('count');
+  var empty = document.getElementById('empty');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
+  }
+
+  function ruleHTML(r) {
+    var cov = r.fixtures > 0
+      ? '<span class="cov">&#9679; ' + r.fixtures + (r.fixtures === 1 ? ' fixture' : ' fixtures') + '</span>'
+      : '<span class="cov none">&#9675; no fixture</span>';
+    var meta = '<span><b>Field</b> <code>' + esc(r.path || '(object)') + '</code></span>' +
+      '<span><b>Source</b> ' + esc(r.refs) + '</span>' +
+      (r.when ? '<span><b>When</b> ' + esc(r.when) + '</span>' : '');
+    return '<article class="rule" data-kind="' + r.kind + '">' +
+      '<div class="id">' + esc(r.group) + '<b>-' + esc(r.code.split('-').pop()) + '</b></div>' +
+      '<div><h3>' + esc(r.title) + '</h3><p class="req">' + esc(r.req) + '</p></div>' +
+      '<div class="side"><span class="pill k-' + r.kind + '">' + r.kind + '</span>' + cov + '</div>' +
+      '<div class="meta">' + meta + '</div></article>';
+  }
+
+  function render() {
+    var term = q.value.trim().toLowerCase();
+    var kinds = chips.filter(function (c) { return c.getAttribute('aria-pressed') === 'true'; }).map(function (c) { return c.dataset.kind; });
+    var shown = 0;
+    var html = '';
+    GROUPS.forEach(function (g) {
+      var rows = RULES.filter(function (r) {
+        if (r.group !== g.key || kinds.indexOf(r.kind) < 0) return false;
+        if (!term) return true;
+        return (r.full + ' ' + r.title + ' ' + r.req + ' ' + r.refs + ' ' + r.path + ' ' + r.when + ' ' + r.obj).toLowerCase().indexOf(term) >= 0;
+      });
+      if (!rows.length) return;
+      shown += rows.length;
+      html += '<div class="group"><div class="group-head"><code>' + esc(g.obj) + '</code><span>' + esc(g.desc) + ' · ' + rows.length + '</span></div>' + rows.map(ruleHTML).join('') + '</div>';
+    });
+    list.innerHTML = html;
+    empty.hidden = shown > 0;
+    count.textContent = shown + ' of ' + RULES.length + ' rules';
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      render();
+    });
+  });
+  q.addEventListener('input', render);
+  render();
+})();
+</script>
+

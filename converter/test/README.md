@@ -14,7 +14,6 @@ How ANAF receives each document is routing, which is tested in gov-ro.
 - `data/` — one envelope per case.
 - `manifest.json` — what the pipeline must make of each one.
 - `out/` — the rendered XML, rewritten on every run so a change shows as a diff.
-- `anaf/` — ANAF's official UBL and CII samples, read back by the reverse conversion tests.
 
 ## Running it
 

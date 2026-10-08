@@ -107,7 +107,7 @@ func TestReverseConvertReadsTheANAFSamples(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.file, func(t *testing.T) {
-			data, err := os.ReadFile(filepath.Join("test", "anaf", test.file))
+			data, err := os.ReadFile(filepath.Join("..", "resources", "examples", test.file))
 			if err != nil {
 				t.Fatalf("cannot read sample: %v", err)
 			}
