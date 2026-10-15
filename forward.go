@@ -2,6 +2,7 @@ package roefactura
 
 import (
 	"encoding/json"
+	"errors"
 
 	"github.com/invopop/gobl"
 	ubl "github.com/invopop/gobl.ubl"
@@ -42,28 +43,22 @@ func ForwardConvert(env *gobl.Envelope) ([]byte, error) {
 		return nil, err
 	}
 
-	// Read the normalized invoice back, so localize sees what was rendered
-	invoice, err = extract(working)
-	if err != nil {
-		return nil, err
-	}
-
 	//***** Delete once the addon is implemeted
 
-	// Convert to CIUS-RO
-	document, err := ubl.ConvertInvoice(working, ubl.WithContext(ContextCIUSRO))
+	// Convert to CIUS-RO, applying what gobl.ubl cannot decide on its own yet
+	document, err := ubl.ExportInvoice(working, ubl.WithFormat(FormatCIUSRO))
 	if err != nil {
+		// Keep the errors localize raises
+		var localized *Error
+		if errors.As(err, &localized) {
+			return nil, localized
+		}
+
 		return nil, ErrConversion.WithCause(err).WithMsg("gobl to ro xml conversion failed")
 	}
 
-	// Apply what gobl.ubl cannot decide on its own yet
-	err = localize(document, invoice)
-	if err != nil {
-		return nil, err
-	}
-
 	// Serialize XML
-	xml, err := ubl.Bytes(document)
+	xml, err := ubl.Encode(document)
 	if err != nil {
 		return nil, ErrConversion.WithCause(err).WithMsg("ro xml serialization failed")
 	}

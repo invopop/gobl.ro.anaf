@@ -26,7 +26,7 @@ resources/
 test/                 Conversion corpus of every invoice shape Romania accepts
 ```
 
-The module root holds the converter and the tooling built on the add-on: `ContextCIUSRO` (the UBL context ANAF checks), `KindOf` (what ANAF does with an invoice), `Issuer` and `CIF` (who an invoice is filed under). The routing that decides how ANAF receives an invoice lives in gov-ro.
+The module root holds the converter and the tooling built on the add-on: `FormatCIUSRO` and `FormatCIUSROCII` (the UBL and CII formats ANAF checks), `KindOf` (what ANAF does with an invoice), `Issuer` and `CIF` (who an invoice is filed under). The routing that decides how ANAF receives an invoice lives in gov-ro.
 
 ## Rules
 
