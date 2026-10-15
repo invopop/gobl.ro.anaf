@@ -5,13 +5,11 @@ import (
 	"encoding/xml"
 
 	cii "github.com/invopop/gobl.cii"
-	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
 	"github.com/invopop/gobl/cbc"
 	"github.com/invopop/gobl/currency"
 	"github.com/invopop/gobl/num"
-	"github.com/invopop/gobl/tax"
 )
 
 // stated holds what the document says and the parsers do not keep
@@ -62,7 +60,7 @@ func read(data []byte) (*bill.Invoice, *stated, error) {
 // readUBL parses a UBL invoice or credit note
 func readUBL(data []byte) (*bill.Invoice, *stated, error) {
 	// Parse the XML
-	parsed, err := ubl.Parse(data)
+	parsed, err := ubl.Decode(data)
 	if err != nil {
 		return nil, nil, ErrUnreadable.WithCause(err).WithMsg("ubl document cannot be parsed")
 	}
@@ -73,7 +71,7 @@ func readUBL(data []byte) (*bill.Invoice, *stated, error) {
 	}
 
 	// Convert to GOBL as Romanian, whatever CIUS-RO version the document names
-	env, err := document.Convert(ubl.WithContext(ContextCIUSRO))
+	env, err := ubl.Import(document, ubl.WithFormat(FormatCIUSRO))
 	if err != nil {
 		return nil, nil, ErrConversion.WithCause(err).WithMsg("ro xml to gobl conversion failed")
 	}
@@ -119,13 +117,30 @@ func readUBL(data []byte) (*bill.Invoice, *stated, error) {
 // readCII parses a CII invoice
 func readCII(data []byte) (*bill.Invoice, *stated, error) {
 	// Parse the XML
-	document, err := cii.UnmarshalInvoice(data)
+	parsed, err := cii.Decode(data)
 	if err != nil {
 		return nil, nil, ErrUnreadable.WithCause(err).WithMsg("cii document cannot be parsed")
 	}
 
-	// Convert to GOBL
-	env, err := cii.Parse(data)
+	document, ok := parsed.(*cii.Invoice)
+	if !ok {
+		return nil, nil, ErrUnreadable.WithMsg("cii document is not an invoice")
+	}
+
+	// gobl.cii keeps a single BT-110, so both totals are read from the XML
+	totals := taxTotalAmounts(data)
+
+	// Keep the BT-110 in the invoice currency, not the BT-111 parsed last
+	if document.Transaction != nil && document.Transaction.Settlement != nil && document.Transaction.Settlement.Summary != nil {
+		for _, total := range totals {
+			if total.Currency == document.Transaction.Settlement.Currency {
+				document.Transaction.Settlement.Summary.TaxTotalAmount = total
+			}
+		}
+	}
+
+	// Convert to GOBL as Romanian
+	env, err := cii.Import(document, cii.WithFormat(FormatCIUSROCII))
 	if err != nil {
 		return nil, nil, ErrConversion.WithCause(err).WithMsg("ro xml to gobl conversion failed")
 	}
@@ -134,9 +149,6 @@ func readCII(data []byte) (*bill.Invoice, *stated, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// gobl.cii cannot be told the document is Romanian
-	invoice.Addons = tax.WithAddons(addon.V1)
 
 	// Keep what the parser loses
 	stated := &stated{
@@ -151,16 +163,37 @@ func readCII(data []byte) (*bill.Invoice, *stated, error) {
 		stated.paymentMeans = cbc.Code(document.Transaction.Settlement.PaymentMeans[0].TypeCode)
 	}
 
-	if document.Transaction != nil && document.Transaction.Settlement != nil && document.Transaction.Settlement.Summary != nil {
-		for _, total := range document.Transaction.Settlement.Summary.TaxTotalAmount {
-			amount, err := num.AmountFromString(total.Amount)
-			if err == nil && total.Currency != "" {
-				stated.vat[currency.Code(total.Currency)] = amount
-			}
+	for _, total := range totals {
+		amount, err := num.AmountFromString(total.Amount)
+		if err == nil && total.Currency != "" {
+			stated.vat[currency.Code(total.Currency)] = amount
 		}
 	}
 
 	return invoice, stated, nil
+}
+
+// taxTotalAmounts returns every TaxTotalAmount of a CII document, BT-110 and BT-111
+func taxTotalAmounts(data []byte) []*cii.TaxTotalAmount {
+	var totals []*cii.TaxTotalAmount
+
+	decoder := xml.NewDecoder(bytes.NewReader(data))
+	for {
+		token, err := decoder.Token()
+		if err != nil {
+			return totals
+		}
+
+		element, ok := token.(xml.StartElement)
+		if !ok || element.Name.Local != "TaxTotalAmount" {
+			continue
+		}
+
+		total := new(cii.TaxTotalAmount)
+		if err := decoder.DecodeElement(total, &element); err == nil {
+			totals = append(totals, total)
+		}
+	}
 }
 
 // rootNamespace returns the namespace of the first element of the document

@@ -1,6 +1,7 @@
 package roefactura
 
 import (
+	"github.com/invopop/gobl"
 	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
@@ -9,6 +10,22 @@ import (
 
 // orderReferenceFiller is the placeholder gobl.ubl writes into BT-13 for Peppol
 const orderReferenceFiller = "NA"
+
+// exportLocalize runs localize as the export step of FormatCIUSRO
+func exportLocalize(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) error {
+	document, ok := doc.(*ubl.Invoice)
+	if !ok {
+		return ErrConversion.WithMsg("ubl document is not an invoice")
+	}
+
+	// The normalized invoice, so localize sees what was rendered
+	invoice, err := extract(env)
+	if err != nil {
+		return err
+	}
+
+	return localize(document, invoice)
+}
 
 // localize applies the CIUS-RO details gobl.ubl cannot decide on its own
 func localize(document *ubl.Invoice, invoice *bill.Invoice) error {

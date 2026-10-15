@@ -113,7 +113,7 @@ func requireFilable(t *testing.T, client *phorm.Client, envelope *gobl.Envelope,
 		return
 	}
 
-	vesID := addontools.ContextCIUSRO.GetVESID(invoiceOf(t, envelope))
+	vesID := addontools.FormatCIUSRO.VESID(invoiceOf(t, envelope))
 
 	validation, err := client.ValidateXml(context.Background(), &phorm.ValidateXmlRequest{Vesid: vesID, XmlContent: document})
 	if err != nil {

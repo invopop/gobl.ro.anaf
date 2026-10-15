@@ -161,12 +161,12 @@ func TestReverseConvertKeepsATradeRegisterNumberOutsideTheVATScope(t *testing.T)
 
 func TestReverseConvertDerivesTheExchangeRateFromCII(t *testing.T) {
 	// A CII invoice in EUR stating its VAT in RON as well, BT-6 and BT-111
-	converted, err := cii.ConvertInvoice(calculatedFixture(t, "ro_380_exchangeRate.json"))
+	converted, err := cii.ExportInvoice(calculatedFixture(t, "ro_380_exchangeRate.json"))
 	if err != nil {
 		t.Fatalf("cii conversion failed: %v", err)
 	}
 
-	document, err := converted.Bytes()
+	document, err := cii.Encode(converted)
 	if err != nil {
 		t.Fatalf("cii serialization failed: %v", err)
 	}
