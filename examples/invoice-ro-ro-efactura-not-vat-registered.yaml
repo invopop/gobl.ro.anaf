@@ -38,6 +38,8 @@ lines:
     taxes:
       - cat: "VAT"
         key: "outside-scope"
+        ext:
+          cef-vatex: "VATEX-EU-O"
 payment:
   terms:
     notes: "Plata in 15 zile"

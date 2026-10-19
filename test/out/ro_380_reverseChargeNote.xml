@@ -79,7 +79,6 @@
       <cac:TaxCategory>
         <cbc:ID>AE</cbc:ID>
         <cbc:Percent>0</cbc:Percent>
-        <cbc:TaxExemptionReasonCode>VATEX-EU-AE</cbc:TaxExemptionReasonCode>
         <cbc:TaxExemptionReason>Taxare inversa conform art. 331 Cod fiscal</cbc:TaxExemptionReason>
         <cac:TaxScheme>
           <cbc:ID>VAT</cbc:ID>

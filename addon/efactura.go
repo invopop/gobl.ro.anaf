@@ -1,5 +1,29 @@
+// Official sources:
+//
+//   - Order MF 1366/2021: RO_CIUS, the Romanian e-invoice specification, and its national rules
+//     https://static.anaf.ro/static/10/Anaf/legislatie/OMF_1366_2021.pdf
+//   - Order MF 4092/2022: RO_CIUS 1.0.1 (art. 2) and the BR-RO table every rule cites
+//     (art. 3 alin. (2))
+//     https://static.anaf.ro/static/10/Anaf/legislatie/OMF_4092_2022.pdf
+//   - ANAF schematron ro16931-ubl-1.0.9: the checks ANAF runs on every upload. Watch the
+//     technical information page for new versions
+//     https://mfinante.gov.ro/ro/web/efactura/informatii-tehnice
+//
+// Official rules this addon does not check, and why:
+//
+//   - BR-RO-001, specification identifier: written by the converter.
+//   - BR-RO-040, VAT point date code: gobl.ubl only writes the allowed codes 3, 35 and 432.
+//   - BR-RO-L100, address line 3: gobl.ubl does not write it.
+//   - BR-RO-L140, remittance information: comes from a GOBL code, at most 128 characters.
+//   - BR-RO-L200, contract, order and other document references: come from GOBL codes, at
+//     most 128 characters.
+//   - BR-RO-L1000, seller additional legal information: gobl.ubl does not write it.
+//   - BR-RO-230, size of the attached files: GOBL attachments are links, no file is embedded.
+//   - BR-RO-050, 060, 070, 240, 250, 260, 270: recommendations ANAF does not validate.
+//     BR-RO-060 is applied through the self-billing mention.
+
 // Package efactura implements the Romanian e-Factura rules as a GOBL addon,
-// adding the RO_CIUS restrictions on top of the EU EN 16931 CIUS profile.
+// adding the RO_CIUS national rules (BR-RO) on top of the EU EN 16931 addon.
 package efactura
 
 import (
@@ -30,23 +54,24 @@ func init() {
 		Key.String(),
 		rules.GOBL.Add(Namespace),
 		is.InContext(tax.AddonIn(V1)),
-		billDeliveryRules(),
 		billInvoiceRules(),
-		orgAttachmentRules(),
-		orgAttributeRules(),
-		orgIdentityRules(),
-		orgItemRules(),
-		orgNoteRules(),
+		billDeliveryRules(),
+		billDiscountRules(),
+		billChargeRules(),
+		billLineDiscountRules(),
+		billLineChargeRules(),
 		orgPartyRules(),
-		payInstructionsRules(),
+		orgItemRules(),
+		orgAttributeRules(),
+		orgNoteRules(),
+		orgAttachmentRules(),
 		payTermsRules(),
-		taxComboRules(),
+		payInstructionsRules(),
 	)
 	norm.RegisterWithGuard(
 		is.InContext(tax.AddonIn(V1)),
 		norm.For(normalizeInvoice),
 		norm.For(normalizeAddress),
-		norm.For(normalizeTaxCombo),
 	)
 }
 
@@ -64,11 +89,12 @@ func newV1Addon() *tax.AddonDef {
 			i18n.EN: here.Doc(`
 				Support for the Romanian national e-invoicing system,
 				RO e-Factura, operated by ANAF. The addon applies the
-				RO_CIUS restrictions of the EN 16931 semantic model:
-				the document types ANAF files, the ISO 3166-2:RO
-				subdivisions and Bucharest sector codes addresses have
-				to carry, the VAT accounting currency, and the buyer
-				identification a consumer invoice needs.
+				national rules (BR-RO) RO_CIUS adds to the EN 16931
+				semantic model: the document types ANAF files, the
+				ISO 3166-2:RO subdivisions and Bucharest sector codes
+				addresses have to carry, the VAT accounting currency,
+				the identifiers of the seller and the buyer, and the
+				length and count limits of every element.
 
 				Built on the EU EN 16931 CIUS profile, declared as a
 				dependency.
@@ -76,11 +102,13 @@ func newV1Addon() *tax.AddonDef {
 			i18n.RO: here.Doc(`
 				Suport pentru sistemul national de facturare
 				electronica RO e-Factura, administrat de ANAF.
-				Addon-ul aplica restrictiile RO_CIUS asupra modelului
-				semantic EN 16931: tipurile de documente acceptate de
-				ANAF, subdiviziunile ISO 3166-2:RO si codurile de
-				sector ale Bucurestiului, moneda de contabilizare a
-				TVA si identificarea cumparatorului persoana fizica.
+				Addon-ul aplica regulile nationale (BR-RO) adaugate de
+				RO_CIUS modelului semantic EN 16931: tipurile de
+				documente acceptate de ANAF, subdiviziunile ISO
+				3166-2:RO si codurile de sector ale Bucurestiului,
+				moneda de contabilizare a TVA, identificatorii
+				vanzatorului si cumparatorului, precum si limitele de
+				lungime si de aparitii ale fiecarui element.
 
 				Construit peste profilul CIUS EU EN 16931, declarat ca
 				dependenta.
@@ -89,17 +117,24 @@ func newV1Addon() *tax.AddonDef {
 		Sources: []*cbc.Source{
 			{
 				Title: i18n.String{
-					i18n.EN: "RO_CIUS Technical and Usage Specifications",
-					i18n.RO: "Specificatii tehnice si de utilizare RO_CIUS",
+					i18n.EN: "Order MF 1366/2021 approving RO_CIUS and the national operational rules",
+					i18n.RO: "Ordinul MF 1366/2021 privind RO_CIUS si regulile operationale nationale",
 				},
-				URL: "https://mfinante.gov.ro/web/efactura/informatii-tehnice",
+				URL: "https://static.anaf.ro/static/10/Anaf/legislatie/OMF_1366_2021.pdf",
 			},
 			{
 				Title: i18n.String{
-					i18n.EN: "ANAF RO e-Factura",
-					i18n.RO: "ANAF RO e-Factura",
+					i18n.EN: "Order MF 4092/2022 amending RO_CIUS (version 1.0.1, BR-RO table)",
+					i18n.RO: "Ordinul MF 4092/2022 de modificare a RO_CIUS (versiunea 1.0.1, tabelul BR-RO)",
 				},
-				URL: "https://www.anaf.ro/anaf/internet/ANAF/despre_anaf/strategii_anaf/proiecte_digitalizare/e.factura",
+				URL: "https://static.anaf.ro/static/10/Anaf/legislatie/OMF_4092_2022.pdf",
+			},
+			{
+				Title: i18n.String{
+					i18n.EN: "RO e-Factura technical information and schematron",
+					i18n.RO: "Informatii tehnice RO e-Factura si schematron",
+				},
+				URL: "https://mfinante.gov.ro/ro/web/efactura/informatii-tehnice",
 			},
 		},
 		Identities: identities,

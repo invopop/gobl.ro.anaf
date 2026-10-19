@@ -1,19 +1,19 @@
 {
 	"$schema": "https://gobl.org/draft-0/envelope",
 	"head": {
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91072"
+		"uuid": "01a1540a-cc3f-7093-bb67-410f08717164"
 	},
 	"doc": {
 		"$schema": "https://gobl.org/draft-0/bill/invoice",
 		"$addons": [
 			"ro-efactura-v1"
 		],
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91072",
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9100a",
 		"type": "standard",
 		"series": "FCT",
-		"code": "2026-0442",
+		"code": "2026-0389",
 		"issue_date": "2026-08-28",
-		"currency": "EUR",
+		"currency": "RON",
 		"supplier": {
 			"name": "Exemplu Digital SRL",
 			"tax_id": {
@@ -37,19 +37,24 @@
 			]
 		},
 		"customer": {
-			"name": "Kunde GmbH",
+			"name": "Client Industrial SA",
 			"tax_id": {
-				"country": "DE",
-				"code": "111111125"
+				"country": "RO",
+				"code": "87654329"
 			},
 			"addresses": [
 				{
-					"num": "5",
-					"street": "Hauptstrasse",
-					"locality": "Munich",
-					"region": "Bayern",
-					"code": "80331",
-					"country": "DE"
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "contabilitate@client.ro"
 				}
 			]
 		},
@@ -65,10 +70,22 @@
 				"taxes": [
 					{
 						"cat": "VAT",
-						"key": "intra-community",
-						"ext": {
-							"cef-vatex": "vatex-eu-ic"
-						}
+						"key": "standard",
+						"percent": "21%"
+					}
+				],
+				"discounts": [
+					{
+						"i": 1,
+						"reason": "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+						"amount": "25.00"
+					}
+				],
+				"charges": [
+					{
+						"i": 1,
+						"reason": "Ambalare",
+						"amount": "10.00"
 					}
 				]
 			}
@@ -90,11 +107,18 @@
 				}
 			}
 		},
-		"exchange_rates": [
+		"discounts": [
 			{
-				"from": "EUR",
-				"to": "RON",
-				"amount": "5.0850"
+				"i": 1,
+				"reason": "Discount de volum",
+				"amount": "100.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
 			}
 		],
 		"charges": [
@@ -105,10 +129,8 @@
 				"taxes": [
 					{
 						"cat": "VAT",
-						"key": "intra-community",
-						"ext": {
-							"cef-vatex": "vatex-eu-ic"
-						}
+						"key": "standard",
+						"percent": "21%"
 					}
 				]
 			}
