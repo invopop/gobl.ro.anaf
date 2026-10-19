@@ -1,16 +1,31 @@
 package roefactura
 
 import (
+	"strings"
+
 	"github.com/invopop/gobl/bill"
+	"github.com/invopop/gobl/cbc"
+	"github.com/invopop/gobl/l10n"
 	"github.com/invopop/gobl/org"
 
 	efactura "github.com/invopop/gobl.ro.anaf/addon"
 )
 
 // CIF returns the tax number as the ANAF API wants it: the bare code, without
-// the RO fiscal attribute.
+// the RO fiscal attribute. A party with no tax number, such as an enforcement
+// body named by its legal registration identifier (BR-RO-130), gives that code
+// instead, unless it is a personal number.
 func CIF(party *org.Party) string {
-	return efactura.CIF(party)
+	if cif := efactura.CIF(party); cif != "" {
+		return cif
+	}
+
+	identity := efactura.LegalIdentity(party)
+	if identity == nil || cbc.NormalizeUpperCode(identity.Type) == efactura.IdentityTypeCNP {
+		return ""
+	}
+
+	return strings.TrimPrefix(strings.ToUpper(strings.TrimSpace(identity.Code.String())), l10n.RO.String())
 }
 
 // Issuer returns the party ANAF files a document under: the enforcement body

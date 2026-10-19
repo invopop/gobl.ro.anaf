@@ -3,9 +3,9 @@ module github.com/invopop/gobl.ro.anaf
 go 1.26.2
 
 require (
-	github.com/invopop/gobl v0.508.1
-	github.com/invopop/gobl.cii v0.73.0
-	github.com/invopop/gobl.ubl v0.90.0
+	github.com/invopop/gobl v0.510.0
+	github.com/invopop/gobl.cii v0.76.0
+	github.com/invopop/gobl.ubl v0.94.0
 	github.com/invopop/phorm v0.1.6
 )
 

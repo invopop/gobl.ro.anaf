@@ -81,8 +81,10 @@ entry naming a file that is gone.
 
 ## What the corpus covers
 
-Every use case the ANAF guide to invoice type codes (Ghid cod facturi v2.9)
-describes, each in the shapes that actually occur.
+The accepted invoices follow every use case the ANAF guide to invoice type
+codes (Ghid cod facturi v2.9) describes, each in the shapes that actually occur.
+The guide only picks the cases: the rules come from the BR-RO table of Order MF
+4092/2022, listed in the [add-on README](../addon/README.md).
 
 | Guide | Cases |
 | --- | --- |
@@ -102,10 +104,7 @@ each written the way a customer writes it rather than as a code, which proves
 the normalizer and ANAF's own code list agree.
 
 The rejections exercise the addon rule by rule: one fixture per rule wherever a
-document can reach it, among them the reference every correction needs, the
-sign of a credit note, the note a 751 needs, the enforcement body, category O
-mixed with others and the Romanian standard rates. Four rules stay unexercised
-on purpose: `BILL-INVOICE-18` and `-19`, which guard a tax block the normalizer
-always creates, and `-21` and `-22`, which guard a document type code the
-scenarios always set. They are there for the day one of those assumptions
-stops holding.
+document can reach it, its note naming the BT and BR-RO rule it breaks. Two
+rules stay unexercised on purpose:
+`BILL-INVOICE-21` and `-22`, which guard a document type code the scenarios
+always set. They are there for the day that assumption stops holding.

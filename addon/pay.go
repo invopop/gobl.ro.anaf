@@ -1,3 +1,13 @@
+// Rules for the payment terms and payment means of the invoice.
+//
+// Official sources:
+//
+//   - Order MF 4092/2022: the BR-RO table of national rules (art. 3 alin. (2))
+//     https://static.anaf.ro/static/10/Anaf/legislatie/OMF_4092_2022.pdf
+//
+// Each rule names the official rule it applies at the end of its message, such as
+// (BR-RO-010). The addon README maps every BR-RO rule to the fault code GOBL reports.
+
 package efactura
 
 import (
@@ -6,11 +16,7 @@ import (
 	"github.com/invopop/gobl/rules/is"
 )
 
-// BR-RO-L140 (BT-83) needs no rule here: gobl.ubl takes it from a cbc.Code,
-// which GOBL already caps at 128 characters.
-
-// Lengths the RO_CIUS puts on the payment block. Terms notes go into BT-20,
-// not BT-22, which is why they repeat the note limit.
+// Limits BR-RO-L100, L200 and L300 put on the payment block.
 const (
 	maxTermsNotes     = 300
 	maxPaymentDetail  = 100
@@ -21,7 +27,7 @@ const (
 func payTermsRules() *rules.Set {
 	return rules.For(new(pay.Terms),
 		rules.Field("notes",
-			rules.Assert("01", "payment terms (BT-20) must be no more than 300 characters long (BR-RO-L300)",
+			rules.Assert("01", "payment terms must be no more than 300 characters long (BR-RO-L300)",
 				is.RuneLength(0, maxTermsNotes),
 			),
 		),
@@ -31,18 +37,18 @@ func payTermsRules() *rules.Set {
 func payInstructionsRules() *rules.Set {
 	return rules.For(new(pay.Instructions),
 		rules.Field("detail",
-			rules.Assert("01", "payment means text (BT-82) must be no more than 100 characters long (BR-RO-L100)",
+			rules.Assert("01", "payment means text must be no more than 100 characters long (BR-RO-L100)",
 				is.RuneLength(0, maxPaymentDetail),
 			),
 		),
 		rules.Field("credit_transfer",
-			rules.Assert("02", "payment account name (BT-85) must be no more than 200 characters long (BR-RO-L200)",
+			rules.Assert("02", "payment account name must be no more than 200 characters long (BR-RO-L200)",
 				is.Func("account name within length", accountNameWithinLength),
 			),
 		),
 		rules.Field("card",
 			rules.Field("holder",
-				rules.Assert("03", "payment card holder name (BT-88) must be no more than 200 characters long (BR-RO-L200)",
+				rules.Assert("03", "payment card holder name must be no more than 200 characters long (BR-RO-L200)",
 					is.RuneLength(0, maxCardHolderName),
 				),
 			),

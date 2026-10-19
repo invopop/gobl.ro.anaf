@@ -123,3 +123,100 @@ func TestNormalizeInvoiceRounding(t *testing.T) {
 		t.Errorf("rounding: want %s, got %s", tax.RoundingRuleCurrency, invoice.Tax.Rounding)
 	}
 }
+
+func TestSellerIdentified(t *testing.T) {
+	romanian := &tax.Identity{Country: l10n.RO.Tax(), Code: cbc.Code("12345674")}
+
+	tests := []struct {
+		name    string
+		invoice *bill.Invoice
+		want    bool
+	}{
+		{
+			name:    "supplier with a VAT identifier (BT-31)",
+			invoice: &bill.Invoice{Supplier: &org.Party{TaxID: romanian}},
+			want:    true,
+		},
+		{
+			name: "supplier with a tax registration identifier (BT-32)",
+			invoice: &bill.Invoice{Supplier: &org.Party{Identities: []*org.Identity{
+				{Scope: org.IdentityScopeTax, Code: "12345674"},
+			}}},
+			want: true,
+		},
+		{
+			name: "tax representative with a VAT identifier (BT-63)",
+			invoice: &bill.Invoice{
+				Supplier: &org.Party{Name: "Seller"},
+				Ordering: &bill.Ordering{Seller: &org.Party{TaxID: romanian}},
+			},
+			want: true,
+		},
+		{
+			name:    "no identifier at all",
+			invoice: &bill.Invoice{Supplier: &org.Party{Name: "Seller"}},
+			want:    false,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if got := sellerIdentified(test.invoice); got != test.want {
+				t.Errorf("seller identified: want %v, got %v", test.want, got)
+			}
+		})
+	}
+}
+
+func TestEnforcementBodyIdentified(t *testing.T) {
+	enforcement := func(payee *org.Party) *bill.Invoice {
+		invoice := &bill.Invoice{Tags: tax.WithTags(TagEnforcement)}
+		if payee != nil {
+			invoice.Payment = &bill.PaymentDetails{Payee: payee}
+		}
+		return invoice
+	}
+
+	tests := []struct {
+		name    string
+		invoice *bill.Invoice
+		want    bool
+	}{
+		{
+			name: "payee with a name and a legal registration identifier",
+			invoice: enforcement(&org.Party{
+				Name:       "Birou Executor Judecatoresc Popescu",
+				Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Code: "22222224"}},
+			}),
+			want: true,
+		},
+		{
+			name: "payee with a tax identifier only, which is not BT-61",
+			invoice: enforcement(&org.Party{
+				Name:  "Birou Executor Judecatoresc Popescu",
+				TaxID: &tax.Identity{Country: l10n.RO.Tax(), Code: cbc.Code("22222224")},
+			}),
+			want: false,
+		},
+		{
+			name: "payee with no name",
+			invoice: enforcement(&org.Party{
+				Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Code: "22222224"}},
+			}),
+			want: false,
+		},
+		{
+			name:    "no payee",
+			invoice: enforcement(nil),
+			want:    false,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if got := enforcementBodyIdentified(test.invoice); got != test.want {
+				t.Errorf("enforcement body identified: want %v, got %v", test.want, got)
+			}
+		})
+	}
+}

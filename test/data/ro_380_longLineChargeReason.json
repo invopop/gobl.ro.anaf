@@ -1,17 +1,17 @@
 {
 	"$schema": "https://gobl.org/draft-0/envelope",
 	"head": {
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a027"
+		"uuid": "01a1540a-cc40-7569-8ccb-ba67ed7a301d"
 	},
 	"doc": {
 		"$schema": "https://gobl.org/draft-0/bill/invoice",
 		"$addons": [
 			"ro-efactura-v1"
 		],
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9a027",
-		"type": "credit-note",
-		"series": "CN",
-		"code": "2026-1703",
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9100a",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0389",
 		"issue_date": "2026-08-28",
 		"currency": "RON",
 		"supplier": {
@@ -73,6 +73,20 @@
 						"key": "standard",
 						"percent": "21%"
 					}
+				],
+				"discounts": [
+					{
+						"i": 1,
+						"reason": "Reducere comerciala",
+						"amount": "25.00"
+					}
+				],
+				"charges": [
+					{
+						"i": 1,
+						"reason": "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+						"amount": "10.00"
+					}
 				]
 			}
 		],
@@ -92,6 +106,34 @@
 					"untdid-payment-means": "30"
 				}
 			}
-		}
+		},
+		"discounts": [
+			{
+				"i": 1,
+				"reason": "Discount de volum",
+				"amount": "100.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		],
+		"charges": [
+			{
+				"i": 1,
+				"reason": "Transport",
+				"amount": "50.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		]
 	}
 }

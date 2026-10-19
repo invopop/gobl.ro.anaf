@@ -1,57 +1,44 @@
 package roefactura
 
 import (
-	"encoding/json"
 	"errors"
 
 	"github.com/invopop/gobl"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
+
+	efactura "github.com/invopop/gobl.ro.anaf/addon"
 )
 
-// ForwardConvert renders the CIUS-RO document of a GOBL envelope. The envelope is
-// expected to declare the Romanian addon already, so that its contents are
-// the ones ANAF is filed with. The caller's envelope is never modified.
+// ForwardConvert renders the CIUS-RO document of a GOBL envelope. The envelope
+// has to declare the Romanian addon and come calculated and validated with it,
+// as a silo entry does, so it is converted as it is. Like any GOBL converter,
+// rendering adjusts the envelope in place, such as rounding its amounts.
 func ForwardConvert(env *gobl.Envelope) ([]byte, error) {
-
-	//***** Delete once the addon is implemeted
-
-	// Work on a copy, because preparing the document rewrites it
-	working, err := clone(env)
+	// Extract the invoice
+	invoice, err := extract(env)
 	if err != nil {
 		return nil, err
 	}
 
-	//***** Delete once the addon is implemeted
-
-	// Extract the invoice and check Romania files a document of its kind
-	invoice, err := extract(working)
-	if err != nil {
-		return nil, err
+	// Require the Romanian addon
+	if !efactura.V1.In(invoice.GetAddons()...) {
+		return nil, ErrInvalidDocument.WithMsg("invoice does not declare the %s addon", efactura.V1)
 	}
 
+	// Check Romania files a document of its kind
 	err = filable(invoice)
 	if err != nil {
 		return nil, err
 	}
 
-	//***** Delete once the addon is implemeted
-
-	// Run the addon over the invoice
-	err = prepare(working)
+	// Convert to CIUS-RO
+	document, err := ubl.ExportInvoice(env, ubl.WithFormat(FormatCIUSRO))
 	if err != nil {
-		return nil, err
-	}
-
-	//***** Delete once the addon is implemeted
-
-	// Convert to CIUS-RO, applying what gobl.ubl cannot decide on its own yet
-	document, err := ubl.ExportInvoice(working, ubl.WithFormat(FormatCIUSRO))
-	if err != nil {
-		// Keep the errors localize raises
-		var localized *Error
-		if errors.As(err, &localized) {
-			return nil, localized
+		// Keep the errors the export funcs raise
+		var exportErr *Error
+		if errors.As(err, &exportErr) {
+			return nil, exportErr
 		}
 
 		return nil, ErrConversion.WithCause(err).WithMsg("gobl to ro xml conversion failed")
@@ -64,28 +51,6 @@ func ForwardConvert(env *gobl.Envelope) ([]byte, error) {
 	}
 
 	return xml, nil
-}
-
-// clone copies an envelope, so preparing the document leaves the caller's own
-// copy untouched.
-func clone(env *gobl.Envelope) (*gobl.Envelope, error) {
-	if env == nil {
-		return nil, ErrInvalidDocument.WithMsg("envelope is empty")
-	}
-
-	data, err := json.Marshal(env)
-	if err != nil {
-		return nil, ErrInvalidDocument.WithCause(err).WithMsg("envelope cannot be copied")
-	}
-
-	copied := new(gobl.Envelope)
-
-	err = json.Unmarshal(data, copied)
-	if err != nil {
-		return nil, ErrInvalidDocument.WithCause(err).WithMsg("envelope cannot be copied")
-	}
-
-	return copied, nil
 }
 
 // extract opens the envelope and returns the invoice it carries.
@@ -111,22 +76,6 @@ func filable(invoice *bill.Invoice) error {
 		return ErrSkipped.WithMsg("a document of kind %s is not reported to ANAF", kind.Name)
 	case StatusUnsupported:
 		return ErrUnsupported.WithMsg("a document of kind %s cannot be filed in Romania", kind.Name)
-	}
-
-	return nil
-}
-
-// prepare runs the addon over the invoice. The silo entry will eventually
-// reach us already normalized and validated, at which point prepare can be deleted.
-func prepare(env *gobl.Envelope) error {
-	err := env.Calculate()
-	if err != nil {
-		return ErrConversion.WithCause(err).WithMsg("gobl calculation failed")
-	}
-
-	err = env.Validate()
-	if err != nil {
-		return ErrNotCompliant.WithCause(err).WithMsg("gobl invoice does not satisfy the romanian rules")
 	}
 
 	return nil

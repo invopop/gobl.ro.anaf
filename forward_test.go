@@ -1,8 +1,6 @@
 package roefactura_test
 
 import (
-	"bytes"
-	"encoding/json"
 	"errors"
 	"strings"
 	"testing"
@@ -58,51 +56,18 @@ func TestConvertRejectsAnEmptyEnvelope(t *testing.T) {
 	}
 }
 
-func TestConvertReportsAnUncompliantDocument(t *testing.T) {
+func TestConvertRejectsAnInvoiceWithoutTheAddon(t *testing.T) {
 	invoice := newInvoice()
-	invoice.Code = "FARA-CIFRE"
+	invoice.Addons = tax.Addons{}
 
 	_, err := roefactura.ForwardConvert(envelope(t, invoice))
 
-	if !errors.Is(err, roefactura.ErrNotCompliant) {
-		t.Fatalf("error: want %v, got %v", roefactura.ErrNotCompliant, err)
+	if !errors.Is(err, roefactura.ErrInvalidDocument) {
+		t.Fatalf("error: want %v, got %v", roefactura.ErrInvalidDocument, err)
 	}
 
-	if !strings.Contains(err.Error(), "BILL-INVOICE-01") {
-		t.Errorf("error should name the rule that rejected it, got %v", err)
-	}
-}
-
-func TestConvertLeavesTheCallersEnvelopeAlone(t *testing.T) {
-	// The send action reads the silo entry again, so conversion has to leave
-	// the document exactly as it arrived, uncalculated and unnormalized.
-	env := silo(t, newInvoice())
-
-	before, err := json.Marshal(env)
-	if err != nil {
-		t.Fatalf("cannot read the envelope: %v", err)
-	}
-
-	if _, err := roefactura.ForwardConvert(env); err != nil {
-		t.Fatalf("conversion failed: %v", err)
-	}
-
-	after, err := json.Marshal(env)
-	if err != nil {
-		t.Fatalf("cannot read the envelope: %v", err)
-	}
-
-	if !bytes.Equal(before, after) {
-		t.Error("conversion rewrote the envelope the caller handed over")
-	}
-
-	invoice, ok := env.Extract().(*bill.Invoice)
-	if !ok {
-		t.Fatal("envelope carries no invoice")
-	}
-
-	if invoice.Totals != nil {
-		t.Error("conversion calculated the caller's invoice in place")
+	if !strings.Contains(err.Error(), addon.V1.String()) {
+		t.Errorf("error should name the missing addon, got %v", err)
 	}
 }
 
@@ -176,6 +141,33 @@ func TestConvertKeepsARealOrderReference(t *testing.T) {
 	}
 }
 
+func TestConvertWritesTheSelfBillingMentionOnce(t *testing.T) {
+	tests := []struct {
+		name  string
+		notes []*org.Note
+	}{
+		{name: "the mention is added to a buyer-issued invoice"},
+		{name: "a mention the buyer already wrote is not repeated", notes: []*org.Note{{Text: "Autofactura emisa conform acordului"}}},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			invoice := newInvoice()
+			invoice.SetTags(tax.TagSelfBilled)
+			invoice.Notes = test.notes
+
+			document, err := roefactura.ForwardConvert(envelope(t, invoice))
+			if err != nil {
+				t.Fatalf("conversion failed: %v", err)
+			}
+
+			if got := strings.Count(strings.ToLower(string(document)), "<cbc:note>autofactur"); got != 1 {
+				t.Errorf("autofactura mentions in BT-22: want 1, got %d", got)
+			}
+		})
+	}
+}
+
 // newInvoice builds the smallest document Romania accepts.
 func newInvoice() *bill.Invoice {
 	address := &org.Address{
@@ -212,39 +204,6 @@ func newInvoice() *bill.Invoice {
 			Terms:        &pay.Terms{Notes: "Plata in 30 de zile"},
 		},
 	}
-}
-
-// silo returns the envelope the way a silo entry reaches the converter: parsed
-// from JSON, so nothing has calculated or normalized it yet.
-func silo(t *testing.T, invoice *bill.Invoice) *gobl.Envelope {
-	t.Helper()
-
-	payload, err := json.Marshal(invoice)
-	if err != nil {
-		t.Fatalf("cannot build a silo entry: %v", err)
-	}
-
-	doc := make(map[string]any)
-	if err := json.Unmarshal(payload, &doc); err != nil {
-		t.Fatalf("cannot build a silo entry: %v", err)
-	}
-	doc["$schema"] = "https://gobl.org/draft-0/bill/invoice"
-
-	data, err := json.Marshal(map[string]any{
-		"$schema": "https://gobl.org/draft-0/envelope",
-		"head":    map[string]any{"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f100"},
-		"doc":     doc,
-	})
-	if err != nil {
-		t.Fatalf("cannot build a silo entry: %v", err)
-	}
-
-	env := new(gobl.Envelope)
-	if err := json.Unmarshal(data, env); err != nil {
-		t.Fatalf("cannot read a silo entry: %v", err)
-	}
-
-	return env
 }
 
 func envelope(t *testing.T, invoice *bill.Invoice) *gobl.Envelope {

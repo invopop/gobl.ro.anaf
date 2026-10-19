@@ -4,7 +4,7 @@
 		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
 		"dig": {
 			"alg": "sha256",
-			"val": "aa0f684896f637d0db28ac0abe62681b8f6cf4ae2c05bb6603910bdc1e3bb61b"
+			"val": "d5ddeadb692b422251cd76c96284b4e54a6e0ab55c5273184c7387b1c66bf10c"
 		}
 	},
 	"doc": {
@@ -90,12 +90,9 @@
 		"payment": {
 			"payee": {
 				"name": "Birou Executor Judecatoresc Popescu",
-				"tax_id": {
-					"country": "RO",
-					"code": "22222224"
-				},
 				"identities": [
 					{
+						"scope": "legal",
 						"code": "22222224"
 					}
 				]

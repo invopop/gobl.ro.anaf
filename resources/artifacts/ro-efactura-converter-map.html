@@ -145,7 +145,7 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
     <a href="#roundtrip">Round trip</a>
     <a href="#sending">Sending</a>
     <a href="#receiving">Receiving</a>
-    <a href="#mirror">Localize and delocalize</a>
+    <a href="#mirror">Export and import funcs</a>
     <a href="#lossy">What cannot come back</a>
     <a href="#errors">Errors</a>
     <a href="#tests">Tests</a>
@@ -159,8 +159,8 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
       <p class="lede">How a GOBL invoice becomes the CIUS-RO XML ANAF files, how an invoice ANAF delivers becomes GOBL again, and how the two directions mirror each other so a round trip lands where it started.</p>
       <div class="stats">
         <div class="stat"><b>2</b><span>entry points</span></div>
-        <div class="stat"><b>4</b><span>localize steps</span></div>
-        <div class="stat"><b>6</b><span>delocalize steps</span></div>
+        <div class="stat"><b>5</b><span>export funcs</span></div>
+        <div class="stat"><b>7</b><span>import funcs</span></div>
         <div class="stat"><b>133/134</b><span>exact round trips</span></div>
         <div class="stat"><b>205</b><span>corpus invoices</span></div>
         <div class="stat"><b>12</b><span>ANAF samples read</span></div>
@@ -180,10 +180,10 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
       <h2>How the layers stack</h2>
       <p class="sec-note">This page covers the highlighted layer. Everything it renders has already passed the addon.</p>
       <div class="layers">
-        <div class="layer"><div class="name">GOBL core<small>gobl v0.507</small></div><p>The invoice model, calculation and generic validation. No Romanian tax regime yet, so it does not know RON is the accounting currency.</p></div>
+        <div class="layer"><div class="name">GOBL core<small>gobl v0.510</small></div><p>The invoice model, calculation and generic validation. No Romanian tax regime yet, so it does not know RON is the accounting currency.</p></div>
         <div class="layer"><div class="name">eu-en16931-v2017<small>required by the addon</small></div><p>The European standard: codes and BR rules every CIUS builds on.</p></div>
         <div class="layer"><div class="name">ro-efactura-v1<small>addon/ · its own page</small></div><p>The Romanian rules, fixes, document types and tags. The converter runs it on the way out and on the way in.</p></div>
-        <div class="layer this"><div class="name">converter<small>module root · this page</small></div><p>gobl.ubl v0.82 writes and reads UBL, gobl.cii reads CII. <code>localize</code> and <code>delocalize</code> add the Romanian details in each direction.</p></div>
+        <div class="layer this"><div class="name">converter<small>module root · this page</small></div><p>gobl.ubl v0.94 writes and reads UBL, gobl.cii v0.76 reads CII. The export and import funcs of <code>FormatCIUSRO</code> and <code>FormatCIUSROCII</code> add the Romanian details in each direction.</p></div>
       </div>
     </section>
 
@@ -206,11 +206,10 @@ flowchart LR
     <section id="sending">
       <h2>Sending: ForwardConvert</h2>
       <ol class="flow">
-        <li>Copy the envelope, so the caller's silo document is never changed.</li>
+        <li>Require the <code>ro-efactura-v1</code> add-on. The envelope comes calculated and validated with it, as a silo entry does, so it is converted as it is.</li>
         <li>Ask <code>KindOf</code> whether ANAF takes this kind at all. A proforma stops as skipped, a debit note as unsupported.</li>
-        <li>Calculate and validate, so every addon fix and rule runs. A broken rule stops here with its code.</li>
-        <li>gobl.ubl writes UBL using <code>ContextCIUSRO</code>, which sets BT-24 to <code>…CIUS-RO:1.0.1</code> and names the schematron the result is checked against.</li>
-        <li><code>localize</code> adds the Romanian details, then the XML is serialized.</li>
+        <li>gobl.ubl writes UBL using <code>FormatCIUSRO</code>, which sets BT-24 to <code>…CIUS-RO:1.0.1</code> and names the schematron the result is checked against.</li>
+        <li>The export funcs of <code>FormatCIUSRO</code> add the Romanian details (<code>export.go</code>), then the XML is serialized.</li>
       </ol>
     </section>
 
@@ -218,15 +217,15 @@ flowchart LR
       <h2>Receiving: ReverseConvert</h2>
       <ol class="flow">
         <li>Look at the root element to tell UBL (Invoice or CreditNote) from CII. Anything else is unreadable.</li>
-        <li>UBL is read by gobl.ubl as Romanian, whatever CIUS-RO version the file names. CII is read by gobl.cii, then the Romanian addon is declared on the result, because gobl.cii cannot be told.</li>
-        <li>Note what the parsers drop: the document type code, the payment means code, attachment file names and the VAT total in each currency.</li>
-        <li><code>delocalize</code> puts back what CIUS-RO and the parsers lost.</li>
+        <li>UBL is read by gobl.ubl with <code>FormatCIUSRO</code>, whatever CIUS-RO version the file names. CII is read by gobl.cii with <code>FormatCIUSROCII</code>. Both formats declare the Romanian addon.</li>
+        <li>For CII, both VAT totals are taken from the raw XML first, because gobl.cii keeps only one.</li>
+        <li>The import funcs of the format put back what the generic readers lose (<code>import.go</code>), before the invoice is calculated with the addon.</li>
         <li>Calculate with the addon. The invoice is never validated: an invoice ANAF already sealed is kept even if it breaks one of our rules.</li>
       </ol>
     </section>
 
     <section id="mirror">
-      <h2>Localize and delocalize</h2>
+      <h2>Export and import funcs</h2>
       <p class="sec-note">Every change made on the way out has a partner that undoes it on the way in. When you change one side, check its partner.</p>
       <div class="table-wrap"><table class="mirror">
         <thead><tr><th>On the way out</th><th></th><th>On the way in</th></tr></thead>
@@ -239,7 +238,8 @@ flowchart LR
           <tr><td>The exact payment means code is written (BT-81), such as 26 for a holiday voucher.</td><td class="arrow">⇄</td><td><b>Payment</b>: codes the parsers cannot map are put back instead of turning into 1. A SEPA creditor ID left on the seller moves back to the direct debit.</td></tr>
           <tr><td>An attachment's file name is written next to its URL.</td><td class="arrow">⇄</td><td><b>Attachments</b>: the file name gobl.ubl drops is restored by URL.</td></tr>
           <tr><td>The schema location and the <code>NA</code> purchase-order placeholder are dropped.</td><td class="arrow">→</td><td class="oneway">Nothing to undo: the parsers ignore both.</td></tr>
-          <tr><td>The addon adds the <code>Autofactură</code> note and copies the enforcement body's CIF to BT-60.</td><td class="arrow">→</td><td class="oneway">Read back as an ordinary note and identity. The tags they came from are not guessed.</td></tr>
+          <tr><td><b>Notes</b>: the addon's scenario puts the <code>Autofactură</code> mention of a buyer-issued invoice in the tax notes, which gobl.ubl does not write, so <code>exportSelfBillingNote</code> adds it to BT-22 (BR-RO-060, Fiscal Code art. 319(20)(k)).</td><td class="arrow">⇄</td><td><b>Notes</b>: on a 389 issued by the buyer the mention is dropped from the notes, because the scenario adds it back. On a 381 or 384 the <code>self-billed</code> tag is not guessed, so the mention stays an ordinary note.</td></tr>
+          <tr><td>The enforcement body is written as payee with its legal registration identifier in BT-61 (BR-RO-130).</td><td class="arrow">→</td><td class="oneway">Read back as the payee's legal identity. The <code>enforcement</code> tag is not guessed.</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -257,7 +257,7 @@ flowchart LR
           <tr><td>Contact first and last name</td><td>BT-41 is one name.</td></tr>
           <tr><td>Advance payment details</td><td>BT-113 is a single amount.</td></tr>
           <tr><td>Note keys, attribute keys, item identity types</td><td>The XML keeps the text and codes, not GOBL's keys.</td></tr>
-          <tr><td>The <code>enforcement</code> tag, and <code>self-billed</code> on a 381 or 384</td><td>ANAF learns them from upload flags, not from the XML.</td></tr>
+          <tr><td>The <code>enforcement</code> tag, and <code>self-billed</code> on a 381 or 384</td><td>ANAF learns them from upload flags, not from the XML. The <code>Autofactură</code> mention of such a correction comes back as an ordinary note instead of a tax note.</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -267,8 +267,8 @@ flowchart LR
       <div class="table-wrap"><table>
         <thead><tr><th>Error</th><th>Direction</th><th>Meaning</th></tr></thead>
         <tbody>
-          <tr><td><code>ErrInvalidDocument</code></td><td>out</td><td>The envelope carries no GOBL invoice.</td></tr>
-          <tr><td><code>ErrNotCompliant</code></td><td>out</td><td>An addon rule refused the invoice; the message carries the rule code.</td></tr>
+          <tr><td><code>ErrInvalidDocument</code></td><td>out</td><td>The envelope carries no GOBL invoice, or the invoice does not declare the add-on.</td></tr>
+          <tr><td><code>ErrNotCompliant</code></td><td>out</td><td>The invoice lacks something CIUS-RO needs to be rendered, such as the exchange rate to RON.</td></tr>
           <tr><td><code>ErrUnsupported</code></td><td>out</td><td>Romania has no code for this kind of document.</td></tr>
           <tr><td><code>ErrSkipped</code></td><td>out</td><td>Never reported to ANAF, such as a proforma.</td></tr>
           <tr><td><code>ErrConversion</code></td><td>both</td><td>Writing, reading or calculating failed.</td></tr>
@@ -295,16 +295,15 @@ flowchart LR
       <h2>Gaps and decisions</h2>
       <p class="sec-note">Only what changes how the converter behaves today.</p>
       <div class="gaps">
-        <div class="gapitem"><span class="why">Bug</span><h3>Seller outside the VAT scope with an ordering seller</h3><p>When an invoice in category O also has an ordering seller, <code>localize</code> writes the ordering seller's CIF into the seller's fields. gobl.ubl now writes the supplier as the seller, so the CIF is the wrong one. The fix is to always use the supplier. No corpus invoice has this combination yet.</p></div>
+        <div class="gapitem"><span class="why">Bug</span><h3>Seller outside the VAT scope with an ordering seller</h3><p>When an invoice in category O also has an ordering seller, <code>exportOutsideScope</code> writes the ordering seller's CIF into the seller's fields. gobl.ubl now writes the supplier as the seller, so the CIF is the wrong one. The fix is to always use the supplier. No corpus invoice has this combination yet.</p></div>
         <div class="gapitem decision"><span class="why">Decision</span><h3>Sealed totals are kept as stated</h3><p>When a received invoice's totals do not add up, gobl.ubl and gobl.cii keep the totals ANAF sealed and mark the invoice <code>bypass</code>. The converter adds no totals check of its own and never validates a received invoice.</p></div>
         <div class="gapitem decision"><span class="why">Decision</span><h3>No guessing tags the XML does not carry</h3><p>Enforcement, and self-billing on a 381 or 384, only exist as ANAF upload flags. Reading them back would be a guess, so the converter leaves them off.</p></div>
         <div class="gapitem"><span class="why">Gap</span><h3>No exchange rate on a zero-VAT foreign invoice</h3><p>The rate is only recoverable from the two VAT totals. With zero VAT both are zero, so the invoice comes back without a rate. It imports fine, but could not be sent again as it is.</p></div>
-        <div class="gapitem"><span class="why">Temporary</span><h3>gobl.cii runs on a fix branch</h3><p>Reading the VAT in RON from CII needs the gobl.cii fix that is still in review. The module is pinned to that branch until it is released.</p></div>
       </div>
     </section>
 
     <footer>
-      Built from the converter source on 8 October 2026, with gobl.ubl v0.82, gobl.cii on its fix branch and the addon ro-efactura-v1. The rules and fixes the converter runs are on the RO e-Factura Addon Map.
+      Built from the converter source on 19 October 2026, with gobl v0.510, gobl.ubl v0.94, gobl.cii v0.76 and the addon ro-efactura-v1. The rules and fixes the converter runs are on the RO e-Factura Addon Map.
     </footer>
   </main>
 </div>

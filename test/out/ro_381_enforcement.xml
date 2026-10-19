@@ -68,18 +68,12 @@
     </cac:Party>
   </cac:AccountingCustomerParty>
   <cac:PayeeParty>
-    <cac:PartyIdentification>
-      <cbc:ID>22222224</cbc:ID>
-    </cac:PartyIdentification>
     <cac:PartyName>
       <cbc:Name>Birou Executor Judecatoresc Popescu</cbc:Name>
     </cac:PartyName>
-    <cac:PartyTaxScheme>
-      <cbc:CompanyID>RO22222224</cbc:CompanyID>
-      <cac:TaxScheme>
-        <cbc:ID>VAT</cbc:ID>
-      </cac:TaxScheme>
-    </cac:PartyTaxScheme>
+    <cac:PartyLegalEntity>
+      <cbc:CompanyID>22222224</cbc:CompanyID>
+    </cac:PartyLegalEntity>
   </cac:PayeeParty>
   <cac:PaymentMeans>
     <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>

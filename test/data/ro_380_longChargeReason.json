@@ -1,17 +1,17 @@
 {
 	"$schema": "https://gobl.org/draft-0/envelope",
 	"head": {
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91099"
+		"uuid": "01a1540a-cc3f-7093-bb67-410e8ddaefa2"
 	},
 	"doc": {
 		"$schema": "https://gobl.org/draft-0/bill/invoice",
 		"$addons": [
 			"ro-efactura-v1"
 		],
-		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91099",
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9100a",
 		"type": "standard",
 		"series": "FCT",
-		"code": "2026-0474",
+		"code": "2026-0389",
 		"issue_date": "2026-08-28",
 		"currency": "RON",
 		"supplier": {
@@ -37,21 +37,24 @@
 			]
 		},
 		"customer": {
-			"name": "Ion Popescu",
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
 			"addresses": [
 				{
-					"num": "7",
-					"street": "Strada Lunga",
-					"locality": "Brasov",
-					"state": "BV",
-					"code": "500001",
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
 					"country": "RO"
 				}
 			],
-			"identities": [
+			"emails": [
 				{
-					"type": "CNP",
-					"code": "12345"
+					"addr": "contabilitate@client.ro"
 				}
 			]
 		},
@@ -69,6 +72,20 @@
 						"cat": "VAT",
 						"key": "standard",
 						"percent": "21%"
+					}
+				],
+				"discounts": [
+					{
+						"i": 1,
+						"reason": "Reducere comerciala",
+						"amount": "25.00"
+					}
+				],
+				"charges": [
+					{
+						"i": 1,
+						"reason": "Ambalare",
+						"amount": "10.00"
 					}
 				]
 			}
@@ -89,6 +106,34 @@
 					"untdid-payment-means": "30"
 				}
 			}
-		}
+		},
+		"discounts": [
+			{
+				"i": 1,
+				"reason": "Discount de volum",
+				"amount": "100.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		],
+		"charges": [
+			{
+				"i": 1,
+				"reason": "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+				"amount": "50.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		]
 	}
 }

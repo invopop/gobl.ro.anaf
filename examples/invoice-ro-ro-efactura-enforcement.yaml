@@ -43,8 +43,8 @@ lines:
 payment:
   payee:
     name: "Birou Executor Judecatoresc Popescu"
-    tax_id:
-      country: "RO"
-      code: "22222224"
+    identities:
+      - scope: "legal"
+        code: "22222224"
   terms:
     notes: "Plata in contul de executare"

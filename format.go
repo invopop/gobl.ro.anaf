@@ -14,8 +14,8 @@ const specificationCIUSRO = "urn:cen.eu:en16931:2017#compliant#urn:efactura.mfin
 
 // FormatCIUSRO is the UBL format of the Romanian CIUS: the specification
 // identifier, the addon that has to be declared to produce it, the
-// schematrons published for it, and the details gobl.ubl cannot decide on
-// its own. It moves to gobl.ubl the day that module learns about Romania.
+// schematrons published for it, and the export and import funcs, in export.go
+// and import.go, that handle what gobl.ubl cannot decide on its own.
 var FormatCIUSRO = ubl.Format{
 	Key:             "ubl+cius-ro-v1",
 	Name:            i18n.NewString("UBL CIUS-RO"),
@@ -25,15 +25,39 @@ var FormatCIUSRO = ubl.Format{
 		Invoice:    "ro.gov.mfinante.cius-ro:ubl-invoice:1.0.9",
 		CreditNote: "ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.9",
 	},
-	ExportFuncs: []ubl.ExportFunc{exportLocalize},
+	ExportFuncs: []ubl.ExportFunc{
+		exportSchemaLocation,
+		exportOrderReference,
+		exportOutsideScope,
+		exportSelfBillingNote,
+		exportTaxCurrency,
+	},
+	ImportFuncs: []ubl.ImportFunc{
+		importDocumentType,
+		importOutsideScope,
+		importParties,
+		importPaymentMeans,
+		importAttachmentNames,
+		importTaxCurrency,
+		importSelfBillingNote,
+	},
 }
 
 // FormatCIUSROCII is the CII format of the Romanian CIUS, so the invoices
-// read from CII declare the Romanian addon
+// read from CII declare the Romanian addon and get the same import funcs as
+// UBL.
 var FormatCIUSROCII = cii.Format{
 	Key:         "cii+cius-ro-v1",
 	Name:        i18n.NewString("CII CIUS-RO"),
 	GuidelineID: specificationCIUSRO,
 	Version:     cii.VersionD16B,
 	Addons:      []cbc.Key{efactura.V1},
+	ImportFuncs: []cii.ImportFunc{
+		importCIIDocumentType,
+		importCIIOutsideScope,
+		importCIIParties,
+		importCIIPaymentMeans,
+		importCIITaxCurrency,
+		importCIISelfBillingNote,
+	},
 }

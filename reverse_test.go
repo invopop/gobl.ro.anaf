@@ -35,6 +35,15 @@ var lossy = regexp.MustCompile(`^(` +
 	`\$tags` + // enforcement and self-billed corrections live in the upload flags only
 	`)$`)
 
+// lostMention are the self-billed corrections whose tag lives in the upload flags only, so the autofactura mention comes back as an ordinary note
+var lostMention = map[string]bool{
+	"ro_381_selfBilledCreditNote.json": true,
+	"ro_384_selfBilled.json":           true,
+}
+
+// mentionDiff is the difference lostMention accepts: the tax note on one side, the ordinary note on the other
+var mentionDiff = regexp.MustCompile(`^(tax\.notes|notes): `)
+
 // unrecoverable are the fixtures a round trip cannot rebuild at all
 var unrecoverable = map[string]string{
 	"ro_380_intraCommunity.json": "zero VAT leaves no exchange rate to recover",
@@ -62,6 +71,9 @@ func TestReverseConvertRoundTrip(t *testing.T) {
 
 			// The same GOBL, apart from what CIUS-RO cannot carry
 			for _, diff := range diffJSON(t, want.Extract(), invoice) {
+				if lostMention[file] && mentionDiff.MatchString(diff) {
+					continue
+				}
 				t.Error(diff)
 			}
 
