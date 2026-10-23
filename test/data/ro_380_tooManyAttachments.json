@@ -1,0 +1,303 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91091"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91091",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0473",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "contabilitate@client.ro"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "10",
+				"item": {
+					"name": "Servicii de consultanta",
+					"price": "500.00",
+					"unit": "h"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%"
+					}
+				]
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Exemplu Digital SRL"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			}
+		},
+		"attachments": [
+			{
+				"code": "D0",
+				"url": "https://exemplu.ro/0.pdf"
+			},
+			{
+				"code": "D1",
+				"url": "https://exemplu.ro/1.pdf"
+			},
+			{
+				"code": "D2",
+				"url": "https://exemplu.ro/2.pdf"
+			},
+			{
+				"code": "D3",
+				"url": "https://exemplu.ro/3.pdf"
+			},
+			{
+				"code": "D4",
+				"url": "https://exemplu.ro/4.pdf"
+			},
+			{
+				"code": "D5",
+				"url": "https://exemplu.ro/5.pdf"
+			},
+			{
+				"code": "D6",
+				"url": "https://exemplu.ro/6.pdf"
+			},
+			{
+				"code": "D7",
+				"url": "https://exemplu.ro/7.pdf"
+			},
+			{
+				"code": "D8",
+				"url": "https://exemplu.ro/8.pdf"
+			},
+			{
+				"code": "D9",
+				"url": "https://exemplu.ro/9.pdf"
+			},
+			{
+				"code": "D10",
+				"url": "https://exemplu.ro/10.pdf"
+			},
+			{
+				"code": "D11",
+				"url": "https://exemplu.ro/11.pdf"
+			},
+			{
+				"code": "D12",
+				"url": "https://exemplu.ro/12.pdf"
+			},
+			{
+				"code": "D13",
+				"url": "https://exemplu.ro/13.pdf"
+			},
+			{
+				"code": "D14",
+				"url": "https://exemplu.ro/14.pdf"
+			},
+			{
+				"code": "D15",
+				"url": "https://exemplu.ro/15.pdf"
+			},
+			{
+				"code": "D16",
+				"url": "https://exemplu.ro/16.pdf"
+			},
+			{
+				"code": "D17",
+				"url": "https://exemplu.ro/17.pdf"
+			},
+			{
+				"code": "D18",
+				"url": "https://exemplu.ro/18.pdf"
+			},
+			{
+				"code": "D19",
+				"url": "https://exemplu.ro/19.pdf"
+			},
+			{
+				"code": "D20",
+				"url": "https://exemplu.ro/20.pdf"
+			},
+			{
+				"code": "D21",
+				"url": "https://exemplu.ro/21.pdf"
+			},
+			{
+				"code": "D22",
+				"url": "https://exemplu.ro/22.pdf"
+			},
+			{
+				"code": "D23",
+				"url": "https://exemplu.ro/23.pdf"
+			},
+			{
+				"code": "D24",
+				"url": "https://exemplu.ro/24.pdf"
+			},
+			{
+				"code": "D25",
+				"url": "https://exemplu.ro/25.pdf"
+			},
+			{
+				"code": "D26",
+				"url": "https://exemplu.ro/26.pdf"
+			},
+			{
+				"code": "D27",
+				"url": "https://exemplu.ro/27.pdf"
+			},
+			{
+				"code": "D28",
+				"url": "https://exemplu.ro/28.pdf"
+			},
+			{
+				"code": "D29",
+				"url": "https://exemplu.ro/29.pdf"
+			},
+			{
+				"code": "D30",
+				"url": "https://exemplu.ro/30.pdf"
+			},
+			{
+				"code": "D31",
+				"url": "https://exemplu.ro/31.pdf"
+			},
+			{
+				"code": "D32",
+				"url": "https://exemplu.ro/32.pdf"
+			},
+			{
+				"code": "D33",
+				"url": "https://exemplu.ro/33.pdf"
+			},
+			{
+				"code": "D34",
+				"url": "https://exemplu.ro/34.pdf"
+			},
+			{
+				"code": "D35",
+				"url": "https://exemplu.ro/35.pdf"
+			},
+			{
+				"code": "D36",
+				"url": "https://exemplu.ro/36.pdf"
+			},
+			{
+				"code": "D37",
+				"url": "https://exemplu.ro/37.pdf"
+			},
+			{
+				"code": "D38",
+				"url": "https://exemplu.ro/38.pdf"
+			},
+			{
+				"code": "D39",
+				"url": "https://exemplu.ro/39.pdf"
+			},
+			{
+				"code": "D40",
+				"url": "https://exemplu.ro/40.pdf"
+			},
+			{
+				"code": "D41",
+				"url": "https://exemplu.ro/41.pdf"
+			},
+			{
+				"code": "D42",
+				"url": "https://exemplu.ro/42.pdf"
+			},
+			{
+				"code": "D43",
+				"url": "https://exemplu.ro/43.pdf"
+			},
+			{
+				"code": "D44",
+				"url": "https://exemplu.ro/44.pdf"
+			},
+			{
+				"code": "D45",
+				"url": "https://exemplu.ro/45.pdf"
+			},
+			{
+				"code": "D46",
+				"url": "https://exemplu.ro/46.pdf"
+			},
+			{
+				"code": "D47",
+				"url": "https://exemplu.ro/47.pdf"
+			},
+			{
+				"code": "D48",
+				"url": "https://exemplu.ro/48.pdf"
+			},
+			{
+				"code": "D49",
+				"url": "https://exemplu.ro/49.pdf"
+			},
+			{
+				"code": "D50",
+				"url": "https://exemplu.ro/50.pdf"
+			}
+		]
+	}
+}
