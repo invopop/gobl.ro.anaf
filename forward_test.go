@@ -153,6 +153,41 @@ func TestConvertWritesTheSelfBillingMentionOnce(t *testing.T) {
 	}
 }
 
+func TestConvertKeepsTheSupplierCIFOutsideScope(t *testing.T) {
+	// A seller not registered for VAT, with a tax representative as ordering seller
+	invoice := newInvoice()
+	invoice.Lines[0].Taxes = tax.Set{{
+		Category: tax.CategoryVAT,
+		Key:      tax.KeyOutsideScope,
+		Ext:      tax.ExtensionsOf(cbc.CodeMap{"cef-vatex": "VATEX-EU-O"}),
+	}}
+	invoice.Ordering = &bill.Ordering{Seller: &org.Party{
+		Name:  "Reprezentant Fiscal SRL",
+		TaxID: &tax.Identity{Country: l10n.RO.Tax(), Code: "34567892"},
+	}}
+
+	document, err := roefactura.ForwardConvert(envelope(t, invoice))
+	if err != nil {
+		t.Fatalf("conversion failed: %v", err)
+	}
+
+	// BT-30 and BT-32 belong to the supplier, never to its tax representative
+	supplier := string(document)
+	start := strings.Index(supplier, "<cac:AccountingSupplierParty>")
+	end := strings.Index(supplier, "</cac:AccountingSupplierParty>")
+	if start < 0 || end < start {
+		t.Fatal("the document has no supplier party")
+	}
+	supplier = supplier[start:end]
+
+	if !strings.Contains(supplier, ">12345674<") {
+		t.Error("the supplier's own CIF is missing from its party")
+	}
+	if strings.Contains(supplier, ">34567892<") {
+		t.Error("the tax representative's CIF was written as the supplier's")
+	}
+}
+
 // newInvoice builds the smallest document Romania accepts.
 func newInvoice() *bill.Invoice {
 	address := &org.Address{

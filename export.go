@@ -63,11 +63,8 @@ func exportOutsideScope(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) err
 		return nil
 	}
 
-	// Pick the seller, preferring the ordering seller
+	// The seller is the supplier, the ordering seller being its tax representative (BG-11)
 	seller := invoice.Supplier
-	if invoice.Ordering != nil && invoice.Ordering.Seller != nil {
-		seller = invoice.Ordering.Seller
-	}
 
 	// Seller CIF from BT-31 to BT-32 and BT-30
 	if party := document.AccountingSupplierParty.Party; party != nil && addon.HasTaxNumber(seller) {
