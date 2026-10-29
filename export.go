@@ -5,7 +5,6 @@ import (
 	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
-	"github.com/invopop/gobl/currency"
 	"github.com/invopop/gobl/tax"
 )
 
@@ -91,45 +90,6 @@ func exportSelfBillingNote(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) 
 			document.Note = append(document.Note, note.Text)
 		}
 	}
-
-	return nil
-}
-
-// ***** Delete once the regime is implemented
-// exportTaxCurrency writes BT-6 and BT-111, which gobl.ubl leaves out until GOBL has a Romanian regime (BR-RO-030)
-func exportTaxCurrency(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) error {
-	document, invoice, ok := exported(env, doc)
-	if !ok {
-		return nil
-	}
-
-	// No tax currency for an invoice in RON
-	if document.DocumentCurrencyCode == addon.TaxCurrency.String() {
-		document.TaxCurrencyCode = ""
-		return nil
-	}
-
-	// The rate and totals the RON amount is built from
-	rate := currency.MatchExchangeRate(invoice.ExchangeRates, invoice.Currency, addon.TaxCurrency)
-	if rate == nil {
-		return ErrNotCompliant.WithMsg("invoice in %s states no exchange rate to %s, so VAT cannot be given in the accounting currency (BR-RO-030)", invoice.Currency, addon.TaxCurrency)
-	}
-
-	if invoice.Totals == nil {
-		return ErrConversion.WithMsg("invoice carries no totals, so the VAT amount in %s cannot be stated", addon.TaxCurrency)
-	}
-
-	// BT-6
-	document.TaxCurrencyCode = addon.TaxCurrency.String()
-
-	// BT-111, rescaled to two decimals (BR-RO-Z2)
-	taxCurrency := addon.TaxCurrency.String()
-	document.TaxTotal = append(document.TaxTotal, ubl.TaxTotal{
-		TaxAmount: ubl.Amount{
-			Value:      addon.TaxCurrency.Def().Rescale(rate.Convert(invoice.Totals.Tax)).String(),
-			CurrencyID: &taxCurrency,
-		},
-	})
 
 	return nil
 }

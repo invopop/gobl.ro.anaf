@@ -268,7 +268,6 @@ flowchart LR
         <thead><tr><th>Error</th><th>Direction</th><th>Meaning</th></tr></thead>
         <tbody>
           <tr><td><code>ErrInvalidDocument</code></td><td>out</td><td>The envelope carries no GOBL invoice, or the invoice does not declare the add-on.</td></tr>
-          <tr><td><code>ErrNotCompliant</code></td><td>out</td><td>The invoice lacks something CIUS-RO needs to be rendered, such as the exchange rate to RON.</td></tr>
           <tr><td><code>ErrUnsupported</code></td><td>out</td><td>Romania has no code for this kind of document.</td></tr>
           <tr><td><code>ErrSkipped</code></td><td>out</td><td>Never reported to ANAF, such as a proforma.</td></tr>
           <tr><td><code>ErrConversion</code></td><td>both</td><td>Writing, reading or calculating failed.</td></tr>
