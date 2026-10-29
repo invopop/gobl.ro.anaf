@@ -62,3 +62,69 @@ func TestSelfBillingScenarioNote(t *testing.T) {
 		}
 	})
 }
+
+func TestNotesWithinCount(t *testing.T) {
+	notes := func(count int, text string) []*org.Note {
+		out := make([]*org.Note, count)
+		for i := range out {
+			out[i] = &org.Note{Text: text}
+		}
+		return out
+	}
+
+	tests := []struct {
+		name    string
+		invoice *bill.Invoice
+		want    bool
+	}{
+		{
+			name:    "twenty notes on a supplier-issued invoice",
+			invoice: &bill.Invoice{Notes: notes(20, "Nota")},
+			want:    true,
+		},
+		{
+			name: "twenty notes on a buyer-issued invoice leave no room for the mention",
+			invoice: func() *bill.Invoice {
+				invoice := selfBilledInvoice("87654329")
+				invoice.Notes = notes(20, "Nota")
+				return invoice
+			}(),
+			want: false,
+		},
+		{
+			name: "nineteen notes on a buyer-issued invoice leave room for the mention",
+			invoice: func() *bill.Invoice {
+				invoice := selfBilledInvoice("87654329")
+				invoice.Notes = notes(19, "Nota")
+				return invoice
+			}(),
+			want: true,
+		},
+		{
+			name: "a buyer-issued invoice whose note already carries the mention",
+			invoice: func() *bill.Invoice {
+				invoice := selfBilledInvoice("87654329")
+				invoice.Notes = append(notes(19, "Nota"), &org.Note{Text: "Autofactura emisa conform acordului"})
+				return invoice
+			}(),
+			want: true,
+		},
+		{
+			name: "a self-supply needs no mention",
+			invoice: func() *bill.Invoice {
+				invoice := selfBilledInvoice("12345674")
+				invoice.Notes = notes(20, "Nota")
+				return invoice
+			}(),
+			want: true,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if got := notesWithinCount(test.invoice); got != test.want {
+				t.Errorf("notes within count: want %v, got %v", test.want, got)
+			}
+		})
+	}
+}

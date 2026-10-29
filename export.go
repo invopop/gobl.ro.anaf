@@ -1,8 +1,6 @@
 package roefactura
 
 import (
-	"strings"
-
 	"github.com/invopop/gobl"
 	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
@@ -16,9 +14,6 @@ const orderReferenceFiller = "NA"
 
 // taxSchemeRegistration is the BT-32 scheme of a tax registration that is not VAT
 const taxSchemeRegistration = "TAX"
-
-// selfBillingMark is what a note carrying the autofactura mention contains, whether written autofactura or autofactură
-const selfBillingMark = "autofactur"
 
 //
 // Export funcs: run by FormatCIUSRO, in this order, after gobl.ubl writes the UBL document
@@ -161,7 +156,7 @@ func exported(env *gobl.Envelope, doc ubl.Document) (*ubl.Invoice, *bill.Invoice
 // hasSelfBillingMention reports a BT-22 note that already carries the autofactura mention, with or without diacritics
 func hasSelfBillingMention(notes []string) bool {
 	for _, note := range notes {
-		if strings.Contains(strings.ToLower(note), selfBillingMark) {
+		if addon.MentionsSelfBilling(note) {
 			return true
 		}
 	}

@@ -13,6 +13,8 @@
 package efactura
 
 import (
+	"strings"
+
 	"github.com/invopop/gobl/bill"
 	"github.com/invopop/gobl/catalogues/untdid"
 	"github.com/invopop/gobl/cbc"
@@ -53,6 +55,9 @@ const (
 
 // SelfBillingNote is the mention Fiscal Code art. 319 alin. (20) lit. k) asks of an invoice the buyer issues in the supplier's name.
 const SelfBillingNote = "Autofactură"
+
+// selfBillingMark is what a note carrying the mention contains, whether written autofactura or autofactură.
+const selfBillingMark = "autofactur"
 
 var tags = []*tax.TagSet{
 	{
@@ -166,4 +171,25 @@ func IsEnforcement(invoice *bill.Invoice) bool {
 // IsAccounting reports an invoice sent to ANAF for accounting purposes only.
 func IsAccounting(invoice *bill.Invoice) bool {
 	return invoice != nil && invoice.HasTags(TagAccounting)
+}
+
+// MentionsSelfBilling reports a note text that already carries the autofactura mention, with or without diacritics.
+func MentionsSelfBilling(text string) bool {
+	return strings.Contains(strings.ToLower(text), selfBillingMark)
+}
+
+// NeedsSelfBillingMention reports a buyer-issued invoice none of whose notes
+// carries the mention, so the converter adds it to BT-22.
+func NeedsSelfBillingMention(invoice *bill.Invoice) bool {
+	if !IsBuyerIssued(invoice) {
+		return false
+	}
+
+	for _, note := range invoice.Notes {
+		if note != nil && MentionsSelfBilling(RenderNote(note)) {
+			return false
+		}
+	}
+
+	return true
 }

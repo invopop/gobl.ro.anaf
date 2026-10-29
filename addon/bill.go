@@ -113,10 +113,8 @@ func billInvoiceRules() *rules.Set {
 		rules.Assert("04", "invoice currency must state its amounts on no more than two decimals (BR-RO-Z2)",
 			is.Func("currency within two subunits", currencyWithinSubunits),
 		),
-		rules.Field("notes",
-			rules.Assert("05", "invoice notes must contain no more than 20 entries (BR-RO-A020)",
-				is.Length(0, maxNotes),
-			),
+		rules.Assert("05", "invoice notes, with the autofactura mention the converter adds, must contain no more than 20 entries (BR-RO-A020)",
+			is.Func("notes within count", notesWithinCount),
 		),
 		rules.Field("preceding",
 			rules.Assert("06", "invoice preceding must contain no more than 500 entries (BR-RO-A500)",
@@ -295,6 +293,22 @@ func invoiceNumberWithinLength(value any) bool {
 	}
 
 	return len([]rune(invoiceNumber(invoice))) <= maxInvoiceNumber
+}
+
+// notesWithinCount applies BR-RO-A020 to BT-22 as written: the invoice notes,
+// plus the autofactura mention a buyer-issued invoice gets when none carries it.
+func notesWithinCount(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+	if !ok || invoice == nil {
+		return true
+	}
+
+	count := len(invoice.Notes)
+	if NeedsSelfBillingMention(invoice) {
+		count++
+	}
+
+	return count <= maxNotes
 }
 
 // currencyWithinSubunits keeps BR-RO-Z2 true: amounts are stated on the
