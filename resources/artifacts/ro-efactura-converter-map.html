@@ -281,8 +281,8 @@ flowchart LR
       <div class="table-wrap"><table>
         <thead><tr><th>Test</th><th>What it proves</th></tr></thead>
         <tbody>
-          <tr><td>Conversion corpus</td><td>205 invoices: 134 render and pass ANAF's schematron through phorm, 71 are refused by the rule they name.</td></tr>
-          <tr><td>Round trip</td><td>Every accepted invoice is read back and rendered again: 133 give identical XML and the same GOBL apart from the details above. The one left is a zero-VAT invoice in EUR, whose exchange rate cannot be recovered.</td></tr>
+          <tr><td>Conversion corpus</td><td>191 invoices: 135 render and pass ANAF's schematron through phorm, 56 are refused by the rule they name.</td></tr>
+          <tr><td>Round trip</td><td>Every accepted invoice is read back and rendered again: 134 give identical XML and the same GOBL apart from the details above. The one left is a zero-VAT invoice in EUR, whose exchange rate cannot be recovered.</td></tr>
           <tr><td>ANAF samples</td><td>The 12 official UBL and CII samples in <code>resources/examples</code> are read with the right type, currency and sealed payable amount.</td></tr>
           <tr><td>Targeted cases</td><td>Unreadable input, a trade register number kept outside the VAT scope, the exchange rate read from CII.</td></tr>
         </tbody>
@@ -294,7 +294,6 @@ flowchart LR
       <h2>Gaps and decisions</h2>
       <p class="sec-note">Only what changes how the converter behaves today.</p>
       <div class="gaps">
-        <div class="gapitem"><span class="why">Bug</span><h3>Seller outside the VAT scope with an ordering seller</h3><p>When an invoice in category O also has an ordering seller, <code>exportOutsideScope</code> writes the ordering seller's CIF into the seller's fields. gobl.ubl now writes the supplier as the seller, so the CIF is the wrong one. The fix is to always use the supplier. No corpus invoice has this combination yet.</p></div>
         <div class="gapitem decision"><span class="why">Decision</span><h3>Sealed totals are kept as stated</h3><p>When a received invoice's totals do not add up, gobl.ubl and gobl.cii keep the totals ANAF sealed and mark the invoice <code>bypass</code>. The converter adds no totals check of its own and never validates a received invoice.</p></div>
         <div class="gapitem decision"><span class="why">Decision</span><h3>No guessing tags the XML does not carry</h3><p>Enforcement, and self-billing on a 381 or 384, only exist as ANAF upload flags. Reading them back would be a guess, so the converter leaves them off.</p></div>
         <div class="gapitem"><span class="why">Gap</span><h3>No exchange rate on a zero-VAT foreign invoice</h3><p>The rate is only recoverable from the two VAT totals. With zero VAT both are zero, so the invoice comes back without a rate. It imports fine, but could not be sent again as it is.</p></div>
