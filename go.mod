@@ -3,7 +3,7 @@ module github.com/invopop/gobl.ro.anaf
 go 1.26.2
 
 require (
-	github.com/invopop/gobl v0.510.0
+	github.com/invopop/gobl v0.511.2-0.20261029152114-34ece5d258b6
 	github.com/invopop/gobl.cii v0.76.0
 	github.com/invopop/gobl.ubl v0.94.0
 	github.com/invopop/phorm v0.1.6
@@ -17,7 +17,7 @@ require (
 	github.com/beevik/etree v1.6.0 // indirect
 	github.com/buger/jsonparser v1.1.2 // indirect
 	github.com/expr-lang/expr v1.17.8 // indirect
-	github.com/go-jose/go-jose/v4 v4.1.4 // indirect
+	github.com/go-jose/go-jose/v4 v4.1.6 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/invopop/jsonschema v0.14.0 // indirect
 	github.com/invopop/validation v0.8.0 // indirect
@@ -32,5 +32,5 @@ require (
 	golang.org/x/crypto v0.53.0 // indirect
 	golang.org/x/text v0.38.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	software.sslmate.com/src/go-pkcs12 v0.7.0 // indirect
+	software.sslmate.com/src/go-pkcs12 v0.7.2 // indirect
 )

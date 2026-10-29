@@ -30,7 +30,6 @@ var FormatCIUSRO = ubl.Format{
 		exportOrderReference,
 		exportOutsideScope,
 		exportSelfBillingNote,
-		exportTaxCurrency,
 	},
 	ImportFuncs: []ubl.ImportFunc{
 		importDocumentType,

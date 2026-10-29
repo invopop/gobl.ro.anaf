@@ -99,8 +99,8 @@ func TestConvertWritesTheAccountingCurrency(t *testing.T) {
 				t.Errorf("BT-6 present: want %t, got %t", test.wantTax, got)
 			}
 
-			if test.wantTax && !strings.Contains(string(document), `currencyID="RON"`) {
-				t.Error("BT-111 is missing, so EN 16931 BR-53 cannot hold")
+			if test.wantTax && strings.Count(string(document), `<cbc:TaxAmount currencyID="RON">`) != 1 {
+				t.Error("BT-111 must be stated exactly once, so EN 16931 BR-53 holds")
 			}
 		})
 	}
