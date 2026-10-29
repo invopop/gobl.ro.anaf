@@ -56,6 +56,17 @@ func TestConvertRejectsAnEmptyEnvelope(t *testing.T) {
 	}
 }
 
+func TestConvertRejectsAnInvoiceWithoutTheAddon(t *testing.T) {
+	invoice := newInvoice()
+	invoice.Addons = tax.Addons{}
+
+	_, err := roefactura.ForwardConvert(envelope(t, invoice))
+
+	if !errors.Is(err, roefactura.ErrInvalidDocument) {
+		t.Errorf("error: want %v, got %v", roefactura.ErrInvalidDocument, err)
+	}
+}
+
 func TestConvertWritesTheAccountingCurrency(t *testing.T) {
 	tests := []struct {
 		name     string

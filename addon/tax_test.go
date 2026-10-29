@@ -42,3 +42,31 @@ func TestIsOutsideScope(t *testing.T) {
 		}
 	})
 }
+
+func TestOutsideScopeStandsAlone(t *testing.T) {
+	outsideScope := &tax.Combo{Category: tax.CategoryVAT, Ext: tax.ExtensionsOf(cbc.CodeMap{untdid.ExtKeyTaxCategory: en16931.TaxCategoryOutsideScope})}
+	standard := &tax.Combo{Category: tax.CategoryVAT, Ext: tax.ExtensionsOf(cbc.CodeMap{untdid.ExtKeyTaxCategory: en16931.TaxCategoryStandard})}
+
+	tests := []struct {
+		name  string
+		lines []tax.Set
+		want  bool
+	}{
+		{name: "only standard rated lines", lines: []tax.Set{{standard}}, want: true},
+		{name: "only outside scope lines", lines: []tax.Set{{outsideScope}, {outsideScope}}, want: true},
+		{name: "outside scope mixed with standard (BR-O-11)", lines: []tax.Set{{outsideScope}, {standard}}, want: false},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			invoice := new(bill.Invoice)
+			for _, set := range test.lines {
+				invoice.Lines = append(invoice.Lines, &bill.Line{Taxes: set})
+			}
+
+			if got := outsideScopeStandsAlone(invoice); got != test.want {
+				t.Errorf("outside scope stands alone: want %v, got %v", test.want, got)
+			}
+		})
+	}
+}

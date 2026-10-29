@@ -20,6 +20,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/invopop/gobl/addons/eu/en16931"
 	"github.com/invopop/gobl/bill"
 	"github.com/invopop/gobl/catalogues/untdid"
 	"github.com/invopop/gobl/currency"
@@ -193,6 +194,9 @@ func billInvoiceRules() *rules.Set {
 				),
 			),
 		),
+		rules.Assert("36", "an invoice not subject to VAT (category O) cannot carry other VAT categories (BR-O-11)",
+			is.Func("outside scope stands alone", outsideScopeStandsAlone),
+		),
 		rules.When(
 			is.Func("invoice is issued in an enforcement procedure", invoiceIsEnforcement),
 			rules.Assert("35", "an enforcement invoice must name the enforcement body as payee, with its name and its legal registration identifier (BR-RO-130)",
@@ -356,6 +360,25 @@ func exemptionReasonsWithinLength(value any) bool {
 	for _, note := range notes {
 		if note != nil && len([]rune(note.Text)) > maxExemptionReason {
 			return false
+		}
+	}
+
+	return true
+}
+
+// outsideScopeStandsAlone applies BR-O-11: the converter treats an invoice with category O
+// as not subject to VAT throughout, moving the CIFs out of the VAT fields.
+func outsideScopeStandsAlone(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+	if !ok || invoice == nil || !IsOutsideScope(invoice) {
+		return true
+	}
+
+	for _, set := range invoiceTaxSets(invoice) {
+		for _, combo := range set {
+			if combo != nil && combo.Category == tax.CategoryVAT && combo.Ext.Get(untdid.ExtKeyTaxCategory) != en16931.TaxCategoryOutsideScope {
+				return false
+			}
 		}
 	}
 

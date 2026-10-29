@@ -90,6 +90,8 @@ Each row is a rule of the Order MF 4092/2022 table. Codes are written without th
 
 N/A is the severity the table gives a rule ANAF does not validate.
 
+One EN 16931 rule is checked here as well, since the converter relies on it: BR-O-11, an invoice with category O carries no other VAT category (BILL-INVOICE-36).
+
 ## Normalizers
 
 | Normalizer | What it does | Source |
