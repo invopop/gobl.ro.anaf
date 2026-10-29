@@ -1,0 +1,26 @@
+name: Test Go
+on: [push]
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+
+      - name: Install Dependencies
+        env:
+          GOPROXY: https://proxy.golang.org,direct
+        run: go mod download
+
+      # Phorm is not available in CI, so the conversion corpus skips the schematron
+      - name: Test
+        env:
+          RO_SKIP_SCHEMATRON: "1"
+        run: go test -race ./...

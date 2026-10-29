@@ -1,0 +1,381 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91014"
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a91014",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0400",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "Sector 1",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "facturare@exemplu.ro"
+				}
+			]
+		},
+		"customer": {
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			],
+			"emails": [
+				{
+					"addr": "contabilitate@client.ro"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "1",
+				"item": {
+					"name": "Articol 1",
+					"price": "10.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 2,
+				"quantity": "2",
+				"item": {
+					"name": "Articol 2",
+					"price": "11.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 3,
+				"quantity": "3",
+				"item": {
+					"name": "Articol 3",
+					"price": "12.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 4,
+				"quantity": "4",
+				"item": {
+					"name": "Articol 4",
+					"price": "13.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 5,
+				"quantity": "5",
+				"item": {
+					"name": "Articol 5",
+					"price": "14.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 6,
+				"quantity": "6",
+				"item": {
+					"name": "Articol 6",
+					"price": "15.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 7,
+				"quantity": "7",
+				"item": {
+					"name": "Articol 7",
+					"price": "16.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 8,
+				"quantity": "8",
+				"item": {
+					"name": "Articol 8",
+					"price": "17.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 9,
+				"quantity": "9",
+				"item": {
+					"name": "Articol 9",
+					"price": "18.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 10,
+				"quantity": "10",
+				"item": {
+					"name": "Articol 10",
+					"price": "19.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 11,
+				"quantity": "11",
+				"item": {
+					"name": "Articol 11",
+					"price": "20.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 12,
+				"quantity": "12",
+				"item": {
+					"name": "Articol 12",
+					"price": "21.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 13,
+				"quantity": "13",
+				"item": {
+					"name": "Articol 13",
+					"price": "22.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 14,
+				"quantity": "14",
+				"item": {
+					"name": "Articol 14",
+					"price": "23.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 15,
+				"quantity": "15",
+				"item": {
+					"name": "Articol 15",
+					"price": "24.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 16,
+				"quantity": "16",
+				"item": {
+					"name": "Articol 16",
+					"price": "25.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 17,
+				"quantity": "17",
+				"item": {
+					"name": "Articol 17",
+					"price": "26.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 18,
+				"quantity": "18",
+				"item": {
+					"name": "Articol 18",
+					"price": "27.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			},
+			{
+				"i": 19,
+				"quantity": "19",
+				"item": {
+					"name": "Articol 19",
+					"price": "28.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "11%"
+					}
+				]
+			},
+			{
+				"i": 20,
+				"quantity": "20",
+				"item": {
+					"name": "Articol 20",
+					"price": "29.50",
+					"unit": "item"
+				},
+				"taxes": [
+					{
+						"cat": "VAT",
+						"percent": "21%"
+					}
+				]
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			},
+			"instructions": {
+				"key": "credit-transfer",
+				"credit_transfer": [
+					{
+						"iban": "RO49AAAA1B31007593840000",
+						"name": "Exemplu Digital SRL"
+					}
+				],
+				"ext": {
+					"untdid-payment-means": "30"
+				}
+			}
+		}
+	}
+}

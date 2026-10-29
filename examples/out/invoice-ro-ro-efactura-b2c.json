@@ -1,0 +1,123 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
+		"dig": {
+			"alg": "sha256",
+			"val": "8b3249ab2e37e4f55940932a621b8c88c645459282e6f4e2d17e070a840b15af"
+		}
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"eu-en16931-v2017",
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f500",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0500",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"tax": {
+			"rounding": "currency",
+			"ext": {
+				"untdid-document-type": "380"
+			}
+		},
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "SECTOR1",
+					"region": "RO-B",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			]
+		},
+		"customer": {
+			"name": "Ion Popescu",
+			"identities": [
+				{
+					"scope": "legal",
+					"type": "CNP",
+					"code": "0000000000000"
+				}
+			],
+			"addresses": [
+				{
+					"num": "7",
+					"street": "Strada Lunga",
+					"locality": "Brasov",
+					"region": "RO-BV",
+					"state": "BV",
+					"code": "500001",
+					"country": "RO"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "1",
+				"item": {
+					"name": "Abonament anual",
+					"price": "240.00",
+					"unit": "one"
+				},
+				"sum": "240.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%",
+						"ext": {
+							"untdid-tax-category": "S"
+						}
+					}
+				],
+				"total": "240.00"
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			}
+		},
+		"totals": {
+			"sum": "240.00",
+			"total": "240.00",
+			"taxes": {
+				"categories": [
+					{
+						"code": "VAT",
+						"rates": [
+							{
+								"key": "standard",
+								"ext": {
+									"untdid-tax-category": "S"
+								},
+								"base": "240.00",
+								"percent": "21%",
+								"amount": "50.40"
+							}
+						],
+						"amount": "50.40"
+					}
+				],
+				"sum": "50.40"
+			},
+			"tax": "50.40",
+			"total_with_tax": "290.40",
+			"payable": "290.40"
+		}
+	}
+}

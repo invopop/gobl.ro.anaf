@@ -1,0 +1,46 @@
+$schema: "https://gobl.org/draft-0/bill/invoice"
+$addons: ["ro-efactura-v1"]
+$tags: ["self-billed"]
+uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f389"
+type: standard
+series: "AUT"
+code: "2026-0389"
+issue_date: "2026-08-28"
+currency: "RON"
+supplier:
+  name: "Furnizor Agricol SRL"
+  tax_id:
+    country: "RO"
+    code: "12345674"
+  addresses:
+    - num: "3"
+      street: "Strada Garii"
+      locality: "Timisoara"
+      state: "TM"
+      code: "300001"
+      country: "RO"
+customer:
+  name: "Exemplu Digital SRL"
+  tax_id:
+    country: "RO"
+    code: "87654329"
+  addresses:
+    - num: "16"
+      street: "Bulevardul Libertatii"
+      locality: "Sector 1"
+      state: "B"
+      code: "010101"
+      country: "RO"
+lines:
+  - quantity: "100"
+    item:
+      name: "Cereale"
+      price: "12.50"
+      unit: "kg"
+    taxes:
+      - cat: "VAT"
+        key: "standard"
+        percent: "21%"
+payment:
+  terms:
+    notes: "Plata in 30 de zile"

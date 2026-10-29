@@ -1,0 +1,142 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
+		"dig": {
+			"alg": "sha256",
+			"val": "35c24515162ffe5defbe8f9d98dcd3c4f3ddcd04ea6acf09dfc63ccde476289f"
+		}
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"eu-en16931-v2017",
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f600",
+		"type": "standard",
+		"series": "FCT",
+		"code": "2026-0600",
+		"issue_date": "2026-08-28",
+		"currency": "EUR",
+		"exchange_rates": [
+			{
+				"from": "EUR",
+				"to": "RON",
+				"amount": "5.0850"
+			}
+		],
+		"tax": {
+			"rounding": "currency",
+			"ext": {
+				"untdid-document-type": "380"
+			}
+		},
+		"supplier": {
+			"name": "Exemplu Digital SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "16",
+					"street": "Bulevardul Libertatii",
+					"locality": "SECTOR1",
+					"region": "RO-B",
+					"state": "B",
+					"code": "010101",
+					"country": "RO"
+				}
+			]
+		},
+		"customer": {
+			"name": "Kunde GmbH",
+			"tax_id": {
+				"country": "DE",
+				"code": "111111125"
+			},
+			"addresses": [
+				{
+					"num": "5",
+					"street": "Hauptstrasse",
+					"locality": "Munich",
+					"region": "Bavaria",
+					"code": "80331",
+					"country": "DE"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "1",
+				"item": {
+					"name": "Servicii de dezvoltare",
+					"price": "2500.00",
+					"unit": "one"
+				},
+				"sum": "2500.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "intra-community",
+						"ext": {
+							"cef-vatex": "vatex-eu-ic",
+							"untdid-tax-category": "K"
+						}
+					}
+				],
+				"total": "2500.00"
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 30 de zile"
+			}
+		},
+		"delivery": {
+			"receiver": {
+				"name": "Kunde GmbH",
+				"addresses": [
+					{
+						"num": "5",
+						"street": "Hauptstrasse",
+						"locality": "Munich",
+						"region": "Bayern",
+						"code": "80331",
+						"country": "DE"
+					}
+				]
+			},
+			"date": "2026-08-27"
+		},
+		"totals": {
+			"sum": "2500.00",
+			"total": "2500.00",
+			"taxes": {
+				"categories": [
+					{
+						"code": "VAT",
+						"rates": [
+							{
+								"key": "intra-community",
+								"ext": {
+									"cef-vatex": "vatex-eu-ic",
+									"untdid-tax-category": "K"
+								},
+								"base": "2500.00",
+								"amount": "0.00"
+							}
+						],
+						"amount": "0.00"
+					}
+				],
+				"sum": "0.00"
+			},
+			"tax": "0.00",
+			"total_with_tax": "2500.00",
+			"payable": "2500.00"
+		}
+	}
+}

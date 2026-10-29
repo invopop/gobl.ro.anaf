@@ -1,0 +1,120 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
+		"dig": {
+			"alg": "sha256",
+			"val": "ba76d873cb06631fe109eb6d7e44fe78535c12ed05da821f6c76b5916ba18461"
+		}
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"eu-en16931-v2017",
+			"ro-efactura-v1"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f700",
+		"type": "standard",
+		"series": "PFA",
+		"code": "2026-0700",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"tax": {
+			"rounding": "currency",
+			"ext": {
+				"untdid-document-type": "380"
+			}
+		},
+		"supplier": {
+			"name": "Ionescu Maria PFA",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "9",
+					"street": "Strada Florilor",
+					"locality": "Iasi",
+					"region": "RO-IS",
+					"state": "IS",
+					"code": "700001",
+					"country": "RO"
+				}
+			]
+		},
+		"customer": {
+			"name": "Client Industrial SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"region": "RO-CJ",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "4",
+				"item": {
+					"name": "Traduceri autorizate",
+					"price": "150.00",
+					"unit": "one"
+				},
+				"sum": "600.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "outside-scope",
+						"ext": {
+							"cef-vatex": "VATEX-EU-O",
+							"untdid-tax-category": "O"
+						}
+					}
+				],
+				"total": "600.00"
+			}
+		],
+		"payment": {
+			"terms": {
+				"notes": "Plata in 15 zile"
+			}
+		},
+		"totals": {
+			"sum": "600.00",
+			"total": "600.00",
+			"taxes": {
+				"categories": [
+					{
+						"code": "VAT",
+						"rates": [
+							{
+								"key": "outside-scope",
+								"ext": {
+									"cef-vatex": "VATEX-EU-O",
+									"untdid-tax-category": "O"
+								},
+								"base": "600.00",
+								"amount": "0.00"
+							}
+						],
+						"amount": "0.00"
+					}
+				],
+				"sum": "0.00"
+			},
+			"tax": "0.00",
+			"total_with_tax": "600.00",
+			"payable": "600.00"
+		}
+	}
+}
