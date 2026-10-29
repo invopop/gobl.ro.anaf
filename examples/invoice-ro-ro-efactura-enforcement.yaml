@@ -1,0 +1,50 @@
+$schema: "https://gobl.org/draft-0/bill/invoice"
+$addons: ["ro-efactura-v1"]
+$tags: ["enforcement"]
+uuid: "0195ce71-dc9c-72c8-bf2c-9890a4a9f800"
+type: standard
+series: "EXS"
+code: "2026-0800"
+issue_date: "2026-08-28"
+currency: "RON"
+supplier:
+  name: "Debitor Constructii SRL"
+  tax_id:
+    country: "RO"
+    code: "12345674"
+  addresses:
+    - num: "3"
+      street: "Strada Garii"
+      locality: "Timisoara"
+      state: "TM"
+      code: "300001"
+      country: "RO"
+customer:
+  name: "Adjudecatar Imobiliare SA"
+  tax_id:
+    country: "RO"
+    code: "87654329"
+  addresses:
+    - num: "42"
+      street: "Strada Memorandumului"
+      locality: "Cluj-Napoca"
+      state: "CJ"
+      code: "400114"
+      country: "RO"
+lines:
+  - quantity: "1"
+    item:
+      name: "Autoutilitara adjudecata la licitatie"
+      price: "40000.00"
+    taxes:
+      - cat: "VAT"
+        key: "standard"
+        percent: "21%"
+payment:
+  payee:
+    name: "Birou Executor Judecatoresc Popescu"
+    identities:
+      - scope: "legal"
+        code: "22222224"
+  terms:
+    notes: "Plata in contul de executare"

@@ -1,0 +1,132 @@
+{
+	"$schema": "https://gobl.org/draft-0/envelope",
+	"head": {
+		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
+		"dig": {
+			"alg": "sha256",
+			"val": "d5ddeadb692b422251cd76c96284b4e54a6e0ab55c5273184c7387b1c66bf10c"
+		}
+	},
+	"doc": {
+		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$addons": [
+			"eu-en16931-v2017",
+			"ro-efactura-v1"
+		],
+		"$tags": [
+			"enforcement"
+		],
+		"uuid": "0195ce71-dc9c-72c8-bf2c-9890a4a9f800",
+		"type": "standard",
+		"series": "EXS",
+		"code": "2026-0800",
+		"issue_date": "2026-08-28",
+		"currency": "RON",
+		"tax": {
+			"rounding": "currency",
+			"ext": {
+				"untdid-document-type": "380"
+			}
+		},
+		"supplier": {
+			"name": "Debitor Constructii SRL",
+			"tax_id": {
+				"country": "RO",
+				"code": "12345674"
+			},
+			"addresses": [
+				{
+					"num": "3",
+					"street": "Strada Garii",
+					"locality": "Timisoara",
+					"region": "RO-TM",
+					"state": "TM",
+					"code": "300001",
+					"country": "RO"
+				}
+			]
+		},
+		"customer": {
+			"name": "Adjudecatar Imobiliare SA",
+			"tax_id": {
+				"country": "RO",
+				"code": "87654329"
+			},
+			"addresses": [
+				{
+					"num": "42",
+					"street": "Strada Memorandumului",
+					"locality": "Cluj-Napoca",
+					"region": "RO-CJ",
+					"state": "CJ",
+					"code": "400114",
+					"country": "RO"
+				}
+			]
+		},
+		"lines": [
+			{
+				"i": 1,
+				"quantity": "1",
+				"item": {
+					"name": "Autoutilitara adjudecata la licitatie",
+					"price": "40000.00",
+					"unit": "one"
+				},
+				"sum": "40000.00",
+				"taxes": [
+					{
+						"cat": "VAT",
+						"key": "standard",
+						"percent": "21%",
+						"ext": {
+							"untdid-tax-category": "S"
+						}
+					}
+				],
+				"total": "40000.00"
+			}
+		],
+		"payment": {
+			"payee": {
+				"name": "Birou Executor Judecatoresc Popescu",
+				"identities": [
+					{
+						"scope": "legal",
+						"code": "22222224"
+					}
+				]
+			},
+			"terms": {
+				"notes": "Plata in contul de executare"
+			}
+		},
+		"totals": {
+			"sum": "40000.00",
+			"total": "40000.00",
+			"taxes": {
+				"categories": [
+					{
+						"code": "VAT",
+						"rates": [
+							{
+								"key": "standard",
+								"ext": {
+									"untdid-tax-category": "S"
+								},
+								"base": "40000.00",
+								"percent": "21%",
+								"amount": "8400.00"
+							}
+						],
+						"amount": "8400.00"
+					}
+				],
+				"sum": "8400.00"
+			},
+			"tax": "8400.00",
+			"total_with_tax": "48400.00",
+			"payable": "48400.00"
+		}
+	}
+}
