@@ -56,6 +56,19 @@ func TestConvertRejectsAnEmptyEnvelope(t *testing.T) {
 	}
 }
 
+func TestConvertRejectsAnEnvelopeWithoutAnInvoice(t *testing.T) {
+	env, err := gobl.Envelop(&org.Party{Name: "Exemplu SRL"})
+	if err != nil {
+		t.Fatalf("cannot build an envelope: %v", err)
+	}
+
+	_, err = roefactura.ForwardConvert(env)
+
+	if !errors.Is(err, roefactura.ErrInvalidDocument) {
+		t.Errorf("error: want %v, got %v", roefactura.ErrInvalidDocument, err)
+	}
+}
+
 func TestConvertRejectsAnInvoiceWithoutTheAddon(t *testing.T) {
 	invoice := newInvoice()
 	invoice.Addons = tax.Addons{}

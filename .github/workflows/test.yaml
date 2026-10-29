@@ -1,5 +1,11 @@
 name: Test Go
-on: [push]
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - main
+  pull_request:
 jobs:
   test:
     name: Test
@@ -19,8 +25,20 @@ jobs:
           GOPROXY: https://proxy.golang.org,direct
         run: go mod download
 
-      # Phorm is not available in CI, so the conversion corpus skips the schematron
+      # Phorm is not available in CI, so the conversion corpus skips the schematron.
+      # The corpus exercises the addon from another package, so coverage spans every package.
       - name: Test
         env:
           RO_SKIP_SCHEMATRON: "1"
-        run: go test -race ./...
+        run: go test -race -covermode=atomic -coverpkg=./... -coverprofile=coverage.out ./...
+
+      - name: Coverage summary
+        run: go tool cover -func=coverage.out | tail -1 >> "$GITHUB_STEP_SUMMARY"
+
+      # The token reaches only this step, never the tests, and fork pull requests get none
+      - name: Upload coverage reports to Codecov
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: codecov/codecov-action@v5.1.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: invopop/gobl.ro.anaf
