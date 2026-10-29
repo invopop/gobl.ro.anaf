@@ -180,7 +180,7 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
       <h2>How the layers stack</h2>
       <p class="sec-note">This page covers the highlighted layer. Everything it renders has already passed the addon.</p>
       <div class="layers">
-        <div class="layer"><div class="name">GOBL core<small>gobl v0.510</small></div><p>The invoice model, calculation and generic validation. No Romanian tax regime yet, so it does not know RON is the accounting currency.</p></div>
+        <div class="layer"><div class="name">GOBL core<small>gobl main, 34ece5d2</small></div><p>The invoice model, calculation, generic validation and the Romanian tax regime, which makes RON the accounting currency.</p></div>
         <div class="layer"><div class="name">eu-en16931-v2017<small>required by the addon</small></div><p>The European standard: codes and BR rules every CIUS builds on.</p></div>
         <div class="layer"><div class="name">ro-efactura-v1<small>addon/ · its own page</small></div><p>The Romanian rules, fixes, document types and tags. The converter runs it on the way out and on the way in.</p></div>
         <div class="layer this"><div class="name">converter<small>module root · this page</small></div><p>gobl.ubl v0.94 writes and reads UBL, gobl.cii v0.76 reads CII. The export and import funcs of <code>FormatCIUSRO</code> and <code>FormatCIUSROCII</code> add the Romanian details in each direction.</p></div>
@@ -232,7 +232,7 @@ flowchart LR
         <tbody>
           <tr><td>The addon files an accounting invoice as <b>751</b> and a self-billed one as <b>389</b>.</td><td class="arrow">⇄</td><td><b>Document type</b>: 751 becomes a standard invoice with the <code>accounting</code> tag, which both parsers miss. 389 gets its <code>self-billed</code> tag back, which gobl.ubl drops when it keeps sealed totals.</td></tr>
           <tr><td><b>Outside scope</b>: for a seller not registered for VAT, the seller's CIF moves to BT-32 and BT-30, and the buyer's to BT-47.</td><td class="arrow">⇄</td><td><b>Outside scope</b>: those CIFs become tax identifiers again. A buyer ID that is a CNP or not purely numeric, such as a trade register number, stays as it is.</td></tr>
-          <tr><td><b>Tax currency</b>: a foreign-currency invoice gets BT-6 = RON and its VAT in RON (BT-111), from the invoice's exchange rate.</td><td class="arrow">⇄</td><td><b>Tax currency</b>: the rate is worked out again as VAT in RON ÷ VAT in the invoice currency, to four decimals as BNR publishes it.</td></tr>
+          <tr><td><b>Tax currency</b>: gobl.ubl gives a foreign-currency invoice BT-6 = RON and its VAT in RON (BT-111), from the invoice's exchange rate and the Romanian regime.</td><td class="arrow">⇄</td><td><b>Tax currency</b>: the rate is worked out again as VAT in RON ÷ VAT in the invoice currency, to four decimals as BNR publishes it.</td></tr>
           <tr><td>The addon writes a consumer's CNP as the buyer's legal ID. The XML keeps the number but not its type.</td><td class="arrow">⇄</td><td><b>Parties</b>: a bare 13-digit legal ID is typed as a CNP again.</td></tr>
           <tr><td>gobl.ubl writes tax numbers with their country prefix (<code>RO12345674</code>) under the VAT scheme.</td><td class="arrow">⇄</td><td><b>Parties</b>: the country comes from the prefix, and the extra <code>VAT</code> label the parsers add is dropped.</td></tr>
           <tr><td>The exact payment means code is written (BT-81), such as 26 for a holiday voucher.</td><td class="arrow">⇄</td><td><b>Payment</b>: codes the parsers cannot map are put back instead of turning into 1. A SEPA creditor ID left on the seller moves back to the direct debit.</td></tr>
@@ -302,7 +302,7 @@ flowchart LR
     </section>
 
     <footer>
-      Built from the converter source on 19 October 2026, with gobl v0.510, gobl.ubl v0.94, gobl.cii v0.76 and the addon ro-efactura-v1. The rules and fixes the converter runs are on the RO e-Factura Addon Map.
+      Built from the converter source on 29 October 2026, with gobl main (34ece5d2, the first version with the Romanian regime), gobl.ubl v0.94, gobl.cii v0.76 and the addon ro-efactura-v1. The rules and fixes the converter runs are on the RO e-Factura Addon Map.
     </footer>
   </main>
 </div>
