@@ -82,8 +82,8 @@ func newV1Addon() *tax.AddonDef {
 			en16931.V2017,
 		},
 		Name: i18n.String{
-			i18n.EN: "Romania e-Factura (RO_CIUS)",
-			i18n.RO: "România e-Factura (RO_CIUS)",
+			i18n.EN: "Romania RO e-Factura v1.x",
+			i18n.RO: "România RO e-Factura v1.x",
 		},
 		Description: i18n.String{
 			i18n.EN: here.Doc(`
