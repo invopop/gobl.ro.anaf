@@ -180,10 +180,10 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
       <h2>How the layers stack</h2>
       <p class="sec-note">This page covers the highlighted layer. Everything it renders has already passed the addon.</p>
       <div class="layers">
-        <div class="layer"><div class="name">GOBL core<small>gobl main, 34ece5d2</small></div><p>The invoice model, calculation, generic validation and the Romanian tax regime, which makes RON the accounting currency.</p></div>
+        <div class="layer"><div class="name">GOBL core<small>gobl v0.512.0</small></div><p>The invoice model, calculation, generic validation and the Romanian tax regime, which makes RON the accounting currency.</p></div>
         <div class="layer"><div class="name">eu-en16931-v2017<small>required by the addon</small></div><p>The European standard: codes and BR rules every CIUS builds on.</p></div>
         <div class="layer"><div class="name">ro-efactura-v1<small>addon/ · its own page</small></div><p>The Romanian rules, fixes, document types and tags. The converter runs it on the way out and on the way in.</p></div>
-        <div class="layer this"><div class="name">converter<small>module root · this page</small></div><p>gobl.ubl v0.94 writes and reads UBL, gobl.cii v0.76 reads CII. The export and import funcs of <code>FormatCIUSRO</code> and <code>FormatCIUSROCII</code> add the Romanian details in each direction.</p></div>
+        <div class="layer this"><div class="name">converter<small>module root · this page</small></div><p>gobl.ubl v0.101 writes and reads UBL, gobl.cii v0.83 reads CII. The export and import funcs of <code>FormatCIUSRO</code> and <code>FormatCIUSROCII</code> add the Romanian details in each direction.</p></div>
       </div>
     </section>
 
@@ -301,7 +301,7 @@ flowchart LR
     </section>
 
     <footer>
-      Built from the converter source on 29 October 2026, with gobl main (34ece5d2, the first version with the Romanian regime), gobl.ubl v0.94, gobl.cii v0.76 and the addon ro-efactura-v1. The rules and fixes the converter runs are on the RO e-Factura Addon Map.
+      Built from the converter source on 11 November 2026, with gobl v0.512.0 (the first release with the Romanian regime), gobl.ubl v0.101, gobl.cii v0.83 and the addon ro-efactura-v1. The rules and fixes the converter runs are on the RO e-Factura Addon Map.
     </footer>
   </main>
 </div>

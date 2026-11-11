@@ -182,7 +182,7 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
       <h2>How the layers stack</h2>
       <p class="sec-note">Each layer builds on the one above it and knows nothing about the jobs of the others. This page covers the highlighted one.</p>
       <div class="layers">
-        <div class="layer"><div class="name">GOBL core<small>gobl main, 34ece5d2</small></div><p>Invoice types, calculation, rounding, the <code>self-billed</code> tag, generic validation, and the Romanian tax regime: VAT rates by date and the CIF check.</p></div>
+        <div class="layer"><div class="name">GOBL core<small>gobl v0.512.0</small></div><p>Invoice types, calculation, rounding, the <code>self-billed</code> tag, generic validation, and the Romanian tax regime: VAT rates by date and the CIF check.</p></div>
         <div class="layer"><div class="name">eu-en16931-v2017<small>required by the addon</small></div><p>The European standard: UNTDID document types and payment means, VAT categories, VATEX exemption codes and the BR rules. Declaring the Romanian addon pulls it in automatically.</p></div>
         <div class="layer this"><div class="name">ro-efactura-v1<small>addon/ · this page</small></div><p>Everything Romania adds on top: document types, rules, normalizers, tags, the CNP identity and the county and sector codes.</p></div>
         <div class="layer"><div class="name">converter<small>module root · its own page</small></div><p>Renders the accepted invoice as CIUS-RO UBL and reads received UBL or CII back to GOBL. It relies on the addon having done its job first.</p></div>
@@ -333,7 +333,7 @@ footer ul { margin: 6px 0 0; padding-left: 18px; }
     </section>
 
     <footer>
-      Built from the addon source on 29 October 2026, with gobl main (34ece5d2, the first version with the Romanian regime). Rule codes and messages come from GOBL's rules registry. Sources: Order MF 1366/2021 and Order MF 4092/2022 (RO_CIUS 1.0.1, BR-RO table); the RO16931 schematron 1.0.9; Fiscal Code art. 319 alin. (20) lit. k); OUG 120/2021 art. 10^1 alin. (3) as amended by OUG 138/2024.
+      Built from the addon source on 11 November 2026, with gobl v0.512.0 (the first release with the Romanian regime). Rule codes and messages come from GOBL's rules registry. Sources: Order MF 1366/2021 and Order MF 4092/2022 (RO_CIUS 1.0.1, BR-RO table); the RO16931 schematron 1.0.9; Fiscal Code art. 319 alin. (20) lit. k); OUG 120/2021 art. 10^1 alin. (3) as amended by OUG 138/2024.
     </footer>
   </main>
 </div>
