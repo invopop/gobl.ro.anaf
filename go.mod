@@ -3,9 +3,9 @@ module github.com/invopop/gobl.ro.anaf
 go 1.26.2
 
 require (
-	github.com/invopop/gobl v0.511.2-0.20261029152114-34ece5d258b6
-	github.com/invopop/gobl.cii v0.76.0
-	github.com/invopop/gobl.ubl v0.94.0
+	github.com/invopop/gobl v0.512.0
+	github.com/invopop/gobl.cii v0.83.0
+	github.com/invopop/gobl.ubl v0.101.0
 	github.com/invopop/phorm v0.1.6
 )
 
@@ -21,7 +21,7 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/invopop/jsonschema v0.14.0 // indirect
 	github.com/invopop/validation v0.8.0 // indirect
-	github.com/invopop/xmlctx v0.13.0 // indirect
+	github.com/invopop/xmlctx v0.14.0 // indirect
 	github.com/invopop/xmldsig v0.14.0 // indirect
 	github.com/invopop/yaml v0.3.1 // indirect
 	github.com/jonboulle/clockwork v0.5.0 // indirect

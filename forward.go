@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/invopop/gobl"
+	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
 )
@@ -57,10 +58,10 @@ func extract(env *gobl.Envelope) (*bill.Invoice, error) {
 		return nil, ErrInvalidDocument.WithMsg("gobl invoice structure is invalid")
 	}
 
-	// TODO: require the addon again, disabled for now
-	// if !addon.V1.In(invoice.GetAddons()...) {
-	// 	return nil, ErrInvalidDocument.WithMsg("gobl invoice does not declare the %s addon", addon.V1)
-	// }
+	// Only an invoice the Romanian addon normalized and validated is converted
+	if !addon.V1.In(invoice.GetAddons()...) {
+		return nil, ErrInvalidDocument.WithMsg("gobl invoice does not declare the %s addon", addon.V1)
+	}
 
 	return invoice, nil
 }
