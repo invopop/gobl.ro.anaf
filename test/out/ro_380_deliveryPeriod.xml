@@ -63,7 +63,6 @@
   </cac:AccountingCustomerParty>
   <cac:Delivery>
     <cbc:ActualDeliveryDate>2026-08-01</cbc:ActualDeliveryDate>
-    <cbc:LatestDeliveryDate>2026-08-15</cbc:LatestDeliveryDate>
     <cac:DeliveryLocation>
       <cac:Address>
         <cbc:StreetName>Strada Depozitelor 7</cbc:StreetName>
@@ -79,9 +78,6 @@
       <cac:PartyName>
         <cbc:Name>Depozit</cbc:Name>
       </cac:PartyName>
-      <cac:PartyLegalEntity>
-        <cbc:RegistrationName>Depozit</cbc:RegistrationName>
-      </cac:PartyLegalEntity>
     </cac:DeliveryParty>
   </cac:Delivery>
   <cac:PaymentMeans>

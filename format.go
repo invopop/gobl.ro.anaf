@@ -38,6 +38,9 @@ var FormatCIUSRO = ubl.Format{
 		exportOrderReference,
 		exportOutsideScope,
 		exportSelfBillingNote,
+		exportBindingParties,
+		exportBindingReferences,
+		exportBindingDetails,
 	},
 	ImportFuncs: []ubl.ImportFunc{
 		importDocumentType,
