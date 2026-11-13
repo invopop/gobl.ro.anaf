@@ -155,6 +155,13 @@ func billInvoiceRules() *rules.Set {
 			rules.Assert("12", "invoice supplier city is required (BR-RO-090)",
 				is.Func("supplier address has a city", partyAddressHasLocality),
 			),
+			rules.Field("registration",
+				rules.Field("other",
+					rules.Assert("25", "invoice supplier additional legal information must be no more than 1000 characters long (BR-RO-L1000)",
+						is.RuneLength(0, maxLegalInfo),
+					),
+				),
+			),
 		),
 		rules.Field("customer",
 			rules.Assert("13", "invoice customer must have a legal registration identifier or a VAT identifier (BR-RO-120)",
@@ -254,6 +261,16 @@ func billLineDiscountRules() *rules.Set {
 		rules.Field("reason",
 			rules.Assert("01", "invoice line allowance reason must be no more than 100 characters long (BR-RO-L100)",
 				is.RuneLength(0, maxReason),
+			),
+		),
+	)
+}
+
+func billLineRules() *rules.Set {
+	return rules.For(new(bill.Line),
+		rules.Field("notes",
+			rules.Assert("01", "invoice line must have no more than one note (UBL-SR-34)",
+				is.Length(0, maxLineNotes),
 			),
 		),
 	)

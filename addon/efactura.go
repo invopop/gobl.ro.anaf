@@ -17,7 +17,6 @@
 //   - BR-RO-L140, remittance information: comes from a GOBL code, at most 128 characters.
 //   - BR-RO-L200, contract, order and other document references: come from GOBL codes, at
 //     most 128 characters.
-//   - BR-RO-L1000, seller additional legal information: gobl.ubl does not write it.
 //   - BR-RO-230, size of the attached files: GOBL attachments are links, no file is embedded.
 //   - BR-RO-050, 060, 070, 240, 250, 260, 270: recommendations ANAF does not validate.
 //     BR-RO-060 is applied through the self-billing mention.
@@ -58,6 +57,7 @@ func init() {
 		billDeliveryRules(),
 		billDiscountRules(),
 		billChargeRules(),
+		billLineRules(),
 		billLineDiscountRules(),
 		billLineChargeRules(),
 		orgPartyRules(),

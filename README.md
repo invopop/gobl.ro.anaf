@@ -39,14 +39,14 @@ The module root holds the converter and the tooling built on the add-on: `Format
 
 ## Rules
 
-The add-on adds 55 rules on top of GOBL and EN 16931, all under the `GOBL-RO-EFACTURA-` code prefix. Each one cites the BR-RO rule of [Order MF 4092/2022](https://static.anaf.ro/static/10/Anaf/legislatie/OMF_4092_2022.pdf) it implements, such as `BR-RO-010`, or ANAF's identifier check (`ERRIdentif`) for the buyer's CUI, CNP and NIF. The full table, from BR-RO rule to GOBL code, and the official sources are in the [add-on README](./addon/README.md).
+The add-on adds 57 rules on top of GOBL and EN 16931, all under the `GOBL-RO-EFACTURA-` code prefix. Each one cites the BR-RO rule of [Order MF 4092/2022](https://static.anaf.ro/static/10/Anaf/legislatie/OMF_4092_2022.pdf) it implements, such as `BR-RO-010`, or ANAF's identifier check (`ERRIdentif`) for the buyer's CUI, CNP and NIF. The full table, from BR-RO rule to GOBL code, and the official sources are in the [add-on README](./addon/README.md).
 
 | Kind | Rules | What they check |
 | --- | --- | --- |
 | Required | 12 | Fields ANAF needs, such as the seller's and the buyer's identifiers, the street and city of every party and the enforcement body |
 | Code | 9 | Romanian codes and formats: document types, county and sector codes, the invoice number, the accounting currency, two decimals, the buyer's CUI, CNP and NIF |
-| Length | 30 | The BR-RO-L character limits on names, addresses, notes, items, allowances, charges and payment details |
-| Count | 4 | The BR-RO-A limits on notes, preceding invoices, attachments and item attributes |
+| Length | 31 | The BR-RO-L character limits on names, addresses, notes, items, allowances, charges and payment details |
+| Count | 5 | The BR-RO-A limits on notes, preceding invoices, attachments and item attributes, and one note per line |
 
 On top of the rules come 3 normalizers, 2 tags of its own (`accounting` and `enforcement`), 5 document types (380, 381, 384, 389, 751) and the `Autofactură` scenario note. VAT rates belong to the Romanian tax regime in GOBL core, and VAT categories and VATEX codes to the EN 16931 add-on. Every rule, normalizer, tag and document type is listed in the [add-on map](./resources/artifacts/ro-efactura-addon-map.html).
 
@@ -61,7 +61,7 @@ The two directions mirror each other, so an invoice sent and read back comes out
 
 ## Testing
 
-`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 194-invoice corpus in [`test`](./test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
+`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 197-invoice corpus in [`test`](./test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
 
 | Command | What it does |
 | --- | --- |

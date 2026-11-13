@@ -41,6 +41,8 @@ const NoteKeyBuyerAccountingRef cbc.Key = "buyer-accounting-ref"
 // addresses, items, notes and attachments.
 const (
 	maxPartyName             = 200
+	maxLegalInfo             = 1000
+	maxLineNotes             = 1
 	maxContactName           = 100
 	maxContactPhone          = 100
 	maxContactEmail          = 100
@@ -465,9 +467,9 @@ func addressInRomania(address *org.Address) bool {
 	return address != nil && address.Country == l10n.RO.ISO()
 }
 
-// addressHasStreet reports an address that fills BT-35, BT-50, BT-64 or BT-75.
+// addressHasStreet reports an address that fills BT-35, BT-50, BT-64 or BT-75, which gobl.ubl writes only from the street, a number alone leaving it empty (BR-RO-081).
 func addressHasStreet(address *org.Address) bool {
-	return address != nil && strings.TrimSpace(address.LineOne()) != ""
+	return address != nil && strings.TrimSpace(address.Street) != ""
 }
 
 // addressHasLocality reports an address that fills BT-37, BT-52, BT-66 or BT-77.

@@ -715,6 +715,21 @@
 		"fault": "BILL-INVOICE-08"
 	},
 	{
+		"file": "ro_380_supplierNumberOnly.json",
+		"note": "seller address with a number and no street, which leaves BT-35 empty (BR-RO-081)",
+		"fault": "BILL-INVOICE-11"
+	},
+	{
+		"file": "ro_380_longLegalInfo.json",
+		"note": "BT-33 runs past 1000 characters (BR-RO-L1000)",
+		"fault": "BILL-INVOICE-25"
+	},
+	{
+		"file": "ro_380_twoLineNotes.json",
+		"note": "two notes on one line, where BT-127 allows one (UBL-SR-34)",
+		"fault": "BILL-LINE-01"
+	},
+	{
 		"file": "ro_380_noSupplierStreet.json",
 		"note": "seller address has no BT-35",
 		"fault": "BILL-INVOICE-11"
