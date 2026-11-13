@@ -184,6 +184,13 @@ func FindCNP(party *org.Party) *org.Identity {
 	return nil
 }
 
+// The CNP, NIF and CUI checks below mirror ANAF's identifier check (ERRIdentif),
+// which its validator runs next to the schematron. Source: class
+// ro.gov.mfinante.utlis.ValidareCuiVanzatorCumparator (checkCNP, checkNIF, checkCUI)
+// of ANAF's offline validator v1.3.0 (12.12.2024), published on
+// https://mfinante.gov.ro/ro/web/efactura/informatii-tehnice. Weights, centuries
+// and check digit rounding follow it exactly.
+
 // personalNumberWeights is the key ANAF checks a CNP or NIF against.
 var personalNumberWeights = []int{2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9}
 
