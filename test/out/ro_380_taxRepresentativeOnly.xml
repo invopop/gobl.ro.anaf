@@ -75,9 +75,6 @@
         <cbc:ID>VAT</cbc:ID>
       </cac:TaxScheme>
     </cac:PartyTaxScheme>
-    <cac:PartyLegalEntity>
-      <cbc:RegistrationName>Vanzator Real SRL</cbc:RegistrationName>
-    </cac:PartyLegalEntity>
   </cac:TaxRepresentativeParty>
   <cac:PaymentMeans>
     <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>

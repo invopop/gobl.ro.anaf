@@ -212,6 +212,92 @@ func TestConvertKeepsTheSupplierCIFOutsideScope(t *testing.T) {
 	}
 }
 
+func TestConvertDropsWhatANAFRefusesAsAWarning(t *testing.T) {
+	// A preceding invoice with its type, and an exempt charge with its reason
+	invoice := newInvoice()
+	exempt := tax.Set{{
+		Category: tax.CategoryVAT,
+		Key:      tax.KeyExempt,
+		Ext:      tax.ExtensionsOf(cbc.CodeMap{"cef-vatex": "VATEX-EU-132"}),
+	}}
+	invoice.Lines[0].Taxes = exempt
+	invoice.Charges = []*bill.Charge{{Reason: "Transport", Amount: num.MakeAmount(1000, 2), Taxes: exempt}}
+	invoice.Preceding = []*org.DocumentRef{{
+		Series:    "FCT",
+		Code:      "2026-0000",
+		IssueDate: cal.NewDate(2026, 8, 1),
+		Ext:       tax.ExtensionsOf(cbc.CodeMap{"untdid-document-type": "380"}),
+	}}
+
+	document, err := roefactura.ForwardConvert(envelope(t, invoice))
+	if err != nil {
+		t.Fatalf("conversion failed: %v", err)
+	}
+
+	rendered := string(document)
+
+	// UBL-CR-026: BT-25 has no type
+	reference := between(t, rendered, "<cac:InvoiceDocumentReference>", "</cac:InvoiceDocumentReference>")
+	if strings.Contains(reference, "DocumentTypeCode") {
+		t.Error("the preceding invoice reference still carries its type")
+	}
+
+	// UBL-CR-480, 481: a document charge states no exemption reason
+	charge := between(t, rendered, "<cac:AllowanceCharge>", "</cac:AllowanceCharge>")
+	if strings.Contains(charge, "TaxExemptionReason") {
+		t.Error("the charge still states an exemption reason")
+	}
+
+	// BT-120 and BT-121 stay in the VAT breakdown
+	if !strings.Contains(between(t, rendered, "<cac:TaxSubtotal>", "</cac:TaxSubtotal>"), "VATEX-EU-132") {
+		t.Error("the exemption reason code left the VAT breakdown too")
+	}
+}
+
+func TestConvertMovesThePayeeTaxIDToItsLegalID(t *testing.T) {
+	tests := []struct {
+		name  string
+		payee *org.Party
+		want  string
+	}{
+		{
+			name:  "a payee known by its tax id keeps it as BT-61",
+			payee: &org.Party{Name: "Factor Financiar SRL", TaxID: &tax.Identity{Country: l10n.RO.Tax(), Code: "22222229"}},
+			want:  "RO22222229",
+		},
+		{
+			name: "a payee legal id already in BT-61 is kept",
+			payee: &org.Party{
+				Name:       "Factor Financiar SRL",
+				TaxID:      &tax.Identity{Country: l10n.RO.Tax(), Code: "22222229"},
+				Identities: []*org.Identity{{Code: "J40/999/2018", Scope: org.IdentityScopeLegal}},
+			},
+			want: "J40/999/2018",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			invoice := newInvoice()
+			invoice.Payment.Payee = test.payee
+
+			document, err := roefactura.ForwardConvert(envelope(t, invoice))
+			if err != nil {
+				t.Fatalf("conversion failed: %v", err)
+			}
+
+			payee := between(t, string(document), "<cac:PayeeParty>", "</cac:PayeeParty>")
+			if strings.Contains(payee, "PartyTaxScheme") {
+				t.Error("the payee still carries a tax scheme (UBL-CR-274)")
+			}
+			legal := between(t, payee, "<cac:PartyLegalEntity>", "</cac:PartyLegalEntity>")
+			if !strings.Contains(legal, ">"+test.want+"<") {
+				t.Errorf("BT-61: want %s, got %s", test.want, legal)
+			}
+		})
+	}
+}
+
 // newInvoice builds the smallest document Romania accepts.
 func newInvoice() *bill.Invoice {
 	address := &org.Address{
@@ -259,4 +345,21 @@ func envelope(t *testing.T, invoice *bill.Invoice) *gobl.Envelope {
 	}
 
 	return env
+}
+
+// between returns the first part of a document that runs from start to end.
+func between(t *testing.T, document, start, end string) string {
+	t.Helper()
+
+	from := strings.Index(document, start)
+	if from < 0 {
+		t.Fatalf("the document has no %s", start)
+	}
+
+	to := strings.Index(document[from:], end)
+	if to < 0 {
+		t.Fatalf("the document never closes %s", start)
+	}
+
+	return document[from : from+to]
 }

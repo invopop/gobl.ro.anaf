@@ -119,7 +119,6 @@
       <cac:AdditionalItemProperty>
         <cbc:Name>Ore alocate</cbc:Name>
         <cbc:Value>10 h</cbc:Value>
-        <cbc:ValueQuantity unitCode="HUR">10</cbc:ValueQuantity>
       </cac:AdditionalItemProperty>
     </cac:Item>
     <cac:Price>

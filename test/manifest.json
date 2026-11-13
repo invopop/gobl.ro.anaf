@@ -75,6 +75,11 @@
 		"code": "380"
 	},
 	{
+		"file": "ro_380_outsideBinding.json",
+		"note": "every field gobl.ubl writes outside the EN 16931 binding, dropped so ANAF raises no UBL-CR warning",
+		"code": "380"
+	},
+	{
 		"file": "ro_380_advance.json",
 		"note": "partial advance already paid",
 		"code": "380"

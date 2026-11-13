@@ -32,6 +32,10 @@ var lossy = regexp.MustCompile(`^(` +
 	`lines\.\d+\.item\.attributes\.\d+\.(key|ext)|` + // BT-160 has no key
 	`lines\.\d+\.item\.identities\.\d+\.type|` + // BT-157 has no type
 	`delivery\.date|` + // gobl.ubl adds the period start as the delivery date
+	`delivery\.period|` + // BT-72 is a single date, the period end has no BT
+	`attachments\.\d+\.(name|mime)|` + // BG-24 has no file name or MIME type next to an external location
+	`lines\.\d+\.item\.attributes\.\d+\.(amount|unit|text)|` + // BT-161 is text, an amount comes back written out with its unit
+	`payment\.payee\.(tax_id|identities)|` + // BT-61 holds a payee tax id, read back as a legal id
 	`\$tags` + // enforcement and self-billed corrections live in the upload flags only
 	`)$`)
 
@@ -47,6 +51,7 @@ var mentionDiff = regexp.MustCompile(`^(tax\.notes|notes): `)
 // unrecoverable are the fixtures a round trip cannot rebuild at all
 var unrecoverable = map[string]string{
 	"ro_380_intraCommunity.json": "zero VAT leaves no exchange rate to recover",
+	"ro_380_outsideBinding.json": "it carries every field CIUS-RO has no place for",
 }
 
 func TestReverseConvertRoundTrip(t *testing.T) {

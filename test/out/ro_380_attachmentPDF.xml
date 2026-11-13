@@ -11,8 +11,6 @@
     <cac:Attachment>
       <cac:ExternalReference>
         <cbc:URI>https://exemplu.ro/facturi/situatie-lucrari.pdf</cbc:URI>
-        <cbc:MimeCode>application/pdf</cbc:MimeCode>
-        <cbc:FileName>situatie-lucrari.pdf</cbc:FileName>
       </cac:ExternalReference>
     </cac:Attachment>
   </cac:AdditionalDocumentReference>

@@ -61,7 +61,7 @@ The two directions mirror each other, so an invoice sent and read back comes out
 
 ## Testing
 
-`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 191-invoice corpus in [`test`](./test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
+`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 192-invoice corpus in [`test`](./test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
 
 | Command | What it does |
 | --- | --- |
