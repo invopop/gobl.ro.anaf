@@ -184,6 +184,119 @@ func FindCNP(party *org.Party) *org.Identity {
 	return nil
 }
 
+// personalNumberWeights is the key ANAF checks a CNP or NIF against.
+var personalNumberWeights = []int{2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9}
+
+// cuiWeights is the key ANAF checks a CUI against, over the code padded to nine digits.
+var cuiWeights = []int{7, 5, 3, 2, 1, 7, 5, 3, 2}
+
+// monthDays is the longest each month runs, February counted in a leap year.
+var monthDays = []int{31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+
+// validPersonalNumber applies ANAF's CNP and NIF check (ERRIdentif): thirteen digits with a valid check digit, a NIF starting with 9, a CNP with a real birth date, or thirteen zeros.
+func validPersonalNumber(code string) bool {
+	if code == AnonymousCNP.String() {
+		return true
+	}
+
+	digits, ok := digitsOf(code)
+	if !ok || len(digits) != 13 || digits[0] == 0 {
+		return false
+	}
+
+	// A CNP carries the birth date, the century coming from the first digit
+	if digits[0] != 9 {
+		century := 1900
+		switch digits[0] {
+		case 3, 4:
+			century = 1800
+		case 5, 6:
+			century = 2000
+		}
+		year := century + digits[1]*10 + digits[2]
+		month := digits[3]*10 + digits[4]
+		day := digits[5]*10 + digits[6]
+
+		if month < 1 || month > 12 || day < 1 || day > monthDays[month-1] {
+			return false
+		}
+		if month == 2 && day == 29 && (year%4 != 0 || (year%100 == 0 && year%400 != 0)) {
+			return false
+		}
+	}
+
+	sum := 0
+	for i, weight := range personalNumberWeights {
+		sum += digits[i] * weight
+	}
+	check := sum % 11
+	if check == 10 {
+		check = 1
+	}
+
+	return check == digits[12]
+}
+
+// validCUI applies ANAF's CUI check (ERRIdentif): up to ten digits, no leading zero, and a valid check digit.
+func validCUI(code string) bool {
+	digits, ok := digitsOf(code)
+	if !ok || len(digits) == 0 || len(digits) > 10 || digits[0] == 0 {
+		return false
+	}
+
+	padded := make([]int, 10-len(digits), 10)
+	padded = append(padded, digits...)
+
+	sum := 0
+	for i, weight := range cuiWeights {
+		sum += padded[i] * weight
+	}
+	check := sum * 10 % 11
+	if check == 10 {
+		check = 0
+	}
+
+	return check == padded[9]
+}
+
+// digitsOf returns the code's digits, or false when it holds anything else.
+func digitsOf(code string) ([]int, bool) {
+	digits := make([]int, 0, len(code))
+	for _, r := range code {
+		if r < '0' || r > '9' {
+			return nil, false
+		}
+		digits = append(digits, int(r-'0'))
+	}
+
+	return digits, true
+}
+
+// anafBuyerCode returns the buyer identifier ANAF checks without a VAT number: BT-48's tax registration, else BT-47, bare of the RO prefix, empty when neither is numeric.
+func anafBuyerCode(party *org.Party) string {
+	codes := make([]string, 0, 2)
+	for _, scope := range []cbc.Key{org.IdentityScopeTax, org.IdentityScopeLegal} {
+		for _, identity := range party.Identities {
+			if identity != nil && identity.Scope == scope && identity.Code != "" {
+				codes = append(codes, identity.Code.String())
+				break
+			}
+		}
+	}
+
+	for _, code := range codes {
+		code = strings.TrimSpace(code)
+		if rest, ok := strings.CutPrefix(code, l10n.RO.String()); ok {
+			return strings.TrimSpace(rest)
+		}
+		if _, numeric := digitsOf(code); numeric {
+			return code
+		}
+	}
+
+	return ""
+}
+
 // normalizeAddress rewrites a Romanian address into the ISO 3166-2:RO county
 // and, in Bucharest, the sector code BR-RO-100 and BR-RO-110 ask for.
 func normalizeAddress(address *org.Address) {

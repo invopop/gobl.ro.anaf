@@ -79,7 +79,7 @@ func TestNormalizeInvoiceCustomer(t *testing.T) {
 			Customer: &org.Party{
 				Name: "Ion Popescu",
 				Identities: []*org.Identity{
-					{Type: IdentityTypeCNP, Code: "1900101123456"},
+					{Type: IdentityTypeCNP, Code: "1900101123457"},
 				},
 			},
 		}
@@ -218,5 +218,32 @@ func TestEnforcementBodyIdentified(t *testing.T) {
 				t.Errorf("enforcement body identified: want %v, got %v", test.want, got)
 			}
 		})
+	}
+}
+
+func TestCustomerIdentifierValid(t *testing.T) {
+	romania := []*org.Address{{Country: l10n.RO.ISO()}}
+	tests := []struct {
+		name  string
+		party *org.Party
+		want  bool
+	}{
+		{"a VAT number is checked by the regime", &org.Party{TaxID: &tax.Identity{Country: l10n.RO.Tax(), Code: "12345674"}, Addresses: romania}, true},
+		{"a CUI as legal id", &org.Party{Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Code: "12345674"}}, Addresses: romania}, true},
+		{"a CUI with the RO prefix", &org.Party{Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Code: "RO12345674"}}, Addresses: romania}, true},
+		{"a CNP", &org.Party{Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Type: IdentityTypeCNP, Code: "1900101123457"}}, Addresses: romania}, true},
+		{"a trade register number", &org.Party{Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Code: "J40/1234/2015"}}, Addresses: romania}, false},
+		{"a CUI with a wrong check digit", &org.Party{Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Code: "12345675"}}, Addresses: romania}, false},
+		{"a non numeric tax registration falls back to the legal id", &org.Party{Identities: []*org.Identity{
+			{Scope: org.IdentityScopeTax, Code: "J40/1234/2015"},
+			{Scope: org.IdentityScopeLegal, Code: "12345674"},
+		}, Addresses: romania}, true},
+		{"a foreign buyer is left to its own rules", &org.Party{Identities: []*org.Identity{{Scope: org.IdentityScopeLegal, Code: "HRB 12345"}}, Addresses: []*org.Address{{Country: "DE"}}}, true},
+	}
+
+	for _, test := range tests {
+		if got := customerIdentifierValid(test.party); got != test.want {
+			t.Errorf("%s: want %t, got %t", test.name, test.want, got)
+		}
 	}
 }

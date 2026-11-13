@@ -49,7 +49,7 @@
       </cac:PostalAddress>
       <cac:PartyLegalEntity>
         <cbc:RegistrationName>Ion Popescu</cbc:RegistrationName>
-        <cbc:CompanyID>1900101123456</cbc:CompanyID>
+        <cbc:CompanyID>1900101123457</cbc:CompanyID>
       </cac:PartyLegalEntity>
     </cac:Party>
   </cac:AccountingCustomerParty>

@@ -92,6 +92,8 @@ N/A is the severity the table gives a rule ANAF does not validate.
 
 One EN 16931 rule is checked here as well, since the converter relies on it: BR-O-11, an invoice with category O carries no other VAT category (BILL-INVOICE-36).
 
+Two checks come from ANAF's own identifier validation (`ERRIdentif`), which refuses an upload outside the BR-RO table: a buyer's CNP or NIF must carry a valid check digit (BILL-INVOICE-23), and a buyer in Romania without a VAT number must be identified by a valid CUI, CNP or NIF, not a trade register number (BILL-INVOICE-24).
+
 ## Normalizers
 
 | Normalizer | What it does | Source |

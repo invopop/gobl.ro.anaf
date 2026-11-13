@@ -25,6 +25,16 @@
 		"code": "380"
 	},
 	{
+		"file": "ro_380_badCNP.json",
+		"note": "consumer CNP with a wrong check digit, which ANAF refuses as CNP sau NIF cumparator incorect",
+		"fault": "BILL-INVOICE-23"
+	},
+	{
+		"file": "ro_380_customerTradeRegister.json",
+		"note": "Romanian buyer without a VAT number known only by its trade register number, which ANAF cannot identify",
+		"fault": "BILL-INVOICE-24"
+	},
+	{
 		"file": "ro_380_countyNames.json",
 		"note": "counties written by name instead of ISO code",
 		"code": "380"

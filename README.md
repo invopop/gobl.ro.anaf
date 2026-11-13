@@ -39,12 +39,12 @@ The module root holds the converter and the tooling built on the add-on: `Format
 
 ## Rules
 
-The add-on adds 53 rules on top of GOBL and EN 16931, all under the `GOBL-RO-EFACTURA-` code prefix. Each one cites the BR-RO rule of [Order MF 4092/2022](https://static.anaf.ro/static/10/Anaf/legislatie/OMF_4092_2022.pdf) it implements, such as `BR-RO-010`. The full table, from BR-RO rule to GOBL code, and the official sources are in the [add-on README](./addon/README.md).
+The add-on adds 55 rules on top of GOBL and EN 16931, all under the `GOBL-RO-EFACTURA-` code prefix. Each one cites the BR-RO rule of [Order MF 4092/2022](https://static.anaf.ro/static/10/Anaf/legislatie/OMF_4092_2022.pdf) it implements, such as `BR-RO-010`, or ANAF's identifier check (`ERRIdentif`) for the buyer's CUI, CNP and NIF. The full table, from BR-RO rule to GOBL code, and the official sources are in the [add-on README](./addon/README.md).
 
 | Kind | Rules | What they check |
 | --- | --- | --- |
 | Required | 12 | Fields ANAF needs, such as the seller's and the buyer's identifiers, the street and city of every party and the enforcement body |
-| Code | 7 | Romanian codes and formats: document types, county and sector codes, the invoice number, the accounting currency, two decimals |
+| Code | 9 | Romanian codes and formats: document types, county and sector codes, the invoice number, the accounting currency, two decimals, the buyer's CUI, CNP and NIF |
 | Length | 30 | The BR-RO-L character limits on names, addresses, notes, items, allowances, charges and payment details |
 | Count | 4 | The BR-RO-A limits on notes, preceding invoices, attachments and item attributes |
 
@@ -61,7 +61,7 @@ The two directions mirror each other, so an invoice sent and read back comes out
 
 ## Testing
 
-`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 192-invoice corpus in [`test`](./test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
+`go test ./...` is the whole check: the add-on's rules and normalizers, the examples, the converter, and the 194-invoice corpus in [`test`](./test/README.md), which drives every invoice through the add-on, the converter and ANAF's published schematron. The corpus needs phorm, which it looks for on `localhost:9090` and fails loudly without. Routing is tested in gov-ro.
 
 | Command | What it does |
 | --- | --- |

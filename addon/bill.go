@@ -166,6 +166,12 @@ func billInvoiceRules() *rules.Set {
 			rules.Assert("15", "invoice customer city is required (BR-RO-090)",
 				is.Func("customer address has a city", partyAddressHasLocality),
 			),
+			rules.Assert("23", "invoice customer CNP or NIF must be thirteen digits with a valid check digit, or thirteen zeros (ANAF ERRIdentif)",
+				is.Func("customer personal number valid", customerPersonalNumberValid),
+			),
+			rules.Assert("24", "invoice customer in Romania without a VAT identifier must be identified by a valid CUI, CNP or NIF (ANAF ERRIdentif)",
+				is.Func("customer identifier valid", customerIdentifierValid),
+			),
 		),
 		rules.Field("tax",
 			rules.Field("notes",
@@ -403,6 +409,37 @@ func customerIdentified(value any) bool {
 	party, ok := value.(*org.Party)
 
 	return ok && IsIdentified(party)
+}
+
+// customerPersonalNumberValid checks the buyer's CNP the way ANAF does, whatever its country.
+func customerPersonalNumberValid(value any) bool {
+	party, ok := value.(*org.Party)
+	if !ok {
+		return true
+	}
+
+	identity := FindCNP(party)
+
+	return identity == nil || validPersonalNumber(identity.Code.String())
+}
+
+// customerIdentifierValid checks the identifier ANAF reads for a Romanian buyer without a VAT number: a CNP or NIF of thirteen digits, a CUI otherwise.
+func customerIdentifierValid(value any) bool {
+	party, ok := value.(*org.Party)
+	if !ok || HasTaxNumber(party) {
+		return true
+	}
+
+	if address := exportedAddress(party); address == nil || address.Country.Code() != l10n.RO {
+		return true
+	}
+
+	code := anafBuyerCode(party)
+	if len(code) == 13 {
+		return validPersonalNumber(code)
+	}
+
+	return validCUI(code)
 }
 
 func invoiceIsEnforcement(value any) bool {
