@@ -50,7 +50,7 @@ Each row is a rule of the Order MF 4092/2022 table. Codes are written without th
 | BR-RO-240, 250 | BT-158 | CPV code for a public buyer (N/A) | Not checked |
 | BR-RO-260 | BT-127 | Line mentions Romanian law requires (N/A) | Not checked |
 | BR-RO-270 | BT-85 | Payment account name for a public buyer (N/A) | Not checked |
-| BR-RO-A020 | BG-1 | At most 20 notes | BILL-INVOICE-05 |
+| BR-RO-A020 | BG-1 | At most 20 notes, the autofactura mention included | BILL-INVOICE-05 |
 | BR-RO-A050 | BG-24, BG-32 | At most 50 supporting documents, 50 attributes per item | BILL-INVOICE-08, ORG-ITEM-03 |
 | BR-RO-A500 | BG-3 | At most 500 preceding invoices | BILL-INVOICE-06 |
 | BR-RO-L020 | BT-38, 53, 67, 78 | 20 characters | ORG-PARTY-09 |
@@ -89,6 +89,8 @@ Each row is a rule of the Order MF 4092/2022 table. Codes are written without th
 | BR-RO-Z2 | BT-92 to BT-117, BT-131 to BT-142 | Two decimals | BILL-INVOICE-04 and the rounding normalizer |
 
 N/A is the severity the table gives a rule ANAF does not validate.
+
+One EN 16931 rule is checked here as well, since the converter relies on it: BR-O-11, an invoice with category O carries no other VAT category (BILL-INVOICE-36).
 
 ## Normalizers
 

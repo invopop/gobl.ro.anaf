@@ -1,5 +1,14 @@
 # GOBL Romania
 
+Released under the Apache 2.0 [LICENSE](https://github.com/invopop/gobl.ro.anaf/blob/main/LICENSE), Copyright 2026 [Invopop S.L.](https://invopop.com).
+
+[![Lint](https://github.com/invopop/gobl.ro.anaf/actions/workflows/lint.yaml/badge.svg)](https://github.com/invopop/gobl.ro.anaf/actions/workflows/lint.yaml)
+[![Test Go](https://github.com/invopop/gobl.ro.anaf/actions/workflows/test.yaml/badge.svg)](https://github.com/invopop/gobl.ro.anaf/actions/workflows/test.yaml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/invopop/gobl.ro.anaf)](https://goreportcard.com/report/github.com/invopop/gobl.ro.anaf)
+[![codecov](https://codecov.io/gh/invopop/gobl.ro.anaf/graph/badge.svg)](https://codecov.io/gh/invopop/gobl.ro.anaf)
+[![GoDoc](https://godoc.org/github.com/invopop/gobl.ro.anaf?status.svg)](https://godoc.org/github.com/invopop/gobl.ro.anaf)
+![Latest Tag](https://img.shields.io/github/v/tag/invopop/gobl.ro.anaf)
+
 GOBL add-on and converter for Romanian e-invoicing via RO e-Factura, the national system operated by ANAF (Agenția Națională de Administrare Fiscală).
 
 ## How it works

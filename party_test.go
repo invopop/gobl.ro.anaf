@@ -58,3 +58,45 @@ func TestIssuerOfAnEnforcementInvoice(t *testing.T) {
 		t.Errorf("filing cif: want 22222224, got %q", got)
 	}
 }
+
+func TestIssuer(t *testing.T) {
+	supplier := &org.Party{Name: "Furnizor SRL"}
+	customer := &org.Party{Name: "Client SRL"}
+	payee := &org.Party{Name: "Birou Executor Judecatoresc"}
+
+	tests := []struct {
+		name    string
+		invoice *bill.Invoice
+		want    *org.Party
+	}{
+		{name: "no invoice", invoice: nil, want: nil},
+		{
+			name:    "the supplier files its own invoice",
+			invoice: &bill.Invoice{Supplier: supplier, Customer: customer},
+			want:    supplier,
+		},
+		{
+			name:    "the buyer files a self-billed invoice",
+			invoice: &bill.Invoice{Tags: tax.WithTags(tax.TagSelfBilled), Supplier: supplier, Customer: customer},
+			want:    customer,
+		},
+		{
+			name:    "the enforcement body files an enforcement invoice",
+			invoice: &bill.Invoice{Tags: tax.WithTags(efactura.TagEnforcement), Supplier: supplier, Payment: &bill.PaymentDetails{Payee: payee}},
+			want:    payee,
+		},
+		{
+			name:    "an enforcement invoice without payment details names nobody",
+			invoice: &bill.Invoice{Tags: tax.WithTags(efactura.TagEnforcement), Supplier: supplier},
+			want:    nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if got := roefactura.Issuer(test.invoice); got != test.want {
+				t.Errorf("issuer: want %v, got %v", test.want, got)
+			}
+		})
+	}
+}

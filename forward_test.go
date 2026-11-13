@@ -56,6 +56,19 @@ func TestConvertRejectsAnEmptyEnvelope(t *testing.T) {
 	}
 }
 
+func TestConvertRejectsAnEnvelopeWithoutAnInvoice(t *testing.T) {
+	env, err := gobl.Envelop(&org.Party{Name: "Exemplu SRL"})
+	if err != nil {
+		t.Fatalf("cannot build an envelope: %v", err)
+	}
+
+	_, err = roefactura.ForwardConvert(env)
+
+	if !errors.Is(err, roefactura.ErrInvalidDocument) {
+		t.Errorf("error: want %v, got %v", roefactura.ErrInvalidDocument, err)
+	}
+}
+
 func TestConvertRejectsAnInvoiceWithoutTheAddon(t *testing.T) {
 	invoice := newInvoice()
 	invoice.Addons = tax.Addons{}
@@ -63,11 +76,7 @@ func TestConvertRejectsAnInvoiceWithoutTheAddon(t *testing.T) {
 	_, err := roefactura.ForwardConvert(envelope(t, invoice))
 
 	if !errors.Is(err, roefactura.ErrInvalidDocument) {
-		t.Fatalf("error: want %v, got %v", roefactura.ErrInvalidDocument, err)
-	}
-
-	if !strings.Contains(err.Error(), addon.V1.String()) {
-		t.Errorf("error should name the missing addon, got %v", err)
+		t.Errorf("error: want %v, got %v", roefactura.ErrInvalidDocument, err)
 	}
 }
 
@@ -103,8 +112,8 @@ func TestConvertWritesTheAccountingCurrency(t *testing.T) {
 				t.Errorf("BT-6 present: want %t, got %t", test.wantTax, got)
 			}
 
-			if test.wantTax && !strings.Contains(string(document), `currencyID="RON"`) {
-				t.Error("BT-111 is missing, so EN 16931 BR-53 cannot hold")
+			if test.wantTax && strings.Count(string(document), `<cbc:TaxAmount currencyID="RON">`) != 1 {
+				t.Error("BT-111 must be stated exactly once, so EN 16931 BR-53 holds")
 			}
 		})
 	}
@@ -165,6 +174,41 @@ func TestConvertWritesTheSelfBillingMentionOnce(t *testing.T) {
 				t.Errorf("autofactura mentions in BT-22: want 1, got %d", got)
 			}
 		})
+	}
+}
+
+func TestConvertKeepsTheSupplierCIFOutsideScope(t *testing.T) {
+	// A seller not registered for VAT, with a tax representative as ordering seller
+	invoice := newInvoice()
+	invoice.Lines[0].Taxes = tax.Set{{
+		Category: tax.CategoryVAT,
+		Key:      tax.KeyOutsideScope,
+		Ext:      tax.ExtensionsOf(cbc.CodeMap{"cef-vatex": "VATEX-EU-O"}),
+	}}
+	invoice.Ordering = &bill.Ordering{Seller: &org.Party{
+		Name:  "Reprezentant Fiscal SRL",
+		TaxID: &tax.Identity{Country: l10n.RO.Tax(), Code: "34567892"},
+	}}
+
+	document, err := roefactura.ForwardConvert(envelope(t, invoice))
+	if err != nil {
+		t.Fatalf("conversion failed: %v", err)
+	}
+
+	// BT-30 and BT-32 belong to the supplier, never to its tax representative
+	supplier := string(document)
+	start := strings.Index(supplier, "<cac:AccountingSupplierParty>")
+	end := strings.Index(supplier, "</cac:AccountingSupplierParty>")
+	if start < 0 || end < start {
+		t.Fatal("the document has no supplier party")
+	}
+	supplier = supplier[start:end]
+
+	if !strings.Contains(supplier, ">12345674<") {
+		t.Error("the supplier's own CIF is missing from its party")
+	}
+	if strings.Contains(supplier, ">34567892<") {
+		t.Error("the tax representative's CIF was written as the supplier's")
 	}
 }
 

@@ -70,7 +70,7 @@
       </cac:Country>
     </cac:PostalAddress>
     <cac:PartyTaxScheme>
-      <cbc:CompanyID>RO11111119</cbc:CompanyID>
+      <cbc:CompanyID>RO11111110</cbc:CompanyID>
       <cac:TaxScheme>
         <cbc:ID>VAT</cbc:ID>
       </cac:TaxScheme>

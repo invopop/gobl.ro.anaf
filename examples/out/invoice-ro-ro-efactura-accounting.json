@@ -4,11 +4,12 @@
 		"uuid": "8a51fd30-2a27-11ee-be56-0242ac120002",
 		"dig": {
 			"alg": "sha256",
-			"val": "f0f4340a4a17fa238e3b4a9e91590ca0645e990a0bfc4ce51443dea0dc1ed61f"
+			"val": "70450b764e5c10f2cd8ed8776eccb0e054fa81836efb5e905bbfdd5c809198b4"
 		}
 	},
 	"doc": {
 		"$schema": "https://gobl.org/draft-0/bill/invoice",
+		"$regime": "RO",
 		"$addons": [
 			"eu-en16931-v2017",
 			"ro-efactura-v1"

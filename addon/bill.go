@@ -20,6 +20,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/invopop/gobl/addons/eu/en16931"
 	"github.com/invopop/gobl/bill"
 	"github.com/invopop/gobl/catalogues/untdid"
 	"github.com/invopop/gobl/currency"
@@ -113,10 +114,8 @@ func billInvoiceRules() *rules.Set {
 		rules.Assert("04", "invoice currency must state its amounts on no more than two decimals (BR-RO-Z2)",
 			is.Func("currency within two subunits", currencyWithinSubunits),
 		),
-		rules.Field("notes",
-			rules.Assert("05", "invoice notes must contain no more than 20 entries (BR-RO-A020)",
-				is.Length(0, maxNotes),
-			),
+		rules.Assert("05", "invoice notes, with the autofactura mention the converter adds, must contain no more than 20 entries (BR-RO-A020)",
+			is.Func("notes within count", notesWithinCount),
 		),
 		rules.Field("preceding",
 			rules.Assert("06", "invoice preceding must contain no more than 500 entries (BR-RO-A500)",
@@ -194,6 +193,9 @@ func billInvoiceRules() *rules.Set {
 					),
 				),
 			),
+		),
+		rules.Assert("36", "an invoice not subject to VAT (category O) cannot carry other VAT categories (BR-O-11)",
+			is.Func("outside scope stands alone", outsideScopeStandsAlone),
 		),
 		rules.When(
 			is.Func("invoice is issued in an enforcement procedure", invoiceIsEnforcement),
@@ -297,6 +299,22 @@ func invoiceNumberWithinLength(value any) bool {
 	return len([]rune(invoiceNumber(invoice))) <= maxInvoiceNumber
 }
 
+// notesWithinCount applies BR-RO-A020 to BT-22 as written: the invoice notes,
+// plus the autofactura mention a buyer-issued invoice gets when none carries it.
+func notesWithinCount(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+	if !ok || invoice == nil {
+		return true
+	}
+
+	count := len(invoice.Notes)
+	if NeedsSelfBillingMention(invoice) {
+		count++
+	}
+
+	return count <= maxNotes
+}
+
 // currencyWithinSubunits keeps BR-RO-Z2 true: amounts are stated on the
 // currency's own precision, so the currency itself may not exceed two decimals.
 func currencyWithinSubunits(value any) bool {
@@ -342,6 +360,25 @@ func exemptionReasonsWithinLength(value any) bool {
 	for _, note := range notes {
 		if note != nil && len([]rune(note.Text)) > maxExemptionReason {
 			return false
+		}
+	}
+
+	return true
+}
+
+// outsideScopeStandsAlone applies BR-O-11: the converter treats an invoice with category O
+// as not subject to VAT throughout, moving the CIFs out of the VAT fields.
+func outsideScopeStandsAlone(value any) bool {
+	invoice, ok := value.(*bill.Invoice)
+	if !ok || invoice == nil || !IsOutsideScope(invoice) {
+		return true
+	}
+
+	for _, set := range invoiceTaxSets(invoice) {
+		for _, combo := range set {
+			if combo != nil && combo.Category == tax.CategoryVAT && combo.Ext.Get(untdid.ExtKeyTaxCategory) != en16931.TaxCategoryOutsideScope {
+				return false
+			}
 		}
 	}
 

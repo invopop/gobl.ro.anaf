@@ -206,6 +206,8 @@ func TestReverseConvertRejectsWhatIsNotAnInvoice(t *testing.T) {
 	}{
 		{name: "not xml", data: "not xml"},
 		{name: "unknown namespace", data: `<Invoice xmlns="urn:example:invoice"/>`},
+		{name: "broken ubl", data: `<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"><ID>1`},
+		{name: "broken cii", data: `<CrossIndustryInvoice xmlns="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"><ExchangedDocument>`},
 	}
 
 	for _, test := range tests {

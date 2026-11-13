@@ -17,10 +17,6 @@ var (
 	// declaring the Romanian addon.
 	ErrInvalidDocument = NewError("invalid_document")
 
-	// ErrNotCompliant means the invoice lacks something CIUS-RO needs to be
-	// rendered, such as the exchange rate to RON.
-	ErrNotCompliant = NewError("not_compliant")
-
 	// ErrUnsupported means Romania does not accept a document of this kind.
 	ErrUnsupported = NewError("unsupported")
 

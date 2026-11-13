@@ -3,14 +3,19 @@ package roefactura
 import (
 	cii "github.com/invopop/gobl.cii"
 	ubl "github.com/invopop/gobl.ubl"
+	"github.com/invopop/gobl/bill"
 	"github.com/invopop/gobl/cbc"
 	"github.com/invopop/gobl/i18n"
+	"github.com/invopop/gobl/l10n"
+	"github.com/invopop/gobl/schema"
 
 	efactura "github.com/invopop/gobl.ro.anaf/addon"
 )
 
 // specificationCIUSRO is the specification identifier ANAF checks in BT-24 (BR-RO-001)
 const specificationCIUSRO = "urn:cen.eu:en16931:2017#compliant#urn:efactura.mfinante.ro:CIUS-RO:1.0.1"
+
+var invoiceSchema = schema.Lookup(bill.Invoice{})
 
 // FormatCIUSRO is the UBL format of the Romanian CIUS: the specification
 // identifier, the addon that has to be declared to produce it, the
@@ -19,6 +24,9 @@ const specificationCIUSRO = "urn:cen.eu:en16931:2017#compliant#urn:efactura.mfin
 var FormatCIUSRO = ubl.Format{
 	Key:             "ubl+cius-ro-v1",
 	Name:            i18n.NewString("UBL CIUS-RO"),
+	Countries:       []l10n.Code{l10n.RO},
+	Import:          []schema.ID{invoiceSchema},
+	Export:          []schema.ID{invoiceSchema},
 	CustomizationID: specificationCIUSRO,
 	Addons:          []cbc.Key{efactura.V1},
 	VESIDs: ubl.VESIDMapping{
@@ -30,7 +38,6 @@ var FormatCIUSRO = ubl.Format{
 		exportOrderReference,
 		exportOutsideScope,
 		exportSelfBillingNote,
-		exportTaxCurrency,
 	},
 	ImportFuncs: []ubl.ImportFunc{
 		importDocumentType,
@@ -49,6 +56,8 @@ var FormatCIUSRO = ubl.Format{
 var FormatCIUSROCII = cii.Format{
 	Key:         "cii+cius-ro-v1",
 	Name:        i18n.NewString("CII CIUS-RO"),
+	Countries:   []l10n.Code{l10n.RO},
+	Import:      []schema.ID{invoiceSchema},
 	GuidelineID: specificationCIUSRO,
 	Version:     cii.VersionD16B,
 	Addons:      []cbc.Key{efactura.V1},
@@ -60,4 +69,11 @@ var FormatCIUSROCII = cii.Format{
 		importCIITaxCurrency,
 		importCIISelfBillingNote,
 	},
+}
+
+// The formats are registered with gobl.ubl and gobl.cii, and so with GOBL's
+// convert register, so documents declaring CIUS-RO are imported with them.
+func init() {
+	ubl.RegisterFormats(FormatCIUSRO)
+	cii.RegisterFormats(FormatCIUSROCII)
 }

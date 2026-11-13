@@ -108,7 +108,7 @@ func importAttachmentNames(_ *ubl.Format, doc ubl.Document, env *gobl.Envelope) 
 	return nil
 }
 
-// importTaxCurrency derives the exchange rate to RON from the VAT in both currencies, BT-110 and BT-111, which exportTaxCurrency writes
+// importTaxCurrency derives the exchange rate to RON from the VAT in both currencies, BT-110 and BT-111, which gobl.ubl writes for an invoice in another currency
 func importTaxCurrency(_ *ubl.Format, doc ubl.Document, env *gobl.Envelope) error {
 	document, invoice, ok := importedUBL(doc, env)
 	if !ok {

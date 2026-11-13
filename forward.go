@@ -4,10 +4,9 @@ import (
 	"errors"
 
 	"github.com/invopop/gobl"
+	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
-
-	efactura "github.com/invopop/gobl.ro.anaf/addon"
 )
 
 // ForwardConvert renders the CIUS-RO document of a GOBL envelope. The envelope
@@ -19,11 +18,6 @@ func ForwardConvert(env *gobl.Envelope) ([]byte, error) {
 	invoice, err := extract(env)
 	if err != nil {
 		return nil, err
-	}
-
-	// Require the Romanian addon
-	if !efactura.V1.In(invoice.GetAddons()...) {
-		return nil, ErrInvalidDocument.WithMsg("invoice does not declare the %s addon", efactura.V1)
 	}
 
 	// Check Romania files a document of its kind
@@ -62,6 +56,11 @@ func extract(env *gobl.Envelope) (*bill.Invoice, error) {
 	invoice, ok := env.Extract().(*bill.Invoice)
 	if !ok {
 		return nil, ErrInvalidDocument.WithMsg("gobl invoice structure is invalid")
+	}
+
+	// Only an invoice the Romanian addon normalized and validated is converted
+	if !addon.V1.In(invoice.GetAddons()...) {
+		return nil, ErrInvalidDocument.WithMsg("gobl invoice does not declare the %s addon", addon.V1)
 	}
 
 	return invoice, nil

@@ -1,13 +1,10 @@
 package roefactura
 
 import (
-	"strings"
-
 	"github.com/invopop/gobl"
 	addon "github.com/invopop/gobl.ro.anaf/addon"
 	ubl "github.com/invopop/gobl.ubl"
 	"github.com/invopop/gobl/bill"
-	"github.com/invopop/gobl/currency"
 	"github.com/invopop/gobl/tax"
 )
 
@@ -16,9 +13,6 @@ const orderReferenceFiller = "NA"
 
 // taxSchemeRegistration is the BT-32 scheme of a tax registration that is not VAT
 const taxSchemeRegistration = "TAX"
-
-// selfBillingMark is what a note carrying the autofactura mention contains, whether written autofactura or autofactură
-const selfBillingMark = "autofactur"
 
 //
 // Export funcs: run by FormatCIUSRO, in this order, after gobl.ubl writes the UBL document
@@ -63,11 +57,8 @@ func exportOutsideScope(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) err
 		return nil
 	}
 
-	// Pick the seller, preferring the ordering seller
+	// The seller is the supplier, the ordering seller being its tax representative (BG-11)
 	seller := invoice.Supplier
-	if invoice.Ordering != nil && invoice.Ordering.Seller != nil {
-		seller = invoice.Ordering.Seller
-	}
 
 	// Seller CIF from BT-31 to BT-32 and BT-30
 	if party := document.AccountingSupplierParty.Party; party != nil && addon.HasTaxNumber(seller) {
@@ -103,45 +94,6 @@ func exportSelfBillingNote(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) 
 	return nil
 }
 
-// ***** Delete once the regime is implemented
-// exportTaxCurrency writes BT-6 and BT-111, which gobl.ubl leaves out until GOBL has a Romanian regime (BR-RO-030)
-func exportTaxCurrency(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) error {
-	document, invoice, ok := exported(env, doc)
-	if !ok {
-		return nil
-	}
-
-	// No tax currency for an invoice in RON
-	if document.DocumentCurrencyCode == addon.TaxCurrency.String() {
-		document.TaxCurrencyCode = ""
-		return nil
-	}
-
-	// The rate and totals the RON amount is built from
-	rate := currency.MatchExchangeRate(invoice.ExchangeRates, invoice.Currency, addon.TaxCurrency)
-	if rate == nil {
-		return ErrNotCompliant.WithMsg("invoice in %s states no exchange rate to %s, so VAT cannot be given in the accounting currency (BR-RO-030)", invoice.Currency, addon.TaxCurrency)
-	}
-
-	if invoice.Totals == nil {
-		return ErrConversion.WithMsg("invoice carries no totals, so the VAT amount in %s cannot be stated", addon.TaxCurrency)
-	}
-
-	// BT-6
-	document.TaxCurrencyCode = addon.TaxCurrency.String()
-
-	// BT-111, rescaled to two decimals (BR-RO-Z2)
-	taxCurrency := addon.TaxCurrency.String()
-	document.TaxTotal = append(document.TaxTotal, ubl.TaxTotal{
-		TaxAmount: ubl.Amount{
-			Value:      addon.TaxCurrency.Def().Rescale(rate.Convert(invoice.Totals.Tax)).String(),
-			CurrencyID: &taxCurrency,
-		},
-	})
-
-	return nil
-}
-
 //
 // Helpers of the export funcs
 //
@@ -164,7 +116,7 @@ func exported(env *gobl.Envelope, doc ubl.Document) (*ubl.Invoice, *bill.Invoice
 // hasSelfBillingMention reports a BT-22 note that already carries the autofactura mention, with or without diacritics
 func hasSelfBillingMention(notes []string) bool {
 	for _, note := range notes {
-		if strings.Contains(strings.ToLower(note), selfBillingMark) {
+		if addon.MentionsSelfBilling(note) {
 			return true
 		}
 	}
