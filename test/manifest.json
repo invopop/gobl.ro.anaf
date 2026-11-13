@@ -25,6 +25,16 @@
 		"code": "380"
 	},
 	{
+		"file": "ro_380_badCNP.json",
+		"note": "consumer CNP with a wrong check digit, which ANAF refuses as CNP sau NIF cumparator incorect",
+		"fault": "BILL-INVOICE-23"
+	},
+	{
+		"file": "ro_380_customerTradeRegister.json",
+		"note": "Romanian buyer without a VAT number known only by its trade register number, which ANAF cannot identify",
+		"fault": "BILL-INVOICE-24"
+	},
+	{
 		"file": "ro_380_countyNames.json",
 		"note": "counties written by name instead of ISO code",
 		"code": "380"
@@ -72,6 +82,11 @@
 	{
 		"file": "ro_380_richParty.json",
 		"note": "contacts, item attributes and an accounting reference",
+		"code": "380"
+	},
+	{
+		"file": "ro_380_outsideBinding.json",
+		"note": "every field gobl.ubl writes outside the EN 16931 binding, dropped so ANAF raises no UBL-CR warning",
 		"code": "380"
 	},
 	{
@@ -698,6 +713,21 @@
 		"file": "ro_380_tooManyAttachments.json",
 		"note": "more than 50 supporting documents",
 		"fault": "BILL-INVOICE-08"
+	},
+	{
+		"file": "ro_380_supplierNumberOnly.json",
+		"note": "seller address with a number and no street, which leaves BT-35 empty (BR-RO-081)",
+		"fault": "BILL-INVOICE-11"
+	},
+	{
+		"file": "ro_380_longLegalInfo.json",
+		"note": "BT-33 runs past 1000 characters (BR-RO-L1000)",
+		"fault": "BILL-INVOICE-25"
+	},
+	{
+		"file": "ro_380_twoLineNotes.json",
+		"note": "two notes on one line, where BT-127 allows one (UBL-SR-34)",
+		"fault": "BILL-LINE-01"
 	},
 	{
 		"file": "ro_380_noSupplierStreet.json",

@@ -94,6 +94,153 @@ func exportSelfBillingNote(_ *ubl.Format, env *gobl.Envelope, doc ubl.Document) 
 	return nil
 }
 
+// exportBindingParties keeps every party to its EN 16931 business terms, ANAF refusing the rest as UBL-CR warnings
+func exportBindingParties(_ *ubl.Format, _ *gobl.Envelope, doc ubl.Document) error {
+	document, ok := doc.(*ubl.Invoice)
+	if !ok {
+		return nil
+	}
+
+	// Seller: no service provider, the ordering issuer (UBL-CR-195)
+	if party := document.AccountingSupplierParty.Party; party != nil {
+		party.ServiceProviderParty = nil
+		trimAddress(party.PostalAddress)
+	}
+
+	// Buyer: no BT-33, which EN 16931 gives the seller only (UBL-CR-244)
+	if party := document.AccountingCustomerParty.Party; party != nil {
+		trimAddress(party.PostalAddress)
+		if party.PartyLegalEntity != nil {
+			party.PartyLegalEntity.CompanyLegalForm = nil
+		}
+	}
+
+	// Payee: BT-59, BT-60 and BT-61 only, its tax id moved to BT-61 when that is free (UBL-CR-269, 274, 279, 288)
+	if party := document.PayeeParty; party != nil {
+		var legal *ubl.IDType
+		if party.PartyLegalEntity != nil {
+			legal = party.PartyLegalEntity.CompanyID
+		}
+		if legal == nil && len(party.PartyTaxScheme) > 0 {
+			legal = party.PartyTaxScheme[0].CompanyID
+		}
+
+		document.PayeeParty = &ubl.Party{
+			PartyIdentification: party.PartyIdentification,
+			PartyName:           party.PartyName,
+		}
+		if legal != nil {
+			document.PayeeParty.PartyLegalEntity = &ubl.PartyLegalEntity{CompanyID: legal}
+		}
+	}
+
+	// Tax representative: BT-62, BG-12 and BT-63 only (UBL-CR-300, 302, 335, 336)
+	if party := document.TaxRepresentativeParty; party != nil {
+		trimAddress(party.PostalAddress)
+		document.TaxRepresentativeParty = &ubl.Party{
+			PartyName:      party.PartyName,
+			PostalAddress:  party.PostalAddress,
+			PartyTaxScheme: party.PartyTaxScheme,
+		}
+	}
+
+	// Deliver-to: BT-70 as the only party detail (UBL-CR-390 to 403)
+	for _, delivery := range document.Delivery {
+		if delivery == nil || delivery.DeliveryParty == nil {
+			continue
+		}
+		name := delivery.DeliveryParty.PartyName
+		delivery.DeliveryParty = nil
+		if name != nil {
+			delivery.DeliveryParty = &ubl.Party{PartyName: name}
+		}
+	}
+
+	return nil
+}
+
+// exportBindingReferences keeps document references and attachments to their EN 16931 business terms
+func exportBindingReferences(_ *ubl.Format, _ *gobl.Envelope, doc ubl.Document) error {
+	document, ok := doc.(*ubl.Invoice)
+	if !ok {
+		return nil
+	}
+
+	// BT-12, BT-15, BT-16, BT-17 and BT-25 carry no type (UBL-CR-026, 099 and alike)
+	for _, references := range [][]ubl.Reference{
+		document.ContractDocumentReference,
+		document.DespatchDocumentReference,
+		document.ReceiptDocumentReference,
+		document.OriginatorDocumentReference,
+	} {
+		for i := range references {
+			trimReference(&references[i])
+		}
+	}
+	for _, reference := range document.BillingReference {
+		if reference != nil && reference.InvoiceDocumentReference != nil {
+			trimReference(reference.InvoiceDocumentReference)
+		}
+	}
+
+	// BG-24 has no uuid, hash, MIME type or file name next to an external location (UBL-CR-111, 121, 122, 125, 129)
+	for i := range document.AdditionalDocumentReference {
+		reference := &document.AdditionalDocumentReference[i]
+		reference.UUID = ""
+		if reference.Attachment != nil && reference.Attachment.ExternalReference != nil {
+			reference.Attachment.ExternalReference = &ubl.ExternalReference{URI: reference.Attachment.ExternalReference.URI}
+		}
+	}
+
+	return nil
+}
+
+// exportBindingDetails keeps delivery, charges and items to their EN 16931 business terms
+func exportBindingDetails(_ *ubl.Format, _ *gobl.Envelope, doc ubl.Document) error {
+	document, ok := doc.(*ubl.Invoice)
+	if !ok {
+		return nil
+	}
+
+	// BT-72 is the only delivery date, and the deliver-to address has no plot or coordinates (UBL-CR-347, 372, 379)
+	for _, delivery := range document.Delivery {
+		if delivery == nil {
+			continue
+		}
+		delivery.LatestDeliveryDate = nil
+		if delivery.DeliveryLocation != nil {
+			trimAddress(delivery.DeliveryLocation.Address)
+		}
+	}
+
+	// A document allowance or charge states no exemption reason (UBL-CR-480, 481)
+	for _, charge := range document.AllowanceCharge {
+		for _, category := range charge.TaxCategory {
+			if category != nil {
+				category.TaxExemptionReasonCode = nil
+				category.TaxExemptionReason = nil
+			}
+		}
+	}
+
+	// Items: no manufacturer, the line seller, and attributes as text, BT-161 already writing out the quantity (UBL-CR-611, 619)
+	for _, lines := range [][]ubl.InvoiceLine{document.InvoiceLines, document.CreditNoteLines} {
+		for _, line := range lines {
+			if line.Item == nil {
+				continue
+			}
+			line.Item.ManufacturerParty = nil
+			if line.Item.AdditionalItemProperty != nil {
+				for i := range *line.Item.AdditionalItemProperty {
+					(*line.Item.AdditionalItemProperty)[i].ValueQuantity = nil
+				}
+			}
+		}
+	}
+
+	return nil
+}
+
 //
 // Helpers of the export funcs
 //
@@ -150,4 +297,22 @@ func dropVATSchemes(schemes []ubl.PartyTaxScheme) []ubl.PartyTaxScheme {
 	}
 
 	return kept
+}
+
+// trimAddress drops the plot and the coordinates, which have no BT (UBL-CR-160, 167, 223, 230, 317, 324)
+func trimAddress(address *ubl.PostalAddress) {
+	if address == nil {
+		return
+	}
+
+	address.PlotIdentification = nil
+	address.LocationCoordinate = nil
+}
+
+// trimReference keeps a document reference's identifier and issue date, the only parts with a BT
+func trimReference(reference *ubl.Reference) {
+	reference.UUID = ""
+	reference.DocumentTypeCode = ""
+	reference.DocumentType = ""
+	reference.Attachment = nil
 }

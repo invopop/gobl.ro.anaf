@@ -55,7 +55,8 @@ The `$` matters on a single fixture: without it `ro_389_selfBilled` also matches
 
 A fixture that should convert but does not prints the rule that stopped it. One
 that converts but the schematron refuses prints the BR-RO finding, with the rule
-id, the message and the XPath it fired on.
+id, the message and the XPath it fired on. A warning fails the fixture too,
+since ANAF refuses an invoice on a UBL-CR warning as on an error.
 
 `out/` is rewritten on every run, so a change to the rendered XML shows up there
 as a diff.

@@ -78,9 +78,6 @@
       <cac:PartyName>
         <cbc:Name>Depozit Central SRL</cbc:Name>
       </cac:PartyName>
-      <cac:PartyLegalEntity>
-        <cbc:RegistrationName>Depozit Central SRL</cbc:RegistrationName>
-      </cac:PartyLegalEntity>
     </cac:DeliveryParty>
   </cac:Delivery>
   <cac:PaymentMeans>

@@ -85,12 +85,14 @@ Each row is a rule of the Order MF 4092/2022 table. Codes are written without th
 | BR-RO-L200 | BT-12 to BT-18, BT-122 | 200 characters | GOBL codes, at most 128 characters |
 | BR-RO-L300 | BT-20 | 300 characters | PAY-TERMS-01 |
 | BR-RO-L300 | BT-22, BT-127 | 300 characters | ORG-NOTE-01 |
-| BR-RO-L1000 | BT-33 | 1000 characters | gobl.ubl writes no seller additional legal information |
+| BR-RO-L1000 | BT-33 | 1000 characters | BILL-INVOICE-25 |
 | BR-RO-Z2 | BT-92 to BT-117, BT-131 to BT-142 | Two decimals | BILL-INVOICE-04 and the rounding normalizer |
 
 N/A is the severity the table gives a rule ANAF does not validate.
 
-One EN 16931 rule is checked here as well, since the converter relies on it: BR-O-11, an invoice with category O carries no other VAT category (BILL-INVOICE-36).
+One EN 16931 rule is checked here as well, since the converter relies on it: BR-O-11, an invoice with category O carries no other VAT category (BILL-INVOICE-36). So is one UBL syntax rule, UBL-SR-34: a line carries at most one note, since each GOBL line note becomes its own BT-127 (BILL-LINE-01).
+
+Two checks come from ANAF's own identifier validation (`ERRIdentif`), which refuses an upload outside the BR-RO table: a buyer's CNP or NIF must carry a valid check digit (BILL-INVOICE-23), and a buyer in Romania without a VAT number must be identified by a valid CUI, CNP or NIF, not a trade register number (BILL-INVOICE-24).
 
 ## Normalizers
 

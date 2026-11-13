@@ -119,3 +119,50 @@ func TestNormalizeAddress(t *testing.T) {
 		})
 	}
 }
+
+func TestValidPersonalNumber(t *testing.T) {
+	tests := []struct {
+		code string
+		want bool
+	}{
+		{"1900101123457", true},  // CNP born 1 January 1990
+		{"7900101123458", true},  // resident foreigner
+		{"5040229123456", true},  // born 29 February 2004, a leap year
+		{"9000000000015", true},  // NIF
+		{"0000000000000", true},  // consumer with no number
+		{"1900101123456", false}, // wrong check digit
+		{"9000000000016", false}, // NIF with a wrong check digit
+		{"1901301123455", false}, // no thirteenth month
+		{"1900229123453", false}, // 29 February 1990
+		{"0900101123455", false}, // no sex digit
+		{"190010112345", false},  // twelve digits
+		{"190010112345A", false}, // not a number
+	}
+
+	for _, test := range tests {
+		if got := validPersonalNumber(test.code); got != test.want {
+			t.Errorf("%s: want %t, got %t", test.code, test.want, got)
+		}
+	}
+}
+
+func TestValidCUI(t *testing.T) {
+	tests := []struct {
+		code string
+		want bool
+	}{
+		{"12345674", true},
+		{"18547290", true},
+		{"12345675", false},    // wrong check digit
+		{"012345674", false},   // leading zero
+		{"12345678901", false}, // eleven digits
+		{"J40/1/2015", false},  // trade register number
+		{"", false},
+	}
+
+	for _, test := range tests {
+		if got := validCUI(test.code); got != test.want {
+			t.Errorf("%q: want %t, got %t", test.code, test.want, got)
+		}
+	}
+}

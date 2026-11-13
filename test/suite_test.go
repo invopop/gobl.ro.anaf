@@ -108,7 +108,7 @@ func TestPipeline(t *testing.T) {
 	}
 }
 
-// requireFilable asks phorm whether ANAF's own schematron takes the document.
+// requireFilable asks phorm whether ANAF's own schematron takes the document, warnings included.
 func requireFilable(t *testing.T, client *phorm.Client, envelope *gobl.Envelope, document []byte) {
 	t.Helper()
 
@@ -125,6 +125,15 @@ func requireFilable(t *testing.T, client *phorm.Client, envelope *gobl.Envelope,
 
 	if !validation.Success {
 		t.Errorf("the schematron rejected a document the addon accepted:\n%s", validation.Report())
+		return
+	}
+
+	// ANAF refuses an assert of any level, so a warning fails the document too
+	for _, layer := range validation.Results {
+		if len(layer.Warnings) > 0 {
+			t.Errorf("the schematron warned on a document the addon accepted, which ANAF refuses:\n%s", validation.Report())
+			return
+		}
 	}
 }
 
